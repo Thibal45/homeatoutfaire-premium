@@ -1,26 +1,98 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+:root{
+  --primary:#0B3A63;
+  --secondary:#082640;
+  --gold:#D4AF37;
+  --light:#F5F7FA;
+  --white:#FFFFFF;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html{
+  scroll-behavior:smooth;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+body{
+  background:var(--light);
+  color:#222;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+section{
+  padding:90px 20px;
+}
+
+.container{
+  width:min(1200px,95%);
+  margin:auto;
+}/* HEADER */
+
+header nav a{
+    font-weight:600;
+    color:#222;
+    text-decoration:none;
+}
+
+header nav a:hover{
+    color:var(--gold);
+}
+
+button{
+    cursor:pointer;
+    border:none;
+    background:none;
+}/* HERO */
+
+.hero-card{
+    transition:.4s;
+}
+
+.hero-card:hover{
+    transform:translateY(-8px);
+}
+
+section{
+    scroll-margin-top:90px;
+}/* SERVICES */
+
+#services {
+  background: #ffffff;
+}
+
+#services h2 {
+  position: relative;
+}
+
+#services h2::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  margin: 16px auto 0;
+  background: var(--gold);
+  border-radius: 999px;
+}/* SERVICES PREMIUM */
+
+#services article{
+
+transition:.4s;
+
+}
+
+#services article:hover{
+
+transform:translateY(-10px);
+
+}
+
+#services button{
+
+transition:.3s;
+
 }
