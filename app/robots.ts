@@ -7,8 +7,8 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
     },
 
-    sitemap: "https://www.homeatoutfaire.fr/sitemap.xml",
+    sitemap: "https://www.homeatoutfaire30.fr/sitemap.xml",
 
-    host: "https://www.homeatoutfaire.fr",
+    host: "https://www.homeatoutfaire30.fr",
   };
 }
