@@ -31,7 +31,7 @@ export default function Hero() {
             src="/images/hero.jpg"
             alt=""
             fill
-            priority
+            preload
             sizes="100vw"
             className="object-cover object-[58%_45%]"
           />
@@ -96,7 +96,7 @@ export default function Hero() {
                 alt="HomeAToutFaire - Auto-entrepreneur multi-services"
                 width={500}
                 height={145}
-                priority
+                loading="eager"
                 className="h-auto w-[260px] sm:w-[350px] lg:w-[390px]"
               />
             </div>
@@ -146,20 +146,13 @@ export default function Hero() {
                     Disponible du lundi au samedi
                   </span>
 
-                  <span className="text-yellow-300">
-                    •
-                  </span>
+                  <span className="text-yellow-300">•</span>
 
-                  <span className="text-white/75">
-                    Devis gratuit
-                  </span>
+                  <span className="text-white/75">Devis gratuit</span>
                 </div>
 
                 <div className="flex items-center gap-2 text-[11px] font-semibold text-amber-300 sm:text-sm">
-                  <Zap
-                    size={15}
-                    strokeWidth={2.4}
-                  />
+                  <Zap size={15} strokeWidth={2.4} />
 
                   <span>
                     Dépannage si extrême urgence le dimanche matin
