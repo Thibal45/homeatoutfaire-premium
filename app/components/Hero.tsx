@@ -12,6 +12,31 @@ import {
 } from "lucide-react";
 import { motion, MotionConfig } from "framer-motion";
 
+type GtagWindow = Window & {
+  gtag?: (
+    command: "event",
+    eventName: string,
+    parameters?: Record<string, string | number | boolean>,
+  ) => void;
+};
+
+function trackPhoneClick() {
+  const analyticsWindow = window as GtagWindow;
+
+  analyticsWindow.gtag?.("event", "click_phone", {
+    contact_method: "phone",
+    location: "hero",
+  });
+}
+
+function trackQuoteClick() {
+  const analyticsWindow = window as GtagWindow;
+
+  analyticsWindow.gtag?.("event", "click_quote", {
+    location: "hero",
+  });
+}
+
 export default function Hero() {
   return (
     <MotionConfig reducedMotion="user">
@@ -202,6 +227,7 @@ export default function Hero() {
                 <motion.a
                   href="tel:0618085598"
                   aria-label="Appeler HomeAToutFaire au 06 18 08 55 98"
+                  onClick={trackPhoneClick}
                   whileHover={{
                     y: -3,
                     scale: 1.01,
@@ -231,6 +257,7 @@ export default function Hero() {
                 <motion.a
                   href="#devis"
                   aria-label="Accéder au formulaire de demande de devis"
+                  onClick={trackQuoteClick}
                   whileHover={{
                     y: -3,
                     scale: 1.01,

@@ -4,6 +4,23 @@ import { useEffect, useState } from "react";
 import { MessageCircle, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
+type GtagWindow = Window & {
+  gtag?: (
+    command: "event",
+    eventName: string,
+    parameters?: Record<string, string | number | boolean>,
+  ) => void;
+};
+
+function trackWhatsAppClick() {
+  const analyticsWindow = window as GtagWindow;
+
+  analyticsWindow.gtag?.("event", "click_whatsapp", {
+    contact_method: "whatsapp",
+    location: "floating_button",
+  });
+}
+
 export default function WhatsAppButton() {
   const [visible, setVisible] = useState(false);
   const [footerVisible, setFooterVisible] = useState(false);
@@ -222,6 +239,7 @@ export default function WhatsAppButton() {
             rel="noopener noreferrer"
             aria-label="Contacter HomeAToutFaire sur WhatsApp"
             title="Contacter HomeAToutFaire sur WhatsApp"
+            onClick={trackWhatsAppClick}
             whileHover={{
               y: -3,
               scale: 1.07,

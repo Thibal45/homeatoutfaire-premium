@@ -18,6 +18,22 @@ import {
   XCircle,
 } from "lucide-react";
 
+type GtagWindow = Window & {
+  gtag?: (
+    command: "event",
+    eventName: string,
+    parameters?: Record<string, string | number | boolean>,
+  ) => void;
+};
+
+function trackQuoteSent() {
+  const analyticsWindow = window as GtagWindow;
+
+  analyticsWindow.gtag?.("event", "quote_sent", {
+    form_name: "quote_form",
+  });
+}
+
 export default function QuoteForm() {
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -43,6 +59,8 @@ export default function QuoteForm() {
         formRef.current,
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
       );
+
+      trackQuoteSent();
 
       formRef.current.reset();
       setSuccess(true);
