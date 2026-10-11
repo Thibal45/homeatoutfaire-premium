@@ -1,10 +1,38 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 
 import {
   Mail,
   MapPin,
   Phone,
 } from "lucide-react";
+
+const serviceLinks = [
+  {
+    label: "Petits travaux de plomberie",
+    href: "/plomberie",
+  },
+  {
+    label: "Petits travaux électriques",
+    href: "/electricite",
+  },
+  {
+    label: "Petits travaux de peinture",
+    href: "/peinture",
+  },
+  {
+    label: "Petits travaux de menuiserie",
+    href: "/menuiserie",
+  },
+  {
+    label: "Entretien de piscine",
+    href: "/entretien-piscine",
+  },
+  {
+    label: "Petit dépannage",
+    href: "/depannage",
+  },
+];
 
 export default function Footer() {
   return (
@@ -52,9 +80,9 @@ export default function Footer() {
               PARTIE PRINCIPALE
           ===================================================== */}
 
-          <div className="grid gap-10 border-b border-white/10 pb-10 md:grid-cols-[1.1fr_0.9fr] md:items-center">
+          <div className="grid gap-10 border-b border-white/10 pb-10 md:grid-cols-[1.1fr_0.9fr] md:items-start">
             {/* ===================================================
-                IDENTITÉ
+                IDENTITÉ + SERVICES
             =================================================== */}
 
             <div>
@@ -75,13 +103,45 @@ export default function Footer() {
               </p>
 
               <div className="mt-6 h-1 w-14 rounded-full bg-[#D5A52E]" />
+
+              {/* =================================================
+                  LIENS SERVICES
+              ================================================= */}
+
+              <div className="mt-7">
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-yellow-300">
+                  Nos services
+                </p>
+
+                <nav
+                  aria-label="Services HomeAToutFaire"
+                  className="mt-4 grid max-w-2xl gap-x-8 gap-y-2 sm:grid-cols-2"
+                >
+                  {serviceLinks.map((service) => (
+                    <Link
+                      key={service.href}
+                      href={service.href}
+                      className="group inline-flex w-fit items-center gap-2 rounded-md text-sm font-medium text-blue-100/65 transition-colors duration-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5A52E]/70"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#D5A52E] transition-transform duration-300 group-hover:scale-125"
+                      />
+
+                      <span>
+                        {service.label}
+                      </span>
+                    </Link>
+                  ))}
+                </nav>
+              </div>
             </div>
 
             {/* ===================================================
                 COORDONNÉES
             =================================================== */}
 
-            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-1 md:justify-items-end">
+            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-1 md:justify-items-end md:pt-1">
               <FooterContact
                 icon={<Phone size={18} strokeWidth={2.2} />}
                 href="tel:0618085598"
@@ -111,7 +171,8 @@ export default function Footer() {
           <div className="pt-7">
             <p className="m-0 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-blue-100/50">
               <span>
-                © {new Date().getFullYear()} HomeAToutFaire — Tous droits réservés.
+                © {new Date().getFullYear()} HomeAToutFaire — Tous droits
+                réservés.
               </span>
 
               <span className="hidden text-blue-100/25 sm:inline">

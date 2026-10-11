@@ -10,11 +10,27 @@ import {
   Wrench,
 } from "lucide-react";
 
+type GtagWindow = Window & {
+  gtag?: (
+    command: "event",
+    eventName: string,
+    parameters?: Record<string, string | number | boolean>,
+  ) => void;
+};
+
+function trackQuoteClick() {
+  const analyticsWindow = window as GtagWindow;
+
+  analyticsWindow.gtag?.("event", "click_quote", {
+    location: "stats",
+  });
+}
+
 const commitments = [
   {
     title: "Travail soigné",
     description:
-      "Des interventions réalisées avec sérieux, attention et soin des finitions.",
+      "Des petits travaux réalisés avec sérieux, attention et soin des finitions.",
     icon: CheckCircle2,
     iconClassName: "bg-yellow-400/10 text-yellow-300",
   },
@@ -28,7 +44,7 @@ const commitments = [
   {
     title: "Disponible du lundi au samedi",
     description:
-      "Interventions et dépannages selon les horaires d’ouverture annoncés.",
+      "Petits travaux et dépannages selon les horaires d’ouverture annoncés.",
     icon: CalendarDays,
     iconClassName: "bg-emerald-400/10 text-emerald-300",
   },
@@ -40,9 +56,9 @@ const commitments = [
     iconClassName: "bg-sky-400/10 text-sky-300",
   },
   {
-    title: "Multi-services",
+    title: "Petits travaux multiservices",
     description:
-      "Plomberie, électricité, peinture, menuiserie, piscine et petits dépannages.",
+      "Plomberie et électricité sur existant, peinture, menuiserie, entretien courant de piscine et petits dépannages.",
     icon: Wrench,
     iconClassName: "bg-violet-400/10 text-violet-300",
   },
@@ -59,7 +75,7 @@ export default function Stats() {
   return (
     <section
       id="engagements"
-      className="relative overflow-hidden bg-[#082E50] py-12 text-white sm:py-20 lg:py-22"
+      className="relative overflow-hidden bg-[#082E50] py-16 text-white sm:py-20 lg:py-22"
     >
       {/* =========================================================
           FOND DÉCORATIF
@@ -101,7 +117,7 @@ export default function Stats() {
           }}
         >
           {/* =====================================================
-              EN-TÊTE
+              EN-TÊTE CENTRÉ
           ===================================================== */}
 
           <motion.div
@@ -121,7 +137,7 @@ export default function Stats() {
               duration: 0.6,
               ease: "easeOut",
             }}
-            className="mb-8 flex w-full flex-col items-center justify-center text-center sm:mb-12"
+            className="mb-10 flex w-full flex-col items-center justify-center sm:mb-12"
             style={{
               width: "100%",
               boxSizing: "border-box",
@@ -129,7 +145,7 @@ export default function Stats() {
             }}
           >
             <span
-              className="inline-flex rounded-full border border-yellow-300/30 bg-white/8 px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-yellow-300 sm:px-4 sm:py-1.5 sm:text-xs sm:tracking-[0.22em]"
+              className="inline-flex rounded-full border border-yellow-300/30 bg-white/8 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.22em] text-yellow-300"
               style={{
                 alignSelf: "center",
               }}
@@ -138,7 +154,7 @@ export default function Stats() {
             </span>
 
             <h2
-              className="mt-3 text-[1.8rem] font-bold leading-[1.12] tracking-tight text-white sm:mt-4 sm:text-[2.15rem] lg:text-[2.35rem]"
+              className="mt-4 text-3xl font-bold leading-tight tracking-tight text-white sm:text-[2.15rem] lg:text-[2.35rem]"
               style={{
                 width: "100%",
                 maxWidth: "960px",
@@ -155,7 +171,7 @@ export default function Stats() {
             </h2>
 
             <p
-              className="mt-2.5 text-[15px] leading-6 text-blue-100/75 sm:mt-3 sm:text-lg sm:leading-7"
+              className="mt-3 text-base leading-7 text-blue-100/75 sm:text-lg"
               style={{
                 width: "100%",
                 maxWidth: "900px",
@@ -169,11 +185,12 @@ export default function Stats() {
               }}
             >
               HomeAToutFaire vous accompagne avec sérieux pour vos petits
-              travaux, vos besoins d’entretien et vos dépannages du quotidien.
+              travaux, vos besoins d’entretien courant et vos petits
+              dépannages du quotidien.
             </p>
 
             <div
-              className="mt-3 h-1 w-14 rounded-full bg-yellow-400 sm:mt-4 sm:w-16"
+              className="mt-4 h-1 w-16 rounded-full bg-yellow-400"
               style={{
                 alignSelf: "center",
                 marginLeft: "auto",
@@ -186,7 +203,7 @@ export default function Stats() {
               GRILLE
           ===================================================== */}
 
-          <div className="grid gap-3.5 sm:gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {commitments.map((commitment, index) => {
               const Icon = commitment.icon;
 
@@ -216,10 +233,10 @@ export default function Stats() {
                   className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/8 shadow-[0_18px_45px_rgba(0,0,0,0.16)] backdrop-blur-xl transition-all duration-300 hover:border-yellow-300/35 hover:bg-white/11"
                   style={{
                     boxSizing: "border-box",
-                    paddingTop: "18px",
-                    paddingRight: "22px",
-                    paddingBottom: "18px",
-                    paddingLeft: "22px",
+                    paddingTop: "24px",
+                    paddingRight: "32px",
+                    paddingBottom: "24px",
+                    paddingLeft: "32px",
                   }}
                 >
                   <div
@@ -235,17 +252,16 @@ export default function Stats() {
                     }}
                   >
                     <div
-                      className={`flex h-11 w-11 items-center justify-center rounded-2xl sm:h-12 sm:w-12 ${commitment.iconClassName}`}
+                      className={`flex h-12 w-12 items-center justify-center rounded-2xl ${commitment.iconClassName}`}
                     >
                       <Icon
-                        size={21}
+                        size={24}
                         strokeWidth={2.2}
-                        className="sm:h-6 sm:w-6"
                       />
                     </div>
 
                     <h3
-                      className="mt-3 text-[17px] font-semibold leading-6 text-white sm:mt-4 sm:text-lg"
+                      className="mt-4 text-lg font-semibold leading-6 text-white"
                       style={{
                         marginLeft: 0,
                         paddingLeft: 0,
@@ -255,7 +271,7 @@ export default function Stats() {
                     </h3>
 
                     <p
-                      className="mt-1.5 block w-full text-[13px] leading-5 text-blue-100/70 sm:mt-2 sm:text-sm sm:leading-6"
+                      className="mt-2 block w-full text-sm leading-6 text-blue-100/70"
                       style={{
                         marginLeft: 0,
                         paddingLeft: 0,
@@ -295,22 +311,22 @@ export default function Stats() {
               delay: 0.12,
               ease: "easeOut",
             }}
-            className="mx-auto mt-6 flex max-w-4xl flex-col justify-between gap-3 overflow-hidden rounded-3xl border border-white/10 bg-white/6 backdrop-blur-xl sm:mt-10 sm:flex-row sm:items-center sm:gap-4"
+            className="mx-auto mt-10 flex max-w-4xl flex-col justify-between gap-4 overflow-hidden rounded-3xl border border-white/10 bg-white/6 backdrop-blur-xl sm:flex-row sm:items-center"
             style={{
               boxSizing: "border-box",
-              paddingTop: "16px",
-              paddingRight: "22px",
-              paddingBottom: "16px",
-              paddingLeft: "22px",
+              paddingTop: "20px",
+              paddingRight: "32px",
+              paddingBottom: "20px",
+              paddingLeft: "32px",
             }}
           >
             <div className="min-w-0">
-              <p className="m-0 text-sm font-semibold text-white sm:text-base">
-                Un projet ou un besoin ponctuel ?
+              <p className="m-0 font-semibold text-white">
+                Un petit travail ou un besoin ponctuel ?
               </p>
 
               <p
-                className="mt-1 text-[13px] leading-5 text-blue-100/70 sm:text-sm sm:leading-6"
+                className="mt-1 text-sm leading-6 text-blue-100/70"
                 style={{
                   marginLeft: 0,
                   paddingLeft: 0,
@@ -323,7 +339,8 @@ export default function Stats() {
 
             <a
               href="#devis"
-              className="inline-flex shrink-0 items-center justify-center rounded-2xl bg-yellow-400 px-5 py-2.5 text-sm font-bold text-[#06192B] shadow-[0_12px_32px_rgba(250,204,21,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-yellow-300 sm:px-6 sm:py-3"
+              onClick={trackQuoteClick}
+              className="inline-flex shrink-0 items-center justify-center rounded-2xl bg-yellow-400 px-6 py-3 text-sm font-bold text-[#06192B] shadow-[0_12px_32px_rgba(250,204,21,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-yellow-300"
             >
               Demander un devis gratuit
             </a>

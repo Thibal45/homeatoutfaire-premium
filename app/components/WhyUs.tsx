@@ -14,7 +14,7 @@ const reasons = [
   {
     title: "Travail soigné",
     description:
-      "Des prestations réalisées avec sérieux, avec une attention particulière portée aux finitions et au respect de votre habitation.",
+      "Des petits travaux réalisés avec sérieux, avec une attention particulière portée aux finitions et au respect de votre habitation.",
     icon: CheckCircle2,
   },
   {
@@ -33,7 +33,7 @@ const reasons = [
 
 const highlights = [
   {
-    label: "Multi-services",
+    label: "Petits travaux multiservices",
     icon: Wrench,
   },
   {
@@ -50,7 +50,7 @@ export default function WhyUs() {
   return (
     <section
       id="why-us"
-      className="relative overflow-hidden bg-white py-12 sm:py-20 lg:py-22"
+      className="relative overflow-hidden bg-white py-16 sm:py-20 lg:py-22"
     >
       {/* =========================================================
           FOND DÉCORATIF
@@ -110,7 +110,7 @@ export default function WhyUs() {
               duration: 0.6,
               ease: "easeOut",
             }}
-            className="mb-8 flex w-full flex-col items-center justify-center text-center sm:mb-12"
+            className="mb-11 flex w-full flex-col items-center justify-center text-center sm:mb-12"
             style={{
               width: "100%",
               boxSizing: "border-box",
@@ -118,7 +118,7 @@ export default function WhyUs() {
             }}
           >
             <span
-              className="inline-flex rounded-full border border-yellow-300/70 bg-yellow-50 px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#B88311] sm:px-4 sm:py-1.5 sm:text-xs sm:tracking-[0.22em]"
+              className="inline-flex rounded-full border border-yellow-300/70 bg-yellow-50 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.22em] text-[#B88311]"
               style={{
                 alignSelf: "center",
               }}
@@ -127,7 +127,7 @@ export default function WhyUs() {
             </span>
 
             <h2
-              className="mt-3 text-[1.8rem] font-bold leading-[1.12] tracking-tight text-[#082E50] sm:mt-4 sm:text-[2.15rem] lg:text-[2.35rem]"
+              className="mt-4 text-3xl font-bold leading-tight tracking-tight text-[#082E50] sm:text-[2.15rem] lg:text-[2.35rem]"
               style={{
                 width: "100%",
                 maxWidth: "960px",
@@ -144,7 +144,7 @@ export default function WhyUs() {
             </h2>
 
             <p
-              className="mt-2.5 text-[15px] leading-6 text-slate-600 sm:mt-3 sm:text-lg sm:leading-7"
+              className="mt-3 text-base leading-7 text-slate-600 sm:text-lg"
               style={{
                 width: "100%",
                 maxWidth: "900px",
@@ -159,11 +159,11 @@ export default function WhyUs() {
             >
               HomeAToutFaire met l’accent sur la qualité du travail, la
               proximité et un accompagnement clair pour vos petits travaux,
-              entretiens et dépannages.
+              entretiens courants et petits dépannages.
             </p>
 
             <div
-              className="mt-3 h-1 w-14 rounded-full bg-[#D5A52E] sm:mt-4 sm:w-16"
+              className="mt-4 h-1 w-16 rounded-full bg-[#D5A52E]"
               style={{
                 alignSelf: "center",
                 marginLeft: "auto",
@@ -176,7 +176,7 @@ export default function WhyUs() {
               CARTES
           ===================================================== */}
 
-          <div className="grid gap-3.5 sm:gap-5 md:grid-cols-3 lg:gap-6">
+          <div className="grid gap-5 md:grid-cols-3 lg:gap-6">
             {reasons.map((reason, index) => {
               const Icon = reason.icon;
 
@@ -206,10 +206,10 @@ export default function WhyUs() {
                   className="group relative overflow-hidden rounded-3xl border border-slate-200/90 bg-white shadow-[0_14px_38px_rgba(15,23,42,0.08)] transition-all duration-300 hover:border-yellow-300 hover:shadow-[0_22px_55px_rgba(15,23,42,0.14)]"
                   style={{
                     boxSizing: "border-box",
-                    paddingTop: "20px",
-                    paddingRight: "22px",
-                    paddingBottom: "20px",
-                    paddingLeft: "22px",
+                    paddingTop: "28px",
+                    paddingRight: "30px",
+                    paddingBottom: "28px",
+                    paddingLeft: "30px",
                   }}
                 >
                   <div
@@ -218,20 +218,19 @@ export default function WhyUs() {
                   />
 
                   <div className="relative z-10">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#082E50] text-[#D5A52E] shadow-[0_10px_24px_rgba(8,46,80,0.18)] sm:h-14 sm:w-14">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#082E50] text-[#D5A52E] shadow-[0_10px_24px_rgba(8,46,80,0.18)]">
                       <Icon
-                        size={24}
+                        size={27}
                         strokeWidth={2.2}
-                        className="sm:h-[27px] sm:w-[27px]"
                       />
                     </div>
 
-                    <h3 className="mt-3.5 text-lg font-bold text-[#082E50] sm:mt-5 sm:text-xl">
+                    <h3 className="mt-5 text-xl font-bold text-[#082E50]">
                       {reason.title}
                     </h3>
 
                     <p
-                      className="mt-2 text-[13px] leading-5 text-slate-600 sm:mt-3 sm:text-[15px] sm:leading-6"
+                      className="mt-3 text-sm leading-6 text-slate-600 sm:text-[15px]"
                       style={{
                         marginLeft: 0,
                         paddingLeft: 0,
@@ -244,11 +243,11 @@ export default function WhyUs() {
                       {reason.description}
                     </p>
 
-                    <div className="mt-4 h-px w-full bg-slate-100 sm:mt-5" />
+                    <div className="mt-5 h-px w-full bg-slate-100" />
 
-                    <div className="mt-3 flex items-center gap-2 text-[13px] font-semibold text-[#B88311] sm:mt-4 sm:text-sm">
+                    <div className="mt-4 flex items-center gap-2 text-sm font-semibold text-[#B88311]">
                       <CheckCircle2
-                        size={16}
+                        size={17}
                         strokeWidth={2.3}
                       />
 
@@ -284,7 +283,7 @@ export default function WhyUs() {
               delay: 0.15,
               ease: "easeOut",
             }}
-            className="mt-5 grid overflow-hidden rounded-3xl border border-slate-200 bg-[#F8FAFC] sm:mt-8 sm:grid-cols-3"
+            className="mt-8 grid overflow-hidden rounded-3xl border border-slate-200 bg-[#F8FAFC] sm:grid-cols-3"
           >
             {highlights.map((highlight, index) => {
               const Icon = highlight.icon;
@@ -292,21 +291,20 @@ export default function WhyUs() {
               return (
                 <div
                   key={highlight.label}
-                  className={`flex items-center justify-center gap-3 px-4 py-3.5 sm:px-5 sm:py-5 ${
+                  className={`flex items-center justify-center gap-3 px-5 py-5 ${
                     index !== highlights.length - 1
                       ? "border-b border-slate-200 sm:border-b-0 sm:border-r"
                       : ""
                   }`}
                 >
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#082E50]/8 text-[#082E50] sm:h-10 sm:w-10">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#082E50]/8 text-[#082E50]">
                     <Icon
-                      size={18}
+                      size={20}
                       strokeWidth={2.2}
-                      className="sm:h-5 sm:w-5"
                     />
                   </div>
 
-                  <span className="text-[13px] font-bold text-[#082E50] sm:text-[15px]">
+                  <span className="text-sm font-bold text-[#082E50] sm:text-[15px]">
                     {highlight.label}
                   </span>
                 </div>

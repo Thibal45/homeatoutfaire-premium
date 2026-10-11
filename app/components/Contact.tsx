@@ -4,6 +4,31 @@ import type { ReactNode } from "react";
 import { motion } from "framer-motion";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 
+type GtagWindow = Window & {
+  gtag?: (
+    command: "event",
+    eventName: string,
+    parameters?: Record<string, string | number | boolean>,
+  ) => void;
+};
+
+function trackPhoneClick() {
+  const analyticsWindow = window as GtagWindow;
+
+  analyticsWindow.gtag?.("event", "click_phone", {
+    contact_method: "phone",
+    location: "contact",
+  });
+}
+
+function trackQuoteClick() {
+  const analyticsWindow = window as GtagWindow;
+
+  analyticsWindow.gtag?.("event", "click_quote", {
+    location: "contact",
+  });
+}
+
 export default function Contact() {
   return (
     <section
@@ -115,8 +140,8 @@ export default function Contact() {
                 boxSizing: "border-box",
               }}
             >
-              Une question, un dépannage ou un projet à prévoir ? Contactez
-              HomeAToutFaire directement.
+              Une question, un petit dépannage ou un petit travail à prévoir ?
+              Contactez HomeAToutFaire directement.
             </p>
 
             <div
@@ -212,8 +237,10 @@ export default function Contact() {
                     overflowWrap: "break-word",
                   }}
                 >
-                  Je vous accompagne pour vos besoins en plomberie, électricité,
-                  peinture, menuiserie, entretien de piscine et dépannage.
+                  Je vous accompagne pour vos petits travaux de plomberie et
+                  d&apos;électricité, vos travaux de peinture, vos petites
+                  interventions de menuiserie, l&apos;entretien courant de
+                  piscine et les petits dépannages.
                 </p>
 
                 <div className="mt-5 space-y-3.5 sm:mt-8 sm:space-y-5">
@@ -223,6 +250,7 @@ export default function Contact() {
                   >
                     <a
                       href="tel:0618085598"
+                      onClick={trackPhoneClick}
                       className="font-semibold text-white transition-colors hover:text-yellow-300"
                     >
                       06 18 08 55 98
@@ -307,7 +335,7 @@ export default function Contact() {
 
                   <ScheduleLine
                     day="Dimanche"
-                    hours="Extrême urgence le matin"
+                    hours="Petit dépannage urgent le matin"
                     highlight
                   />
                 </div>
@@ -318,13 +346,14 @@ export default function Contact() {
                   </p>
 
                   <p className="mt-1.5 text-[13px] leading-5 text-slate-600 sm:mt-2 sm:text-sm sm:leading-6">
-                    Utilisez le formulaire en ligne pour détailler votre demande.
-                    Les photos pourront ensuite être transmises par e-mail ou
-                    WhatsApp si nécessaire.
+                    Utilisez le formulaire en ligne pour détailler votre
+                    demande. Les photos pourront ensuite être transmises par
+                    e-mail ou WhatsApp si nécessaire.
                   </p>
 
                   <a
                     href="#devis"
+                    onClick={trackQuoteClick}
                     className="mt-3 inline-flex items-center justify-center rounded-xl bg-[#082E50] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#0B3A63] hover:shadow-md sm:mt-4 sm:px-5 sm:py-3"
                   >
                     Demander un devis gratuit
