@@ -417,9 +417,20 @@ export default function QuoteForm() {
         ======================================================= */}
 
         <div className="mt-5 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-4 sm:mt-7 sm:gap-4 sm:pt-6 sm:flex-row">
-          <p className="max-w-md text-center text-[11px] leading-4.5 text-blue-100/55 sm:text-left sm:text-xs sm:leading-5">
-            Les informations saisies servent uniquement à traiter votre demande
-            de devis.
+          <p className="max-w-xl text-center text-[11px] leading-4.5 text-blue-100/55 sm:text-left sm:text-xs sm:leading-5">
+            HomeAToutFaire utilise les informations saisies pour traiter votre
+            demande et préparer votre devis, sur la base de mesures
+            précontractuelles prises à votre demande. Tous les champs sont
+            obligatoires sauf l&apos;adresse du chantier. En l&apos;absence de
+            relation contractuelle, les données ne sont pas conservées au-delà
+            de trois ans après le dernier contact.{" "}
+            <a
+              href="/politique-confidentialite"
+              className="font-semibold text-blue-100/80 underline underline-offset-2 transition-colors hover:text-white"
+            >
+              En savoir plus et exercer vos droits
+            </a>
+            .
           </p>
 
           <button
