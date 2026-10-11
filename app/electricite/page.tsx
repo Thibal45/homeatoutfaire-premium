@@ -14,6 +14,7 @@ import {
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ServiceContactCta from "../components/ServiceContactCta";
+import ServiceStructuredData from "../components/ServiceStructuredData";
 
 const siteUrl = "https://www.homeatoutfaire30.fr";
 
@@ -75,6 +76,13 @@ export default function ElectricalPage() {
   return (
     <>
       <Header />
+
+      <ServiceStructuredData
+        name="Petits travaux électriques"
+        description="Petits travaux électriques simples sur installation existante : remplacement d’appareillage, luminaires, petits équipements et dépannages accessibles."
+        path="/electricite"
+        breadcrumbName="Électricité"
+      />
 
       <main className="bg-slate-50">
         {/* =========================================================
