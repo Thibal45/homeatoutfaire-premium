@@ -14,6 +14,7 @@ import {
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ServiceContactCta from "../components/ServiceContactCta";
+import ServiceStructuredData from "../components/ServiceStructuredData";
 
 const siteUrl = "https://www.homeatoutfaire30.fr";
 
@@ -75,6 +76,13 @@ export default function PoolMaintenancePage() {
   return (
     <>
       <Header />
+
+      <ServiceStructuredData
+        name="Entretien courant de piscine"
+        description="Entretien courant, nettoyage et petites opérations accessibles sur une piscine et ses équipements déjà installés."
+        path="/entretien-piscine"
+        breadcrumbName="Entretien de piscine"
+      />
 
       <main className="bg-slate-50">
         {/* =========================================================
