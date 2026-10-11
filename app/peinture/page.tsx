@@ -14,6 +14,7 @@ import {
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ServiceContactCta from "../components/ServiceContactCta";
+import ServiceStructuredData from "../components/ServiceStructuredData";
 
 const siteUrl = "https://www.homeatoutfaire30.fr";
 
@@ -75,6 +76,13 @@ export default function PaintingPage() {
   return (
     <>
       <Header />
+
+      <ServiceStructuredData
+        name="Petits travaux de peinture"
+        description="Rafraîchissement intérieur, retouches et petits travaux de peinture sur des zones ciblées et supports existants."
+        path="/peinture"
+        breadcrumbName="Peinture"
+      />
 
       <main className="bg-slate-50">
         {/* =========================================================
