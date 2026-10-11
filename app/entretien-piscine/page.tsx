@@ -200,10 +200,9 @@ export default function PoolMaintenancePage() {
               </p>
 
               <p>
-                Les travaux techniques importants, les transformations du
-                circuit hydraulique, les installations complètes ou les
-                interventions nécessitant une qualification spécifique ne
-                font pas partie de ces prestations.
+                Le service est pensé pour l&apos;entretien régulier du bassin
+                et les petites opérations accessibles sur les équipements
+                déjà en place.
               </p>
             </div>
           </div>
@@ -283,21 +282,19 @@ export default function PoolMaintenancePage() {
               </div>
 
               <h2 className="mt-5 text-xl font-bold sm:text-2xl">
-                Hors installation ou travaux techniques lourds
+                Un service centré sur l&apos;entretien courant
               </h2>
 
               <p className="mt-3 leading-7 text-blue-100/75">
-                HomeAToutFaire ne réalise pas dans ce cadre la construction
-                ou rénovation d&apos;un bassin, la modification importante
-                du circuit hydraulique, les travaux électriques de piscine
-                ou les interventions techniques nécessitant une
-                qualification spécifique.
+                Les prestations n&apos;incluent pas la construction ou la
+                rénovation du bassin, les modifications importantes du circuit
+                hydraulique ni les travaux électriques de piscine.
               </p>
 
               <p className="mt-3 leading-7 text-blue-100/75">
-                Si le problème dépasse l&apos;entretien courant ou une
-                petite intervention accessible, la demande est réévaluée
-                avant toute prise en charge.
+                En cas de besoin plus technique, la demande est identifiée
+                avant déplacement afin d&apos;éviter une intervention
+                inadaptée.
               </p>
             </div>
           </div>
