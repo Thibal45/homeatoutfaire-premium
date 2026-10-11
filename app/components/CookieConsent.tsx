@@ -166,7 +166,14 @@ export default function CookieConsent() {
 
                   <p className="mt-1 text-xs leading-4 text-blue-100/55">
                     Vous pouvez accepter ou refuser cette mesure
-                    d&apos;audience.
+                    d&apos;audience.{" "}
+                    <a
+                      href="/politique-confidentialite"
+                      className="font-semibold text-blue-100/80 underline underline-offset-2 transition-colors hover:text-white"
+                    >
+                      En savoir plus
+                    </a>
+                    .
                   </p>
                 </div>
               </div>
