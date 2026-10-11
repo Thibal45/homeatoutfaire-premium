@@ -25,7 +25,7 @@ export default function MentionsLegalesPage() {
           <LegalSection title="Éditeur du site">
             <p><strong>Nom commercial :</strong> HomeAToutFaire</p>
             <p><strong>Forme :</strong> entrepreneur individuel</p>
-            <p><strong>Identité de l’entrepreneur :</strong> À compléter</p>
+            <p><strong>Identité de l’entrepreneur :</strong> Thibaut SACHOT</p>
             <p><strong>SIRET :</strong> 10665167200011</p>
             <p><strong>Adresse :</strong> 28, rue du Bel Air, 30190 Sainte-Anastasie, France</p>
             <p><strong>Téléphone :</strong> <a className="underline hover:text-[#0A6587]" href="tel:0618085598">06 18 08 55 98</a></p>
