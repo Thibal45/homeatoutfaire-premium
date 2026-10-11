@@ -13,6 +13,7 @@ import {
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ServiceContactCta from "../components/ServiceContactCta";
+import ServiceStructuredData from "../components/ServiceStructuredData";
 
 const siteUrl = "https://www.homeatoutfaire30.fr";
 
@@ -74,6 +75,13 @@ export default function RepairPage() {
   return (
     <>
       <Header />
+
+      <ServiceStructuredData
+        name="Petit dépannage"
+        description="Petits dépannages et réparations courantes sur des installations ou équipements existants, dans le périmètre des prestations HomeAToutFaire."
+        path="/depannage"
+        breadcrumbName="Dépannage"
+      />
 
       <main className="bg-slate-50">
         {/* =========================================================
