@@ -129,9 +129,9 @@ export default function PlumbingPage() {
 
               <p className="mt-5 max-w-[760px] text-base leading-7 text-blue-50/80 sm:text-lg sm:leading-8">
                 HomeAToutFaire intervient pour de petits travaux de
-                plomberie sur installations existantes, hors rénovation
-                lourde, transformation importante des réseaux et travaux
-                nécessitant une intervention spécialisée.
+                plomberie sur installations existantes : petites fuites
+                accessibles, robinetterie, siphons, sanitaires et
+                raccordements simples.
               </p>
 
               <div className="mt-7 max-w-[760px]">
@@ -194,17 +194,10 @@ export default function PlumbingPage() {
               </p>
 
               <p>
-                HomeAToutFaire intervient uniquement dans le cadre de petits
-                travaux simples sur une installation existante, après étude
-                de la demande.
-              </p>
-
-              <p>
-                Les travaux impliquant une rénovation complète, une
-                modification importante des réseaux d&apos;eau ou
-                d&apos;évacuation, ou une intervention nécessitant une
-                qualification spécifique ne font pas partie de ces
-                prestations.
+                HomeAToutFaire intervient pour les petits travaux simples sur
+                une installation existante, après étude de la demande et, si
+                besoin, à partir de quelques photos de l&apos;équipement
+                concerné.
               </p>
             </div>
           </div>
@@ -284,20 +277,19 @@ export default function PlumbingPage() {
               </div>
 
               <h2 className="mt-5 text-xl font-bold sm:text-2xl">
-                Hors travaux lourds ou spécialisés
+                Un périmètre d&apos;intervention clair
               </h2>
 
               <p className="mt-3 leading-7 text-blue-100/75">
-                HomeAToutFaire ne réalise pas de rénovation complète de
-                plomberie, de transformation importante des réseaux, ni de
-                travaux nécessitant une qualification ou une intervention
-                spécialisée.
+                Les prestations restent limitées aux petits travaux sur
+                installation existante et n&apos;incluent pas la rénovation
+                complète ou la transformation importante des réseaux.
               </p>
 
               <p className="mt-3 leading-7 text-blue-100/75">
-                Si le problème constaté dépasse le cadre d&apos;un petit
-                travail sur installation existante, l&apos;intervention
-                n&apos;est pas engagée dans ce cadre.
+                En cas de doute, décrivez simplement votre besoin :
+                HomeAToutFaire vérifie avant déplacement si l&apos;intervention
+                peut être prise en charge.
               </p>
             </div>
           </div>
