@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import {
   Mail,
@@ -12,22 +13,22 @@ import {
 const navigation = [
   {
     label: "Services",
-    href: "#services",
+    href: "/#services",
     id: "services",
   },
   {
     label: "Réalisations",
-    href: "#galerie",
+    href: "/#galerie",
     id: "galerie",
   },
   {
     label: "Devis",
-    href: "#devis",
+    href: "/#devis",
     id: "devis",
   },
   {
     label: "Contact",
-    href: "#contact",
+    href: "/#contact",
     id: "contact",
   },
 ];
@@ -151,7 +152,7 @@ export default function Header() {
                   activeSection === item.id;
 
                 return (
-                  <a
+                  <Link
                     key={item.id}
                     href={item.href}
                     className={`relative flex h-[72px] items-center whitespace-nowrap text-[15px] font-semibold transition-colors duration-300 ${
@@ -169,7 +170,7 @@ export default function Header() {
                           : "w-0 opacity-0"
                       }`}
                     />
-                  </a>
+                  </Link>
                 );
               })}
             </nav>
@@ -284,7 +285,7 @@ export default function Header() {
                   activeSection === item.id;
 
                 return (
-                  <a
+                  <Link
                     key={item.id}
                     href={item.href}
                     onClick={() => {
@@ -297,7 +298,7 @@ export default function Header() {
                     }`}
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 );
               })}
             </div>

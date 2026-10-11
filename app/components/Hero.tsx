@@ -118,7 +118,7 @@ export default function Hero() {
             <div className="overflow-hidden rounded-[1.6rem] border border-white/20 bg-white p-1 shadow-[0_22px_65px_rgba(0,0,0,0.30)] sm:rounded-[2rem] sm:p-1.5">
               <Image
                 src="/images/logo-homeatoutfaire.png"
-                alt="HomeAToutFaire - Auto-entrepreneur multi-services"
+                alt="HomeAToutFaire - Artisan multiservices à Sainte-Anastasie"
                 width={500}
                 height={145}
                 loading="eager"
@@ -152,14 +152,20 @@ export default function Hero() {
               }}
               className="w-full max-w-[760px]"
             >
-              {/* SLOGAN */}
+              {/* ===================================================
+                  TITRE SEO + SLOGAN
+              =================================================== */}
 
-              <h1 className="text-left text-[1.65rem] font-light leading-[1.04] tracking-tight text-blue-100 sm:text-[2.1rem] sm:leading-[1.08] lg:text-[2.35rem] xl:text-[2.5rem]">
+              <h1 className="text-left text-[12px] font-bold uppercase leading-5 tracking-[0.12em] text-yellow-300 sm:text-sm sm:leading-6 sm:tracking-[0.14em]">
+                Artisan multiservices à Sainte-Anastasie, près de Nîmes
+              </h1>
+
+              <p className="mt-1 text-left text-[1.65rem] font-light leading-[1.04] tracking-tight text-blue-100 sm:mt-1.5 sm:text-[2.1rem] sm:leading-[1.08] lg:text-[2.35rem] xl:text-[2.5rem]">
                 Votre confiance,
                 <span className="ml-2 font-semibold text-white">
                   notre priorité.
                 </span>
-              </h1>
+              </p>
 
               {/* DISPONIBILITÉ */}
 
@@ -188,8 +194,8 @@ export default function Hero() {
               {/* DESCRIPTION */}
 
               <p className="mt-2.5 max-w-[720px] text-left text-sm leading-5 text-blue-50/85 sm:mt-3.5 sm:text-[1.05rem] sm:leading-7">
-                Petits travaux, dépannage et entretien à Sainte-Anastasie et
-                jusqu&apos;à 50 km aux alentours.
+                Petits travaux, dépannage et entretien à Sainte-Anastasie,
+                près de Nîmes, et jusqu&apos;à 50 km aux alentours.
               </p>
 
               {/* ===================================================

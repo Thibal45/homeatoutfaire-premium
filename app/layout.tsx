@@ -10,33 +10,13 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title: {
-    default: "HomeAToutFaire | Multi-services à Sainte-Anastasie (30190)",
+    default:
+      "Artisan multiservices à Sainte-Anastasie | HomeAToutFaire",
     template: "%s | HomeAToutFaire",
   },
 
   description:
-    "HomeAToutFaire réalise vos petits travaux de plomberie, électricité, peinture, menuiserie, entretien de piscine et dépannage d'urgence dans un rayon de 50 km autour de Sainte-Anastasie.",
-
-  keywords: [
-    "HomeAToutFaire",
-    "multi-services",
-    "artisan",
-    "petits travaux",
-    "plomberie",
-    "électricité",
-    "peinture",
-    "menuiserie",
-    "entretien piscine",
-    "dépannage",
-    "dépannage urgence",
-    "Sainte-Anastasie",
-    "30190",
-    "Nîmes",
-    "Gard",
-    "artisan Sainte-Anastasie",
-    "multi-services Sainte-Anastasie",
-    "petits travaux Gard",
-  ],
+    "HomeAToutFaire, artisan multiservices à Sainte-Anastasie près de Nîmes : plomberie, électricité, peinture, menuiserie, entretien de piscine et dépannage dans un rayon de 50 km.",
 
   authors: [
     {
@@ -48,13 +28,10 @@ export const metadata: Metadata = {
   creator: "HomeAToutFaire",
   publisher: "HomeAToutFaire",
 
-  alternates: {
-    canonical: "/",
-  },
-
   robots: {
     index: true,
     follow: true,
+
     googleBot: {
       index: true,
       follow: true,
@@ -65,9 +42,12 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "HomeAToutFaire | Multi-services à Sainte-Anastasie",
+    title:
+      "Artisan multiservices à Sainte-Anastasie | HomeAToutFaire",
+
     description:
-      "Petits travaux, dépannage et entretien à Sainte-Anastasie et dans un rayon de 50 km.",
+      "Petits travaux, plomberie, électricité, peinture, menuiserie, entretien de piscine et dépannage à Sainte-Anastasie, près de Nîmes, et jusqu'à 50 km.",
+
     url: siteUrl,
     siteName: "HomeAToutFaire",
     locale: "fr_FR",
@@ -78,7 +58,7 @@ export const metadata: Metadata = {
         url: "/images/logo-homeatoutfaire.png",
         width: 1076,
         height: 287,
-        alt: "HomeAToutFaire - Auto-entrepreneur multi-services à Sainte-Anastasie",
+        alt: "HomeAToutFaire - Artisan multiservices à Sainte-Anastasie",
       },
     ],
   },
@@ -86,10 +66,11 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title: "HomeAToutFaire | Multi-services à Sainte-Anastasie",
+    title:
+      "Artisan multiservices à Sainte-Anastasie | HomeAToutFaire",
 
     description:
-      "Petits travaux, dépannage, entretien piscine, peinture, plomberie, électricité et menuiserie dans le Gard.",
+      "Petits travaux, dépannage, plomberie, électricité, peinture, menuiserie et entretien de piscine autour de Sainte-Anastasie et Nîmes.",
 
     images: ["/images/logo-homeatoutfaire.png"],
   },

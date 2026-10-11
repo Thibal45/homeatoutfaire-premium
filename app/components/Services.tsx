@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Bolt,
@@ -14,38 +15,44 @@ const services = [
   {
     title: "Petits travaux électriques",
     description:
-      "Remplacement d'interrupteurs, prises, luminaires et petits dépannages.",
+      "Remplacement d'interrupteurs, prises, luminaires et petits dépannages sur existant.",
     icon: Bolt,
+    href: "/electricite",
   },
   {
     title: "Petits travaux de plomberie",
     description:
-      "Réparation de fuites, remplacement de robinetterie et petits dépannages.",
+      "Petites réparations, robinetterie et dépannages simples sur installation existante.",
     icon: Wrench,
+    href: "/plomberie",
   },
   {
     title: "Peinture",
     description:
-      "Travaux de peinture intérieure et extérieure avec finitions soignées.",
+      "Rafraîchissement, retouches et petits travaux de peinture avec finitions soignées.",
     icon: PaintRoller,
+    href: "/peinture",
   },
   {
     title: "Menuiserie",
     description:
-      "Montage de meubles, pose d'étagères, réparations et ajustements.",
+      "Montage, réglages, petites réparations et ajustements sur éléments existants.",
     icon: Hammer,
+    href: "/menuiserie",
   },
   {
     title: "Entretien piscine",
     description:
-      "Entretien courant, nettoyage et contrôle de votre piscine.",
+      "Entretien courant, nettoyage et petites interventions sur votre piscine.",
     icon: Waves,
+    href: "/entretien-piscine",
   },
   {
-    title: "Dépannage d’urgence",
+    title: "Petit dépannage",
     description:
       "Intervention sur les petits travaux nécessitant une prise en charge rapide.",
     icon: Droplets,
+    href: "/depannage",
   },
 ];
 
@@ -229,7 +236,11 @@ export default function Services() {
                     className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-yellow-100/70 blur-3xl transition-all duration-300 group-hover:bg-yellow-200/80"
                   />
 
-                  <div className="relative z-10">
+                  <Link
+                    href={service.href}
+                    aria-label={`Découvrir ${service.title}`}
+                    className="relative z-10 block h-full rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D5A52E] focus-visible:ring-offset-4"
+                  >
                     {/* Icône */}
 
                     <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-yellow-100 text-[#C88A00] shadow-[0_8px_20px_rgba(213,165,46,0.16)] sm:h-14 sm:w-14">
@@ -267,7 +278,7 @@ export default function Services() {
                     >
                       {service.description}
                     </p>
-                  </div>
+                  </Link>
                 </motion.article>
               );
             })}
