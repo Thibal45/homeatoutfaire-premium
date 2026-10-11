@@ -14,6 +14,7 @@ import {
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ServiceContactCta from "../components/ServiceContactCta";
+import ServiceStructuredData from "../components/ServiceStructuredData";
 
 const siteUrl = "https://www.homeatoutfaire30.fr";
 
@@ -75,6 +76,13 @@ export default function PaintingPage() {
   return (
     <>
       <Header />
+
+      <ServiceStructuredData
+        name="Petits travaux de peinture"
+        description="Rafraîchissement intérieur, retouches et petits travaux de peinture sur des zones ciblées et supports existants."
+        path="/peinture"
+        breadcrumbName="Peinture"
+      />
 
       <main className="bg-slate-50">
         {/* =========================================================
@@ -200,9 +208,9 @@ export default function PaintingPage() {
               </p>
 
               <p>
-                La prestation est adaptée aux travaux de taille raisonnable
-                ne nécessitant pas de rénovation lourde du support, de
-                traitement technique particulier ou de chantier spécialisé.
+                L&apos;objectif est d&apos;obtenir un résultat propre et
+                soigné sur une zone ciblée, avec une préparation adaptée au
+                support et au niveau de finition recherché.
               </p>
             </div>
           </div>
@@ -282,19 +290,18 @@ export default function PaintingPage() {
               </div>
 
               <h2 className="mt-5 text-xl font-bold sm:text-2xl">
-                Hors rénovation lourde ou traitement spécialisé
+                Un périmètre adapté aux petits travaux
               </h2>
 
               <p className="mt-3 leading-7 text-blue-100/75">
-                HomeAToutFaire ne présente pas ces prestations comme des
-                travaux de rénovation complète, de façade ou de traitement
-                technique spécialisé des supports.
+                Les prestations concernent les rafraîchissements et reprises
+                ciblées ; elles n&apos;incluent pas les rénovations lourdes,
+                les façades ou les traitements techniques spécialisés.
               </p>
 
               <p className="mt-3 leading-7 text-blue-100/75">
-                Si l&apos;état du support nécessite une intervention
-                importante avant peinture, le besoin est réévalué avant
-                toute prise en charge.
+                L&apos;état du support est vérifié avant intervention afin de
+                proposer une prise en charge adaptée.
               </p>
             </div>
           </div>

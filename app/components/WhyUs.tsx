@@ -252,7 +252,7 @@ export default function WhyUs() {
                       />
 
                       <span>
-                        Votre confiance, notre priorité.
+                        Sérieux, proximité et clarté.
                       </span>
                     </div>
                   </div>

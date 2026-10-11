@@ -13,7 +13,7 @@ import WhatsAppButton from "./components/WhatsAppButton";
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "HomeAndConstructionBusiness",
+  "@type": "LocalBusiness",
   "@id": "https://www.homeatoutfaire30.fr/#business",
 
   name: "HomeAToutFaire",
@@ -22,31 +22,26 @@ const jsonLd = {
 
   telephone: "+33618085598",
 
+  email: "hatf30190@gmail.com",
+
   image: "https://www.homeatoutfaire30.fr/images/logo-homeatoutfaire.png",
 
   logo: "https://www.homeatoutfaire30.fr/images/logo-homeatoutfaire.png",
 
   description:
-    "HomeAToutFaire réalise vos petits travaux de plomberie, électricité, peinture, menuiserie, entretien de piscine et dépannage dans un rayon de 50 km autour de Sainte-Anastasie.",
+    "HomeAToutFaire propose des petits travaux multiservices, de l’entretien courant et de petits dépannages à Sainte-Anastasie, près de Nîmes, et jusqu’à environ 50 km aux alentours.",
 
   address: {
     "@type": "PostalAddress",
-    streetAddress: "28 rue du Bel Air",
+    streetAddress: "28, rue du Bel Air",
     postalCode: "30190",
     addressLocality: "Sainte-Anastasie",
-    addressRegion: "Occitanie",
+    addressRegion: "Gard",
     addressCountry: "FR",
   },
 
-  areaServed: {
-    "@type": "GeoCircle",
-    geoMidpoint: {
-      "@type": "GeoCoordinates",
-      addressCountry: "FR",
-      addressLocality: "Sainte-Anastasie",
-    },
-    geoRadius: "50000",
-  },
+  areaServed:
+    "Sainte-Anastasie et jusqu’à environ 50 km aux alentours",
 
   openingHoursSpecification: [
     {
@@ -64,9 +59,15 @@ const jsonLd = {
     },
   ],
 
+  identifier: {
+    "@type": "PropertyValue",
+    propertyID: "SIRET",
+    value: "10665167200011",
+  },
+
   hasOfferCatalog: {
     "@type": "OfferCatalog",
-    name: "Services HomeAToutFaire",
+    name: "Petits travaux et services HomeAToutFaire",
 
     itemListElement: [
       {
@@ -74,6 +75,7 @@ const jsonLd = {
         itemOffered: {
           "@type": "Service",
           name: "Petits travaux de plomberie",
+          url: "https://www.homeatoutfaire30.fr/plomberie",
         },
       },
       {
@@ -81,40 +83,44 @@ const jsonLd = {
         itemOffered: {
           "@type": "Service",
           name: "Petits travaux électriques",
+          url: "https://www.homeatoutfaire30.fr/electricite",
         },
       },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Peinture",
+          name: "Petits travaux de peinture",
+          url: "https://www.homeatoutfaire30.fr/peinture",
         },
       },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Menuiserie",
+          name: "Petits travaux de menuiserie",
+          url: "https://www.homeatoutfaire30.fr/menuiserie",
         },
       },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Entretien de piscine",
+          name: "Entretien courant de piscine",
+          url: "https://www.homeatoutfaire30.fr/entretien-piscine",
         },
       },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Dépannage",
+          name: "Petit dépannage",
+          url: "https://www.homeatoutfaire30.fr/depannage",
         },
       },
     ],
   },
 };
-
 export default function Home() {
   return (
     <>

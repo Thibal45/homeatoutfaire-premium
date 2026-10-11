@@ -14,6 +14,7 @@ import {
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ServiceContactCta from "../components/ServiceContactCta";
+import ServiceStructuredData from "../components/ServiceStructuredData";
 
 const siteUrl = "https://www.homeatoutfaire30.fr";
 
@@ -75,6 +76,13 @@ export default function CarpentryPage() {
   return (
     <>
       <Header />
+
+      <ServiceStructuredData
+        name="Petits travaux de menuiserie"
+        description="Réglages, ajustements, petites réparations et remplacements simples sur des éléments de menuiserie existants."
+        path="/menuiserie"
+        breadcrumbName="Menuiserie"
+      />
 
       <main className="bg-slate-50">
         {/* =========================================================
@@ -200,9 +208,9 @@ export default function CarpentryPage() {
               </p>
 
               <p>
-                Les travaux structurels, les transformations importantes,
-                la fabrication complexe ou les interventions nécessitant une
-                compétence spécialisée ne font pas partie de ces prestations.
+                Une photo de l&apos;élément concerné et quelques dimensions
+                suffisent souvent pour évaluer rapidement le réglage, la
+                réparation ou le remplacement simple à prévoir.
               </p>
             </div>
           </div>
@@ -284,19 +292,19 @@ export default function CarpentryPage() {
               </div>
 
               <h2 className="mt-5 text-xl font-bold sm:text-2xl">
-                Hors travaux structurels ou lourds
+                Un périmètre adapté aux petites interventions
               </h2>
 
               <p className="mt-3 leading-7 text-blue-100/75">
-                HomeAToutFaire ne réalise pas dans ce cadre de modification
-                structurelle, de gros ouvrage de menuiserie, de fabrication
-                complexe ou de travaux nécessitant une qualification
-                spécifique.
+                Les prestations concernent les réglages, réparations et
+                remplacements simples sur existant ; elles n&apos;incluent pas
+                les travaux structurels, les gros ouvrages ou les fabrications
+                complexes.
               </p>
 
               <p className="mt-3 leading-7 text-blue-100/75">
-                Si l&apos;intervention dépasse le cadre d&apos;un petit travail
-                sur existant, elle est réévaluée avant toute prise en charge.
+                Le besoin est vérifié avant déplacement afin de confirmer
+                qu&apos;il entre bien dans ce cadre.
               </p>
             </div>
           </div>

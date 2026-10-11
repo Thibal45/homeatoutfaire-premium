@@ -14,6 +14,7 @@ import {
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ServiceContactCta from "../components/ServiceContactCta";
+import ServiceStructuredData from "../components/ServiceStructuredData";
 
 const siteUrl = "https://www.homeatoutfaire30.fr";
 
@@ -57,7 +58,7 @@ const electricalServices = [
   "Pose ou remplacement simple de luminaires sur alimentation existante",
   "Remplacement de petits appareillages électriques existants",
   "Petits raccordements simples sur une installation existante",
-  "Petits dépannages accessibles ne nécessitant pas de mise en conformité",
+  "Petits dépannages accessibles sur installation existante",
 ];
 
 const interventionAreas = [
@@ -75,6 +76,13 @@ export default function ElectricalPage() {
   return (
     <>
       <Header />
+
+      <ServiceStructuredData
+        name="Petits travaux électriques"
+        description="Petits travaux électriques simples sur installation existante : remplacement d’appareillage, luminaires, petits équipements et dépannages accessibles."
+        path="/electricite"
+        breadcrumbName="Électricité"
+      />
 
       <main className="bg-slate-50">
         {/* =========================================================
@@ -130,8 +138,8 @@ export default function ElectricalPage() {
 
               <p className="mt-5 max-w-[760px] text-base leading-7 text-blue-50/80 sm:text-lg sm:leading-8">
                 HomeAToutFaire intervient pour de petits travaux électriques
-                sur installation existante, hors rénovation complète et
-                travaux soumis à mise en conformité.
+                sur installation existante : remplacement d&apos;appareillage,
+                luminaires, petits équipements et dépannages accessibles.
               </p>
 
               <div className="mt-7 max-w-[760px]">
@@ -196,17 +204,9 @@ export default function ElectricalPage() {
               </p>
 
               <p>
-                HomeAToutFaire intervient uniquement dans le cadre de petits
-                travaux électriques simples sur une installation existante,
-                après étude de la demande.
-              </p>
-
-              <p>
-                Les travaux nécessitant une mise en conformité, une
-                modification importante de l&apos;installation, la création
-                de circuits, une intervention lourde sur le tableau ou une
-                rénovation électrique complète ne font pas partie de ces
-                prestations.
+                HomeAToutFaire intervient pour les petits travaux électriques
+                simples sur une installation existante, après étude de la
+                demande et de l&apos;équipement concerné.
               </p>
             </div>
           </div>
@@ -286,20 +286,20 @@ export default function ElectricalPage() {
               </div>
 
               <h2 className="mt-5 text-xl font-bold sm:text-2xl">
-                Hors travaux soumis à conformité
+                Un périmètre d&apos;intervention clair
               </h2>
 
               <p className="mt-3 leading-7 text-blue-100/75">
-                HomeAToutFaire ne réalise pas de rénovation électrique
-                complète, de mise en conformité d&apos;une installation ou
-                de travaux électriques lourds nécessitant une intervention
-                spécialisée.
+                Les prestations restent limitées aux petits travaux sur
+                installation existante et n&apos;incluent pas la création de
+                nouveaux circuits, la rénovation complète ou la mise en
+                conformité d&apos;une installation.
               </p>
 
               <p className="mt-3 leading-7 text-blue-100/75">
-                Si le problème constaté dépasse le cadre d&apos;un petit
-                travail sur existant, l&apos;intervention n&apos;est pas
-                engagée dans ce cadre.
+                Une photo de l&apos;appareillage ou du point concerné permet
+                souvent de confirmer rapidement la possibilité
+                d&apos;intervention.
               </p>
             </div>
           </div>

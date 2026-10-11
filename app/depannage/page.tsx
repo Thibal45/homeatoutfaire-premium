@@ -13,6 +13,7 @@ import {
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ServiceContactCta from "../components/ServiceContactCta";
+import ServiceStructuredData from "../components/ServiceStructuredData";
 
 const siteUrl = "https://www.homeatoutfaire30.fr";
 
@@ -74,6 +75,13 @@ export default function RepairPage() {
   return (
     <>
       <Header />
+
+      <ServiceStructuredData
+        name="Petit dépannage"
+        description="Petits dépannages et réparations courantes sur des installations ou équipements existants, dans le périmètre des prestations HomeAToutFaire."
+        path="/depannage"
+        breadcrumbName="Dépannage"
+      />
 
       <main className="bg-slate-50">
         {/* =========================================================
@@ -199,10 +207,9 @@ export default function RepairPage() {
               </p>
 
               <p>
-                Les interventions nécessitant une mise en conformité, une
-                réparation lourde, une transformation importante ou une
-                qualification particulière ne sont pas prises en charge dans
-                ce cadre.
+                L&apos;objectif est d&apos;apporter une réponse simple et
+                rapide aux petits problèmes courants, après vérification de la
+                nature de l&apos;intervention.
               </p>
             </div>
           </div>
@@ -282,19 +289,18 @@ export default function RepairPage() {
               </div>
 
               <h2 className="mt-5 text-xl font-bold sm:text-2xl">
-                Hors interventions lourdes ou réglementées
+                Un périmètre d&apos;intervention clair
               </h2>
 
               <p className="mt-3 leading-7 text-blue-100/75">
-                HomeAToutFaire ne réalise pas dans ce cadre de mise en
-                conformité, de rénovation importante, de travaux structurels
-                ou d&apos;intervention nécessitant une qualification
-                spécifique.
+                Le petit dépannage n&apos;inclut pas les mises en conformité,
+                rénovations importantes, travaux structurels ou interventions
+                nécessitant une qualification spécifique.
               </p>
 
               <p className="mt-3 leading-7 text-blue-100/75">
-                Si le problème dépasse le périmètre d&apos;un petit dépannage,
-                la demande est réévaluée avant toute prise en charge.
+                Décrivez le problème rencontré pour vérifier rapidement si
+                HomeAToutFaire peut le prendre en charge.
               </p>
             </div>
           </div>
