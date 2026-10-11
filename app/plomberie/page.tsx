@@ -13,6 +13,7 @@ import {
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ServiceContactCta from "../components/ServiceContactCta";
+import ServiceStructuredData from "../components/ServiceStructuredData";
 
 const siteUrl = "https://www.homeatoutfaire30.fr";
 
@@ -74,6 +75,13 @@ export default function PlumbingPage() {
   return (
     <>
       <Header />
+
+      <ServiceStructuredData
+        name="Petits travaux de plomberie"
+        description="Petits travaux de plomberie sur installations existantes : robinetterie, petites fuites accessibles, siphons, sanitaires et raccordements simples."
+        path="/plomberie"
+        breadcrumbName="Plomberie"
+      />
 
       <main className="bg-slate-50">
         {/* =========================================================
