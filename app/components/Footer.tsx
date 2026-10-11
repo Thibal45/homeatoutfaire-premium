@@ -169,20 +169,41 @@ export default function Footer() {
           ===================================================== */}
 
           <div className="pt-7">
-            <p className="m-0 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-blue-100/50">
-              <span>
-                © {new Date().getFullYear()} HomeAToutFaire — Tous droits
-                réservés.
-              </span>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <p className="m-0 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-blue-100/50">
+                <span>
+                  © {new Date().getFullYear()} HomeAToutFaire — Tous droits
+                  réservés.
+                </span>
 
-              <span className="hidden text-blue-100/25 sm:inline">
-                •
-              </span>
+                <span className="hidden text-blue-100/25 sm:inline">
+                  •
+                </span>
 
-              <span className="text-xs font-medium text-blue-100/55">
-                SIRET : 10665167200011
-              </span>
-            </p>
+                <span className="text-xs font-medium text-blue-100/55">
+                  SIRET : 10665167200011
+                </span>
+              </p>
+
+              <nav
+                aria-label="Informations légales"
+                className="flex flex-wrap gap-x-4 gap-y-2 text-xs font-medium text-blue-100/55"
+              >
+                <Link
+                  href="/mentions-legales"
+                  className="transition-colors hover:text-white"
+                >
+                  Mentions légales
+                </Link>
+
+                <Link
+                  href="/politique-confidentialite"
+                  className="transition-colors hover:text-white"
+                >
+                  Confidentialité
+                </Link>
+              </nav>
+            </div>
           </div>
         </div>
       </div>
