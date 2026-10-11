@@ -14,6 +14,7 @@ import {
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ServiceContactCta from "../components/ServiceContactCta";
+import ServiceStructuredData from "../components/ServiceStructuredData";
 
 const siteUrl = "https://www.homeatoutfaire30.fr";
 
@@ -75,6 +76,13 @@ export default function CarpentryPage() {
   return (
     <>
       <Header />
+
+      <ServiceStructuredData
+        name="Petits travaux de menuiserie"
+        description="Réglages, ajustements, petites réparations et remplacements simples sur des éléments de menuiserie existants."
+        path="/menuiserie"
+        breadcrumbName="Menuiserie"
+      />
 
       <main className="bg-slate-50">
         {/* =========================================================
