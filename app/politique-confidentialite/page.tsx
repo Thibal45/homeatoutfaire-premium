@@ -40,9 +40,9 @@ export default function PrivacyPolicyPage() {
 
             <PrivacySection title="Responsable du traitement">
               <p>
-                Le responsable du traitement est HomeAToutFaire, entreprise
-                individuelle située au 28, rue du Bel Air, 30190
-                Sainte-Anastasie.
+                Le responsable du traitement est Thibaut SACHOT, entrepreneur
+                individuel exploitant HomeAToutFaire, situé au 28, rue du
+                Bel Air, 30190 Sainte-Anastasie.
               </p>
               <p>
                 Pour toute question relative à vos données personnelles :
