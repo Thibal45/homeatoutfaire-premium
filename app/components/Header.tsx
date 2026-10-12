@@ -236,31 +236,47 @@ export default function Header() {
               </span>
             </div>
 
-            <button
-              type="button"
-              aria-label={
-                menuOpen
-                  ? "Fermer le menu"
-                  : "Ouvrir le menu"
-              }
-              aria-expanded={menuOpen}
-              onClick={() => {
-                setMenuOpen((current) => !current);
-              }}
-              className="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 bg-white text-[#082E50] shadow-sm transition-colors hover:bg-slate-50"
-            >
-              {menuOpen ? (
-                <X
-                  size={23}
-                  strokeWidth={2.2}
+            <div className="flex items-center gap-2">
+              <a
+                href="tel:0618085598"
+                onClick={() => {
+                  trackPhoneClick("header_mobile");
+                }}
+                aria-label="Appeler HomeAToutFaire au 06 18 08 55 98"
+                className="flex h-11 w-11 items-center justify-center rounded-xl bg-yellow-400 text-[#06192B] shadow-sm transition-all hover:-translate-y-0.5 hover:bg-yellow-300"
+              >
+                <Phone
+                  size={20}
+                  strokeWidth={2.4}
                 />
-              ) : (
-                <Menu
-                  size={23}
-                  strokeWidth={2.2}
-                />
-              )}
-            </button>
+              </a>
+
+              <button
+                type="button"
+                aria-label={
+                  menuOpen
+                    ? "Fermer le menu"
+                    : "Ouvrir le menu"
+                }
+                aria-expanded={menuOpen}
+                onClick={() => {
+                  setMenuOpen((current) => !current);
+                }}
+                className="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 bg-white text-[#082E50] shadow-sm transition-colors hover:bg-slate-50"
+              >
+                {menuOpen ? (
+                  <X
+                    size={23}
+                    strokeWidth={2.2}
+                  />
+                ) : (
+                  <Menu
+                    size={23}
+                    strokeWidth={2.2}
+                  />
+                )}
+              </button>
+            </div>
           </div>
         </div>
 
