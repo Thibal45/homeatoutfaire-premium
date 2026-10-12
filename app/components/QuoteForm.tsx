@@ -11,6 +11,7 @@ import {
   LoaderCircle,
   Mail,
   MapPin,
+  MessageCircle,
   Phone,
   Send,
   UserRound,
@@ -36,6 +37,35 @@ const allowedServices = new Set([
   "Résidence secondaire / gîte",
   "Autre",
 ]);
+
+function trackEmailClick(location: string) {
+  const analyticsWindow = window as GtagWindow;
+
+  analyticsWindow.gtag?.("event", "click_email", {
+    contact_method: "email",
+    location,
+  });
+}
+
+function trackWhatsAppClick(location: string, service?: string) {
+  const analyticsWindow = window as GtagWindow;
+
+  analyticsWindow.gtag?.("event", "click_whatsapp", {
+    contact_method: "whatsapp",
+    location,
+    ...(service ? { service } : {}),
+  });
+}
+
+function trackPhoneClick(location: string, service?: string) {
+  const analyticsWindow = window as GtagWindow;
+
+  analyticsWindow.gtag?.("event", "click_phone", {
+    contact_method: "phone",
+    location,
+    ...(service ? { service } : {}),
+  });
+}
 
 function trackQuoteSent(service?: string) {
   const analyticsWindow = window as GtagWindow;
@@ -63,6 +93,14 @@ export default function QuoteForm() {
       setSelectedService(requestedService);
     }
   }, []);
+
+  const errorWhatsAppMessage = selectedService
+    ? `Bonjour, le formulaire de devis n'a pas abouti. Je souhaite un renseignement pour : ${selectedService}.`
+    : "Bonjour, le formulaire de devis n'a pas abouti. Je souhaite vous contacter concernant des petits travaux.";
+
+  const errorWhatsAppHref = `https://wa.me/33618085598?text=${encodeURIComponent(
+    errorWhatsAppMessage,
+  )}`;
 
   async function handleSubmit(
     event: React.FormEvent<HTMLFormElement>,
@@ -364,6 +402,7 @@ export default function QuoteForm() {
               <div className="mt-2.5 flex flex-wrap gap-2 sm:mt-3 sm:gap-3">
                 <a
                   href="mailto:hatf30190@gmail.com"
+                  onClick={() => trackEmailClick("quote_form_photos")}
                   className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/8 px-3 py-1.5 text-[11px] font-semibold text-white transition-colors hover:border-yellow-300/40 hover:bg-white/12 sm:px-3.5 sm:py-2 sm:text-xs"
                 >
                   <Mail
@@ -378,9 +417,12 @@ export default function QuoteForm() {
                   href="https://wa.me/33618085598?text=Bonjour%2C%20je%20souhaite%20vous%20transmettre%20des%20photos%20concernant%20ma%20demande%20de%20devis."
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() =>
+                    trackWhatsAppClick("quote_form_photos", selectedService)
+                  }
                   className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/8 px-3 py-1.5 text-[11px] font-semibold text-white transition-colors hover:border-yellow-300/40 hover:bg-white/12 sm:px-3.5 sm:py-2 sm:text-xs"
                 >
-                  <Phone
+                  <MessageCircle
                     size={14}
                     className="text-yellow-300"
                   />
@@ -438,8 +480,44 @@ export default function QuoteForm() {
               </p>
 
               <p className="mt-0.5 text-xs text-red-100/75 sm:text-sm">
-                Vérifiez vos informations puis réessayez.
+                Vérifiez vos informations puis réessayez. Si le problème
+                persiste, vous pouvez me joindre directement.
               </p>
+
+              <div className="mt-3 flex flex-wrap gap-2">
+                <a
+                  href="tel:0618085598"
+                  onClick={() =>
+                    trackPhoneClick("quote_form_error", selectedService)
+                  }
+                  className="inline-flex items-center gap-2 rounded-xl border border-red-200/20 bg-white/8 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-white/12"
+                >
+                  <Phone size={14} strokeWidth={2.3} />
+                  Appeler
+                </a>
+
+                <a
+                  href={errorWhatsAppHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() =>
+                    trackWhatsAppClick("quote_form_error", selectedService)
+                  }
+                  className="inline-flex items-center gap-2 rounded-xl border border-red-200/20 bg-white/8 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-white/12"
+                >
+                  <MessageCircle size={14} strokeWidth={2.3} />
+                  WhatsApp
+                </a>
+
+                <a
+                  href="mailto:hatf30190@gmail.com"
+                  onClick={() => trackEmailClick("quote_form_error")}
+                  className="inline-flex items-center gap-2 rounded-xl border border-red-200/20 bg-white/8 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-white/12"
+                >
+                  <Mail size={14} strokeWidth={2.3} />
+                  E-mail
+                </a>
+              </div>
             </div>
           </div>
         )}
