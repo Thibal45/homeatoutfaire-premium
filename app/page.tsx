@@ -120,6 +120,14 @@ const jsonLd = {
           url: "https://www.homeatoutfaire30.fr/depannage",
         },
       },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Petits travaux pour résidences secondaires et gîtes",
+          url: "https://www.homeatoutfaire30.fr/residences-secondaires-gites",
+        },
+      },
     ],
   },
 };
