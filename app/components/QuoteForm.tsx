@@ -2,7 +2,6 @@
 
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
-import emailjs from "@emailjs/browser";
 
 import {
   CheckCircle2,
@@ -48,10 +47,12 @@ function trackPhoneClick(location: string, service?: string) {
 
 export default function QuoteForm() {
   const formRef = useRef<HTMLFormElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+  const [contactError, setContactError] = useState(false);
   const [selectedService, setSelectedService] = useState("");
 
   useEffect(() => {
@@ -86,18 +87,30 @@ export default function QuoteForm() {
     const formData = new FormData(formRef.current);
     const hasPhone = String(formData.get("phone") ?? "").trim().length > 0;
     const hasEmail = String(formData.get("email") ?? "").trim().length > 0;
+
+    if (!hasPhone && !hasEmail) {
+      setContactError(true);
+      setSuccess(false);
+      setError(false);
+      phoneRef.current?.focus();
+      return;
+    }
+
     const contactMethod = hasPhone && hasEmail
       ? "phone_and_email"
       : hasPhone
         ? "phone"
         : "email";
 
+    setContactError(false);
     setLoading(true);
     setSuccess(false);
     setError(false);
 
     try {
-      await emailjs.sendForm(
+      const { sendForm } = await import("@emailjs/browser");
+
+      await sendForm(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
         formRef.current,
@@ -193,12 +206,15 @@ export default function QuoteForm() {
             icon={<Phone size={18} />}
           >
             <input
+              ref={phoneRef}
               id="phone"
               type="tel"
               name="phone"
               autoComplete="tel"
               placeholder="06 00 00 00 00"
-              required
+              onChange={() => setContactError(false)}
+              aria-describedby={contactError ? "contact-error" : "contact-help"}
+              aria-invalid={contactError}
               className={inputClassName}
             />
           </FormField>
@@ -220,7 +236,9 @@ export default function QuoteForm() {
               name="email"
               autoComplete="email"
               placeholder="votre@email.fr"
-              required
+              onChange={() => setContactError(false)}
+              aria-describedby={contactError ? "contact-error" : "contact-help"}
+              aria-invalid={contactError}
               className={inputClassName}
             />
           </FormField>
@@ -241,6 +259,24 @@ export default function QuoteForm() {
             />
           </FormField>
         </div>
+
+        <p
+          id="contact-help"
+          className="mt-2 text-[11px] leading-4.5 text-blue-100/60 sm:text-xs"
+        >
+          Indiquez au moins un moyen de contact&nbsp;: téléphone ou adresse e-mail.
+        </p>
+
+        {contactError && (
+          <p
+            id="contact-error"
+            role="alert"
+            className="mt-2 rounded-xl border border-red-300/20 bg-red-400/10 px-3 py-2 text-xs font-semibold leading-5 text-red-100"
+          >
+            Renseignez votre téléphone ou votre adresse e-mail pour que je puisse
+            vous répondre.
+          </p>
+        )}
 
         {/* =======================================================
             TYPE DE PRESTATION
