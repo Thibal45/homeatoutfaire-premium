@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { FileText, MapPin, Phone, UserRound } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -52,24 +53,29 @@ export default function About() {
           transition={{ duration: 0.55, ease: "easeOut" }}
           className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8"
         >
-          <div className="flex items-center gap-4">
-            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[#082E50] text-xl font-bold text-yellow-300 shadow-sm">
-              TS
-            </div>
+          <div className="overflow-hidden rounded-2xl bg-slate-100 shadow-sm">
+            <Image
+              src="/images/thibaut-sachot-homeatoutfaire.webp"
+              alt="Thibaut SACHOT, interlocuteur HomeAToutFaire"
+              width={320}
+              height={480}
+              sizes="(max-width: 1024px) 100vw, 360px"
+              className="h-auto w-full object-cover"
+            />
+          </div>
 
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#0A6587]">
-                Votre interlocuteur
-              </p>
+          <div className="mt-5">
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#0A6587]">
+              Votre interlocuteur
+            </p>
 
-              <h2 className="mt-1 text-2xl font-bold text-[#06192B]">
-                Thibaut SACHOT
-              </h2>
+            <h2 className="mt-1 text-2xl font-bold text-[#06192B]">
+              Thibaut SACHOT
+            </h2>
 
-              <p className="mt-1 text-sm text-slate-500">
-                HomeAToutFaire
-              </p>
-            </div>
+            <p className="mt-1 text-sm text-slate-500">
+              HomeAToutFaire
+            </p>
           </div>
 
           <div className="mt-6 rounded-2xl bg-[#082E50] p-5 text-white">
