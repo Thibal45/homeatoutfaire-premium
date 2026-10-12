@@ -265,6 +265,13 @@ export default function QuoteForm() {
               </option>
 
               <option
+                value="Résidence secondaire / gîte"
+                className="bg-white text-slate-900"
+              >
+                Résidence secondaire / gîte
+              </option>
+
+              <option
                 value="Autre"
                 className="bg-white text-slate-900"
               >
