@@ -32,6 +32,10 @@ const serviceLinks = [
     label: "Petit dépannage",
     href: "/depannage",
   },
+  {
+    label: "Résidences secondaires & gîtes",
+    href: "/residences-secondaires-gites",
+  },
 ];
 
 export default function Footer() {
