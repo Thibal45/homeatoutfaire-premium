@@ -258,10 +258,10 @@ export default function QuoteForm() {
               </option>
 
               <option
-                value="Dépannage d'urgence"
+                value="Petit dépannage urgent"
                 className="bg-white text-slate-900"
               >
-                Dépannage d&apos;urgence
+                Petit dépannage urgent
               </option>
 
               <option
