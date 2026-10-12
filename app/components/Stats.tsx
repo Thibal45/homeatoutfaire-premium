@@ -2,10 +2,9 @@
 
 import { motion } from "framer-motion";
 import {
-  CalendarDays,
   CheckCircle2,
   FileText,
-  MapPin,
+  Phone,
   ShieldCheck,
   Wrench,
 } from "lucide-react";
@@ -22,65 +21,49 @@ function trackQuoteClick() {
   const analyticsWindow = window as GtagWindow;
 
   analyticsWindow.gtag?.("event", "click_quote", {
-    location: "stats",
+    location: "how_it_works",
   });
 }
 
-const commitments = [
+function trackPhoneClick() {
+  const analyticsWindow = window as GtagWindow;
+
+  analyticsWindow.gtag?.("event", "click_phone", {
+    contact_method: "phone",
+    location: "how_it_works",
+  });
+}
+
+const steps = [
   {
-    title: "Travail soigné",
+    number: "01",
+    title: "Décrivez votre besoin",
     description:
-      "Des petits travaux réalisés avec sérieux, attention et soin des finitions.",
-    icon: CheckCircle2,
-    iconClassName: "bg-yellow-400/10 text-yellow-300",
-  },
-  {
-    title: "Zone d’intervention locale",
-    description:
-      "Interventions jusqu’à 50 km autour de Sainte-Anastasie.",
-    icon: MapPin,
-    iconClassName: "bg-red-400/10 text-red-300",
-  },
-  {
-    title: "Disponible du lundi au samedi",
-    description:
-      "Petits travaux et dépannages selon les horaires d’ouverture annoncés.",
-    icon: CalendarDays,
-    iconClassName: "bg-emerald-400/10 text-emerald-300",
-  },
-  {
-    title: "Devis gratuit",
-    description:
-      "Une estimation claire de votre besoin avant intervention.",
+      "Expliquez le petit travail ou le problème rencontré par le formulaire, par téléphone ou sur WhatsApp. Quelques photos peuvent aider à comprendre la situation.",
     icon: FileText,
-    iconClassName: "bg-sky-400/10 text-sky-300",
   },
   {
-    title: "Petits travaux multiservices",
+    number: "02",
+    title: "Je vérifie la prise en charge",
     description:
-      "Plomberie et électricité sur existant, peinture, menuiserie, entretien courant de piscine et petits dépannages.",
-    icon: Wrench,
-    iconClassName: "bg-violet-400/10 text-violet-300",
-  },
-  {
-    title: "Un interlocuteur unique",
-    description:
-      "Un seul contact pour suivre votre demande du premier échange à l’intervention.",
+      "Votre demande est étudiée avant déplacement afin de confirmer qu’elle entre bien dans les prestations HomeAToutFaire et de préciser les éléments utiles au devis.",
     icon: ShieldCheck,
-    iconClassName: "bg-cyan-400/10 text-cyan-300",
+  },
+  {
+    number: "03",
+    title: "L’intervention est organisée",
+    description:
+      "Une fois la prestation et le tarif convenus, l’intervention est planifiée avec vous dans le cadre défini ensemble.",
+    icon: Wrench,
   },
 ];
 
 export default function Stats() {
   return (
     <section
-      id="engagements"
+      id="fonctionnement"
       className="relative overflow-hidden bg-[#082E50] py-16 text-white sm:py-20 lg:py-22"
     >
-      {/* =========================================================
-          FOND DÉCORATIF
-      ========================================================= */}
-
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 overflow-hidden"
@@ -101,249 +84,118 @@ export default function Stats() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_25%,rgba(1,12,24,0.28)_100%)]" />
       </div>
 
-      {/* =========================================================
-          CONTENEUR PRINCIPAL
-      ========================================================= */}
-
       <div className="relative z-10 mx-auto w-full max-w-[1480px] px-5 sm:px-8 lg:px-10 xl:px-12">
-        <div
-          className="w-full"
-          style={{
-            width: "100%",
-            maxWidth: "1360px",
-            marginLeft: "auto",
-            marginRight: "auto",
-            boxSizing: "border-box",
-          }}
-        >
-          {/* =====================================================
-              EN-TÊTE CENTRÉ
-          ===================================================== */}
-
+        <div className="mx-auto w-full max-w-[1360px]">
           <motion.div
-            initial={{
-              opacity: 0,
-              y: 24,
-            }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-            }}
-            viewport={{
-              once: true,
-              amount: 0.25,
-            }}
-            transition={{
-              duration: 0.6,
-              ease: "easeOut",
-            }}
-            className="mb-10 flex w-full flex-col items-center justify-center sm:mb-12"
-            style={{
-              width: "100%",
-              boxSizing: "border-box",
-              textAlign: "center",
-            }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="mx-auto max-w-[900px] text-center"
           >
-            <span
-              className="inline-flex rounded-full border border-yellow-300/30 bg-white/8 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.22em] text-yellow-300"
-              style={{
-                alignSelf: "center",
-              }}
-            >
-              Nos engagements
+            <span className="inline-flex rounded-full border border-yellow-300/30 bg-white/8 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.22em] text-yellow-300">
+              Comment ça se passe ?
             </span>
 
-            <h2
-              className="mt-4 text-3xl font-bold leading-tight tracking-tight text-white sm:text-[2.15rem] lg:text-[2.35rem]"
-              style={{
-                width: "100%",
-                maxWidth: "960px",
-                marginLeft: "auto",
-                marginRight: "auto",
-                paddingLeft: 0,
-                paddingRight: 0,
-                textAlign: "center",
-                textIndent: 0,
-                boxSizing: "border-box",
-              }}
-            >
-              Un service de proximité, clair et soigné
+            <h2 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-white sm:text-[2.15rem] lg:text-[2.35rem]">
+              Une demande simple, du premier contact à l&apos;intervention
             </h2>
 
-            <p
-              className="mt-3 text-base leading-7 text-blue-100/75 sm:text-lg"
-              style={{
-                width: "100%",
-                maxWidth: "900px",
-                marginLeft: "auto",
-                marginRight: "auto",
-                paddingLeft: 0,
-                paddingRight: 0,
-                textAlign: "center",
-                textIndent: 0,
-                boxSizing: "border-box",
-              }}
-            >
-              HomeAToutFaire vous accompagne avec sérieux pour vos petits
-              travaux, vos besoins d’entretien courant et vos petits
-              dépannages du quotidien.
+            <p className="mt-3 text-base leading-7 text-blue-100/75 sm:text-lg">
+              L&apos;objectif est de savoir rapidement si votre besoin peut
+              être pris en charge, sans vous faire déplacer ni multiplier les
+              interlocuteurs.
             </p>
 
-            <div
-              className="mt-4 h-1 w-16 rounded-full bg-yellow-400"
-              style={{
-                alignSelf: "center",
-                marginLeft: "auto",
-                marginRight: "auto",
-              }}
-            />
+            <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-yellow-400" />
           </motion.div>
 
-          {/* =====================================================
-              GRILLE
-          ===================================================== */}
-
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {commitments.map((commitment, index) => {
-              const Icon = commitment.icon;
+          <div className="mt-10 grid gap-5 lg:grid-cols-3">
+            {steps.map((step, index) => {
+              const Icon = step.icon;
 
               return (
                 <motion.article
-                  key={commitment.title}
-                  initial={{
-                    opacity: 0,
-                    y: 28,
-                  }}
-                  whileInView={{
-                    opacity: 1,
-                    y: 0,
-                  }}
-                  viewport={{
-                    once: true,
-                    amount: 0.25,
-                  }}
+                  key={step.number}
+                  initial={{ opacity: 0, y: 28 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.25 }}
                   transition={{
                     duration: 0.5,
-                    delay: index * 0.07,
+                    delay: index * 0.08,
                     ease: "easeOut",
                   }}
-                  whileHover={{
-                    y: -5,
-                  }}
-                  className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/8 shadow-[0_18px_45px_rgba(0,0,0,0.16)] backdrop-blur-xl transition-all duration-300 hover:border-yellow-300/35 hover:bg-white/11"
-                  style={{
-                    boxSizing: "border-box",
-                    paddingTop: "24px",
-                    paddingRight: "32px",
-                    paddingBottom: "24px",
-                    paddingLeft: "32px",
-                  }}
+                  className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/8 p-6 shadow-[0_18px_45px_rgba(0,0,0,0.16)] backdrop-blur-xl sm:p-7"
                 >
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-yellow-400/10 blur-3xl transition-all duration-300 group-hover:bg-yellow-400/20"
-                  />
-
-                  <div
-                    className="relative z-10"
-                    style={{
-                      width: "100%",
-                      boxSizing: "border-box",
-                    }}
-                  >
-                    <div
-                      className={`flex h-12 w-12 items-center justify-center rounded-2xl ${commitment.iconClassName}`}
-                    >
-                      <Icon
-                        size={24}
-                        strokeWidth={2.2}
-                      />
+                  <div className="flex items-center justify-between">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-yellow-400 text-[#06192B]">
+                      <Icon size={23} strokeWidth={2.3} />
                     </div>
 
-                    <h3
-                      className="mt-4 text-lg font-semibold leading-6 text-white"
-                      style={{
-                        marginLeft: 0,
-                        paddingLeft: 0,
-                      }}
-                    >
-                      {commitment.title}
-                    </h3>
-
-                    <p
-                      className="mt-2 block w-full text-sm leading-6 text-blue-100/70"
-                      style={{
-                        marginLeft: 0,
-                        paddingLeft: 0,
-                        paddingRight: 0,
-                        textIndent: 0,
-                        boxSizing: "border-box",
-                        overflowWrap: "break-word",
-                      }}
-                    >
-                      {commitment.description}
-                    </p>
+                    <span className="text-3xl font-black tracking-tight text-white/10">
+                      {step.number}
+                    </span>
                   </div>
+
+                  <h3 className="mt-5 text-xl font-bold text-white">
+                    {step.title}
+                  </h3>
+
+                  <p className="mt-3 text-sm leading-6 text-blue-100/70 sm:text-[15px]">
+                    {step.description}
+                  </p>
                 </motion.article>
               );
             })}
           </div>
 
-          {/* =====================================================
-              CTA BAS
-          ===================================================== */}
-
           <motion.div
-            initial={{
-              opacity: 0,
-              y: 24,
-            }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-            }}
-            viewport={{
-              once: true,
-              amount: 0.3,
-            }}
-            transition={{
-              duration: 0.55,
-              delay: 0.12,
-              ease: "easeOut",
-            }}
-            className="mx-auto mt-10 flex max-w-4xl flex-col justify-between gap-4 overflow-hidden rounded-3xl border border-white/10 bg-white/6 backdrop-blur-xl sm:flex-row sm:items-center"
-            style={{
-              boxSizing: "border-box",
-              paddingTop: "20px",
-              paddingRight: "32px",
-              paddingBottom: "20px",
-              paddingLeft: "32px",
-            }}
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.55, delay: 0.12, ease: "easeOut" }}
+            className="mx-auto mt-8 max-w-4xl rounded-3xl border border-white/10 bg-white/6 p-5 backdrop-blur-xl sm:p-6"
           >
-            <div className="min-w-0">
-              <p className="m-0 font-semibold text-white">
-                Un petit travail ou un besoin ponctuel ?
-              </p>
+            <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+              <div className="flex max-w-2xl items-start gap-3">
+                <CheckCircle2
+                  size={21}
+                  strokeWidth={2.3}
+                  className="mt-0.5 shrink-0 text-emerald-300"
+                />
 
-              <p
-                className="mt-1 text-sm leading-6 text-blue-100/70"
-                style={{
-                  marginLeft: 0,
-                  paddingLeft: 0,
-                  textIndent: 0,
-                }}
-              >
-                Décrivez votre demande et recevez un devis gratuit.
-              </p>
+                <div>
+                  <p className="font-semibold text-white">
+                    Vous ne savez pas si votre demande entre dans le périmètre ?
+                  </p>
+
+                  <p className="mt-1 text-sm leading-6 text-blue-100/70">
+                    Décrivez-la simplement. Elle est étudiée avant déplacement
+                    afin de vous donner une réponse claire.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex shrink-0 flex-col gap-2.5 sm:flex-row">
+                <a
+                  href="#devis"
+                  onClick={trackQuoteClick}
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-yellow-400 px-5 py-3 text-sm font-bold text-[#06192B] transition-all hover:-translate-y-0.5 hover:bg-yellow-300"
+                >
+                  <FileText size={18} strokeWidth={2.3} />
+                  Décrire mon besoin
+                </a>
+
+                <a
+                  href="tel:0618085598"
+                  onClick={trackPhoneClick}
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/8 px-5 py-3 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:border-yellow-300/50 hover:bg-white/12"
+                >
+                  <Phone size={18} strokeWidth={2.3} />
+                  Appeler
+                </a>
+              </div>
             </div>
-
-            <a
-              href="#devis"
-              onClick={trackQuoteClick}
-              className="inline-flex shrink-0 items-center justify-center rounded-2xl bg-yellow-400 px-6 py-3 text-sm font-bold text-[#06192B] shadow-[0_12px_32px_rgba(250,204,21,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-yellow-300"
-            >
-              Demander un devis gratuit
-            </a>
           </motion.div>
         </div>
       </div>
