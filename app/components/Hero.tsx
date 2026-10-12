@@ -186,7 +186,7 @@ export default function Hero() {
                   <Zap size={15} strokeWidth={2.4} />
 
                   <span>
-                    Dépannage si extrême urgence le dimanche matin
+                    Petit dépannage urgent le dimanche matin
                   </span>
                 </div>
               </div>
