@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import { motion } from "framer-motion";
-import { Clock, Mail, MapPin, Phone } from "lucide-react";
+import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 
 type GtagWindow = Window & {
   gtag?: (
@@ -17,6 +17,24 @@ function trackPhoneClick() {
 
   analyticsWindow.gtag?.("event", "click_phone", {
     contact_method: "phone",
+    location: "contact",
+  });
+}
+
+function trackEmailClick() {
+  const analyticsWindow = window as GtagWindow;
+
+  analyticsWindow.gtag?.("event", "click_email", {
+    contact_method: "email",
+    location: "contact",
+  });
+}
+
+function trackWhatsAppClick() {
+  const analyticsWindow = window as GtagWindow;
+
+  analyticsWindow.gtag?.("event", "click_whatsapp", {
+    contact_method: "whatsapp",
     location: "contact",
   });
 }
@@ -263,9 +281,25 @@ export default function Contact() {
                   >
                     <a
                       href="mailto:hatf30190@gmail.com"
+                      onClick={trackEmailClick}
                       className="break-all font-semibold text-white transition-colors hover:text-yellow-300"
                     >
                       hatf30190@gmail.com
+                    </a>
+                  </ContactLine>
+
+                  <ContactLine
+                    icon={<MessageCircle size={20} />}
+                    title="WhatsApp"
+                  >
+                    <a
+                      href="https://wa.me/33618085598?text=Bonjour%2C%20je%20souhaite%20un%20renseignement%20concernant%20des%20petits%20travaux%20avec%20HomeAToutFaire."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={trackWhatsAppClick}
+                      className="font-semibold text-white transition-colors hover:text-yellow-300"
+                    >
+                      Écrire sur WhatsApp
                     </a>
                   </ContactLine>
 
