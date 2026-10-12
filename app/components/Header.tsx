@@ -9,6 +9,10 @@ import {
   Phone,
   X,
 } from "lucide-react";
+import {
+  trackContactClick,
+  trackQuoteClick,
+} from "../lib/analytics";
 
 const navigation = [
   {
@@ -33,21 +37,8 @@ const navigation = [
   },
 ];
 
-type GtagWindow = Window & {
-  gtag?: (
-    command: "event",
-    eventName: string,
-    parameters?: Record<string, string | number | boolean>,
-  ) => void;
-};
-
 function trackPhoneClick(location: "header_desktop" | "header_mobile") {
-  const analyticsWindow = window as GtagWindow;
-
-  analyticsWindow.gtag?.("event", "click_phone", {
-    contact_method: "phone",
-    location,
-  });
+  trackContactClick("phone", location);
 }
 
 export default function Header() {
@@ -155,6 +146,11 @@ export default function Header() {
                   <Link
                     key={item.id}
                     href={item.href}
+                    onClick={() => {
+                      if (item.id === "devis") {
+                        trackQuoteClick("header_desktop_nav");
+                      }
+                    }}
                     className={`relative flex h-[72px] items-center whitespace-nowrap text-[15px] font-semibold transition-colors duration-300 ${
                       active
                         ? "text-[#06192B]"
@@ -183,6 +179,9 @@ export default function Header() {
               <div className="flex flex-col items-start gap-1">
                 <a
                   href="mailto:hatf30190@gmail.com"
+                  onClick={() => {
+                    trackContactClick("email", "header_desktop");
+                  }}
                   className="flex items-center gap-2 whitespace-nowrap text-xs font-medium leading-5 text-slate-700 transition-colors hover:text-[#B88311] xl:text-[13px]"
                 >
                   <Mail
@@ -306,6 +305,10 @@ export default function Header() {
                     href={item.href}
                     onClick={() => {
                       setMenuOpen(false);
+
+                      if (item.id === "devis") {
+                        trackQuoteClick("header_mobile_nav");
+                      }
                     }}
                     className={`rounded-xl px-4 py-3.5 text-sm font-semibold transition-colors ${
                       active
@@ -339,6 +342,9 @@ export default function Header() {
 
               <a
                 href="mailto:hatf30190@gmail.com"
+                onClick={() => {
+                  trackContactClick("email", "header_mobile");
+                }}
                 className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm text-slate-600"
               >
                 <Mail
