@@ -144,7 +144,7 @@ export default function RepairPage() {
               <div className="mt-7 max-w-[760px]">
                 <ServiceContactCta
                   location="depannage_page"
-                  service="Petit dépannage urgent"
+                  service="Petit dépannage"
                 />
               </div>
 
@@ -439,7 +439,7 @@ export default function RepairPage() {
             <div className="mx-auto mt-7 max-w-[760px]">
               <ServiceContactCta
                   location="depannage_page_bottom"
-                  service="Petit dépannage urgent"
+                  service="Petit dépannage"
                 />
             </div>
           </div>
