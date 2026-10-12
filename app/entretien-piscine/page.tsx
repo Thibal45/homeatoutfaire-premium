@@ -188,7 +188,7 @@ export default function PoolMaintenancePage() {
           <div className="mx-auto grid max-w-[1180px] gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
             <div>
               <span className="text-sm font-bold uppercase tracking-[0.14em] text-[#0A6587]">
-                Entretien régulier
+                Entretien courant
               </span>
 
               <h2 className="mt-3 text-2xl font-bold leading-tight text-[#06192B] sm:text-3xl">
