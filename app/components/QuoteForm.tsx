@@ -251,7 +251,7 @@ export default function QuoteForm() {
               </option>
 
               <option
-                value="Entretien piscine"
+                value="Entretien piscine - ponctuel ou régulier"
                 className="bg-white text-slate-900"
               >
                 Entretien piscine
