@@ -13,11 +13,16 @@ type GtagWindow = Window & {
 
 type ServiceContactCtaProps = {
   location: string;
+  service?: string;
 };
 
 export default function ServiceContactCta({
   location,
+  service,
 }: ServiceContactCtaProps) {
+  const quoteHref = service
+    ? `/?service=${encodeURIComponent(service)}#devis`
+    : "/#devis";
   function trackPhoneClick() {
     const analyticsWindow = window as GtagWindow;
 
@@ -32,6 +37,7 @@ export default function ServiceContactCta({
 
     analyticsWindow.gtag?.("event", "click_quote", {
       location,
+      ...(service ? { service } : {}),
     });
   }
 
@@ -51,7 +57,7 @@ export default function ServiceContactCta({
       </a>
 
       <Link
-        href="/#devis"
+        href={quoteHref}
         onClick={trackQuoteClick}
         aria-label="Demander un devis gratuit à HomeAToutFaire"
         className="inline-flex min-h-13 flex-1 items-center justify-center gap-3 rounded-2xl border border-white/20 bg-white/10 px-5 py-3 font-bold text-white transition-all hover:-translate-y-0.5 hover:border-yellow-300/60 hover:bg-white hover:text-[#06192B]"
@@ -59,7 +65,7 @@ export default function ServiceContactCta({
         <FileText size={20} strokeWidth={2.3} />
 
         <span>
-          Demander un devis gratuit
+          Devis gratuit pour ce besoin
         </span>
       </Link>
     </div>
