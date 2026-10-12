@@ -2,14 +2,10 @@
 
 import Link from "next/link";
 import { FileText, MessageCircle, Phone } from "lucide-react";
-
-type GtagWindow = Window & {
-  gtag?: (
-    command: "event",
-    eventName: string,
-    parameters?: Record<string, string | number | boolean>,
-  ) => void;
-};
+import {
+  trackContactClick,
+  trackQuoteClick,
+} from "../lib/analytics";
 
 type ServiceContactCtaProps = {
   location: string;
@@ -32,31 +28,15 @@ export default function ServiceContactCta({
     whatsappMessage,
   )}`;
   function trackPhoneClick() {
-    const analyticsWindow = window as GtagWindow;
-
-    analyticsWindow.gtag?.("event", "click_phone", {
-      contact_method: "phone",
-      location,
-    });
+    trackContactClick("phone", location, service);
   }
 
-  function trackQuoteClick() {
-    const analyticsWindow = window as GtagWindow;
-
-    analyticsWindow.gtag?.("event", "click_quote", {
-      location,
-      ...(service ? { service } : {}),
-    });
+  function handleQuoteClick() {
+    trackQuoteClick(location, service);
   }
 
   function trackWhatsAppClick() {
-    const analyticsWindow = window as GtagWindow;
-
-    analyticsWindow.gtag?.("event", "click_whatsapp", {
-      contact_method: "whatsapp",
-      location,
-      ...(service ? { service } : {}),
-    });
+    trackContactClick("whatsapp", location, service);
   }
 
   return (
@@ -77,7 +57,7 @@ export default function ServiceContactCta({
 
         <Link
           href={quoteHref}
-          onClick={trackQuoteClick}
+          onClick={handleQuoteClick}
           aria-label="Demander un devis gratuit à HomeAToutFaire"
           className="inline-flex min-h-13 flex-1 items-center justify-center gap-3 rounded-2xl border border-white/20 bg-white/10 px-5 py-3 font-bold text-white transition-all hover:-translate-y-0.5 hover:border-yellow-300/60 hover:bg-white hover:text-[#06192B]"
         >

@@ -18,14 +18,10 @@ import {
   Wrench,
   XCircle,
 } from "lucide-react";
-
-type GtagWindow = Window & {
-  gtag?: (
-    command: "event",
-    eventName: string,
-    parameters?: Record<string, string | number | boolean>,
-  ) => void;
-};
+import {
+  trackContactClick,
+  trackQuoteSent,
+} from "../lib/analytics";
 
 const allowedServices = new Set([
   "Petits travaux électriques",
@@ -39,41 +35,15 @@ const allowedServices = new Set([
 ]);
 
 function trackEmailClick(location: string) {
-  const analyticsWindow = window as GtagWindow;
-
-  analyticsWindow.gtag?.("event", "click_email", {
-    contact_method: "email",
-    location,
-  });
+  trackContactClick("email", location);
 }
 
 function trackWhatsAppClick(location: string, service?: string) {
-  const analyticsWindow = window as GtagWindow;
-
-  analyticsWindow.gtag?.("event", "click_whatsapp", {
-    contact_method: "whatsapp",
-    location,
-    ...(service ? { service } : {}),
-  });
+  trackContactClick("whatsapp", location, service);
 }
 
 function trackPhoneClick(location: string, service?: string) {
-  const analyticsWindow = window as GtagWindow;
-
-  analyticsWindow.gtag?.("event", "click_phone", {
-    contact_method: "phone",
-    location,
-    ...(service ? { service } : {}),
-  });
-}
-
-function trackQuoteSent(service?: string) {
-  const analyticsWindow = window as GtagWindow;
-
-  analyticsWindow.gtag?.("event", "quote_sent", {
-    form_name: "quote_form",
-    ...(service ? { service } : {}),
-  });
+  trackContactClick("phone", location, service);
 }
 
 export default function QuoteForm() {
@@ -85,13 +55,17 @@ export default function QuoteForm() {
   const [selectedService, setSelectedService] = useState("");
 
   useEffect(() => {
-    const requestedService = new URLSearchParams(window.location.search).get(
-      "service",
-    );
+    const timer = window.setTimeout(() => {
+      const requestedService = new URLSearchParams(window.location.search).get(
+        "service",
+      );
 
-    if (requestedService && allowedServices.has(requestedService)) {
-      setSelectedService(requestedService);
-    }
+      if (requestedService && allowedServices.has(requestedService)) {
+        setSelectedService(requestedService);
+      }
+    }, 0);
+
+    return () => window.clearTimeout(timer);
   }, []);
 
   const errorWhatsAppMessage = selectedService
@@ -109,6 +83,15 @@ export default function QuoteForm() {
 
     if (!formRef.current) return;
 
+    const formData = new FormData(formRef.current);
+    const hasPhone = String(formData.get("phone") ?? "").trim().length > 0;
+    const hasEmail = String(formData.get("email") ?? "").trim().length > 0;
+    const contactMethod = hasPhone && hasEmail
+      ? "phone_and_email"
+      : hasPhone
+        ? "phone"
+        : "email";
+
     setLoading(true);
     setSuccess(false);
     setError(false);
@@ -121,7 +104,7 @@ export default function QuoteForm() {
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
       );
 
-      trackQuoteSent(selectedService);
+      trackQuoteSent(selectedService, contactMethod);
 
       formRef.current.reset();
       setSelectedService("");

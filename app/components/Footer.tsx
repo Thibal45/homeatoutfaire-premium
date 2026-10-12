@@ -6,6 +6,8 @@ import {
   MapPin,
   Phone,
 } from "lucide-react";
+import type { ContactMethod } from "../lib/analytics";
+import TrackedContactLink from "./TrackedContactLink";
 
 const serviceLinks = [
   {
@@ -149,6 +151,7 @@ export default function Footer() {
               <FooterContact
                 icon={<Phone size={18} strokeWidth={2.2} />}
                 href="tel:0618085598"
+                method="phone"
               >
                 06 18 08 55 98
               </FooterContact>
@@ -156,6 +159,7 @@ export default function Footer() {
               <FooterContact
                 icon={<Mail size={18} strokeWidth={2.2} />}
                 href="mailto:hatf30190@gmail.com"
+                method="email"
               >
                 hatf30190@gmail.com
               </FooterContact>
@@ -202,12 +206,14 @@ type FooterContactProps = {
   icon: ReactNode;
   children: ReactNode;
   href?: string;
+  method?: ContactMethod;
 };
 
 function FooterContact({
   icon,
   children,
   href,
+  method,
 }: FooterContactProps) {
   const content = (
     <span
@@ -225,6 +231,19 @@ function FooterContact({
       </span>
     </span>
   );
+
+  if (href && method) {
+    return (
+      <TrackedContactLink
+        href={href}
+        location="footer"
+        method={method}
+        className="rounded-xl transition-all duration-300 hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5A52E]/70"
+      >
+        {content}
+      </TrackedContactLink>
+    );
+  }
 
   if (href) {
     return (
