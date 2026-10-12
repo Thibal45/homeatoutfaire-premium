@@ -108,7 +108,7 @@ const jsonLd = {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Entretien courant de piscine",
+          name: "Entretien de piscine ponctuel ou régulier",
           url: "https://www.homeatoutfaire30.fr/entretien-piscine",
         },
       },

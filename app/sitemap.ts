@@ -36,7 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${siteUrl}/entretien-piscine`,
-      lastModified: "2026-10-11",
+      lastModified: "2026-10-12",
       changeFrequency: "monthly",
       priority: 0.8,
     },

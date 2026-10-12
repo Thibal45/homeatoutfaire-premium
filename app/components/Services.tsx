@@ -45,7 +45,7 @@ const services = [
   {
     title: "Entretien piscine",
     description:
-      "Entretien courant, nettoyage et petites interventions sur votre piscine.",
+      "Entretien ponctuel ou régulier, nettoyage courant et petites interventions sur votre piscine.",
     icon: Waves,
     href: "/entretien-piscine",
   },
