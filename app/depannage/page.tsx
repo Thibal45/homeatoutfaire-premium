@@ -142,7 +142,10 @@ export default function RepairPage() {
               </p>
 
               <div className="mt-7 max-w-[760px]">
-                <ServiceContactCta location="depannage_page" />
+                <ServiceContactCta
+                  location="depannage_page"
+                  service="Petit dépannage urgent"
+                />
               </div>
 
               <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-blue-100/70">
@@ -434,7 +437,10 @@ export default function RepairPage() {
             </p>
 
             <div className="mx-auto mt-7 max-w-[760px]">
-              <ServiceContactCta location="depannage_page_bottom" />
+              <ServiceContactCta
+                  location="depannage_page_bottom"
+                  service="Petit dépannage urgent"
+                />
             </div>
           </div>
         </section>
