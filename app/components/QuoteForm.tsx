@@ -32,7 +32,7 @@ const allowedServices = new Set([
   "Peinture",
   "Menuiserie",
   "Entretien piscine - ponctuel ou régulier",
-  "Petit dépannage urgent",
+  "Petit dépannage",
   "Résidence secondaire / gîte",
   "Autre",
 ]);
@@ -283,10 +283,10 @@ export default function QuoteForm() {
               </option>
 
               <option
-                value="Petit dépannage urgent"
+                value="Petit dépannage"
                 className="bg-white text-slate-900"
               >
-                Petit dépannage urgent
+                Petit dépannage
               </option>
 
               <option
