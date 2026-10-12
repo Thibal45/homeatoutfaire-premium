@@ -169,7 +169,10 @@ export default function SecondaryHomesPage() {
               </p>
 
               <div className="mt-7 max-w-[760px]">
-                <ServiceContactCta location="residences_gites_page" />
+                <ServiceContactCta
+                  location="residences_gites_page"
+                  service="Résidence secondaire / gîte"
+                />
               </div>
 
               <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-blue-100/70">
@@ -391,7 +394,10 @@ export default function SecondaryHomesPage() {
             </p>
 
             <div className="mx-auto mt-7 max-w-[760px]">
-              <ServiceContactCta location="residences_gites_page_bottom" />
+              <ServiceContactCta
+                  location="residences_gites_page_bottom"
+                  service="Résidence secondaire / gîte"
+                />
             </div>
           </div>
         </section>
