@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import Script from "next/script";
 import { Cookie } from "lucide-react";
 
@@ -166,7 +167,14 @@ export default function CookieConsent() {
 
                   <p className="mt-1 text-xs leading-4 text-blue-100/55">
                     Vous pouvez accepter ou refuser cette mesure
-                    d&apos;audience.
+                    d&apos;audience. Consultez la{" "}
+                    <Link
+                      href="/politique-confidentialite"
+                      className="font-semibold text-blue-100/80 underline decoration-blue-100/35 underline-offset-2 transition-colors hover:text-white"
+                    >
+                      politique de confidentialité
+                    </Link>
+                    .
                   </p>
                 </div>
               </div>

@@ -5,7 +5,6 @@ import Services from "./components/Services";
 import WhyUs from "./components/WhyUs";
 import About from "./components/About";
 import Gallery from "./components/Gallery";
-import Reviews from "./components/Reviews";
 import Stats from "./components/Stats";
 import Quote from "./components/Quote";
 import Contact from "./components/Contact";
@@ -143,15 +142,18 @@ export default function Home() {
 
       <ScrollProgress />
       <Header />
-      <Hero />
-      <Services />
-      <WhyUs />
-      <About />
-      <Gallery />
-      <Reviews />
-      <Stats />
-      <Quote />
-      <Contact />
+
+      <main>
+        <Hero />
+        <Services />
+        <WhyUs />
+        <About />
+        <Gallery />
+        <Stats />
+        <Quote />
+        <Contact />
+      </main>
+
       <Footer />
       <BackToTop />
       <WhatsAppButton />

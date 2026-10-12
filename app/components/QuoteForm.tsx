@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
-import emailjs from "@emailjs/browser";
+import Link from "next/link";
 
 import {
   CheckCircle2,
@@ -78,20 +78,26 @@ function trackQuoteSent(service?: string) {
 
 export default function QuoteForm() {
   const formRef = useRef<HTMLFormElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+  const [contactError, setContactError] = useState(false);
   const [selectedService, setSelectedService] = useState("");
 
   useEffect(() => {
-    const requestedService = new URLSearchParams(window.location.search).get(
-      "service",
-    );
+    const timer = window.setTimeout(() => {
+      const requestedService = new URLSearchParams(window.location.search).get(
+        "service",
+      );
 
-    if (requestedService && allowedServices.has(requestedService)) {
-      setSelectedService(requestedService);
-    }
+      if (requestedService && allowedServices.has(requestedService)) {
+        setSelectedService(requestedService);
+      }
+    }, 0);
+
+    return () => window.clearTimeout(timer);
   }, []);
 
   const errorWhatsAppMessage = selectedService
@@ -109,12 +115,27 @@ export default function QuoteForm() {
 
     if (!formRef.current) return;
 
+    const formData = new FormData(formRef.current);
+    const phone = String(formData.get("phone") ?? "").trim();
+    const email = String(formData.get("email") ?? "").trim();
+
+    if (!phone && !email) {
+      setContactError(true);
+      setSuccess(false);
+      setError(false);
+      phoneRef.current?.focus();
+      return;
+    }
+
+    setContactError(false);
     setLoading(true);
     setSuccess(false);
     setError(false);
 
     try {
-      await emailjs.sendForm(
+      const { sendForm } = await import("@emailjs/browser");
+
+      await sendForm(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
         formRef.current,
@@ -210,12 +231,19 @@ export default function QuoteForm() {
             icon={<Phone size={18} />}
           >
             <input
+              ref={phoneRef}
               id="phone"
               type="tel"
               name="phone"
               autoComplete="tel"
               placeholder="06 00 00 00 00"
-              required
+              aria-describedby={
+                contactError
+                  ? "contact-method-help contact-method-error"
+                  : "contact-method-help"
+              }
+              aria-invalid={contactError}
+              onChange={() => setContactError(false)}
               className={inputClassName}
             />
           </FormField>
@@ -237,7 +265,13 @@ export default function QuoteForm() {
               name="email"
               autoComplete="email"
               placeholder="votre@email.fr"
-              required
+              aria-describedby={
+                contactError
+                  ? "contact-method-help contact-method-error"
+                  : "contact-method-help"
+              }
+              aria-invalid={contactError}
+              onChange={() => setContactError(false)}
               className={inputClassName}
             />
           </FormField>
@@ -258,6 +292,24 @@ export default function QuoteForm() {
             />
           </FormField>
         </div>
+
+        <p
+          id="contact-method-help"
+          className="mt-2 text-[11px] leading-5 text-blue-100/60 sm:text-xs"
+        >
+          Indiquez au moins un moyen de contact : téléphone ou adresse e-mail.
+        </p>
+
+        {contactError && (
+          <p
+            id="contact-method-error"
+            role="alert"
+            className="mt-1 text-xs font-semibold text-red-200"
+          >
+            Renseignez votre téléphone ou votre adresse e-mail pour que je
+            puisse vous répondre.
+          </p>
+        )}
 
         {/* =======================================================
             TYPE DE PRESTATION
@@ -529,7 +581,14 @@ export default function QuoteForm() {
         <div className="mt-5 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-4 sm:mt-7 sm:gap-4 sm:pt-6 sm:flex-row">
           <p className="max-w-md text-center text-[11px] leading-4.5 text-blue-100/55 sm:text-left sm:text-xs sm:leading-5">
             Les informations saisies servent uniquement à traiter votre demande
-            de devis.
+            de devis. Consultez la{" "}
+            <Link
+              href="/politique-confidentialite"
+              className="font-semibold text-blue-100/80 underline decoration-blue-100/35 underline-offset-2 transition-colors hover:text-white"
+            >
+              politique de confidentialité
+            </Link>
+            .
           </p>
 
           <button

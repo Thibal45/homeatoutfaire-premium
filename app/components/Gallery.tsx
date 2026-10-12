@@ -1,7 +1,7 @@
 "use client";
 
-import type { ReactNode } from "react";
-import { useCallback, useEffect, useState } from "react";
+import type { ReactNode, RefObject } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
 
@@ -21,6 +21,11 @@ import { gallery } from "../data/gallery";
 export default function Gallery() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [zoom, setZoom] = useState(1);
+  const cardButtonRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const lastOpenedIndex = useRef<number | null>(null);
+  const isOpen = selectedIndex !== null;
 
   /* =========================================================
      FERMETURE LIGHTBOX
@@ -29,6 +34,12 @@ export default function Gallery() {
   const closeGallery = useCallback(() => {
     setZoom(1);
     setSelectedIndex(null);
+  }, []);
+
+  const openGallery = useCallback((index: number) => {
+    lastOpenedIndex.current = index;
+    setZoom(1);
+    setSelectedIndex(index);
   }, []);
 
   /* =========================================================
@@ -110,6 +121,25 @@ export default function Gallery() {
       if (event.key === "0") {
         resetZoom();
       }
+
+      if (event.key === "Tab") {
+        const focusableElements = dialogRef.current?.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])',
+        );
+
+        if (!focusableElements || focusableElements.length === 0) return;
+
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (event.shiftKey && document.activeElement === firstElement) {
+          event.preventDefault();
+          lastElement.focus();
+        } else if (!event.shiftKey && document.activeElement === lastElement) {
+          event.preventDefault();
+          firstElement.focus();
+        }
+      }
     };
 
     window.addEventListener(
@@ -132,6 +162,27 @@ export default function Gallery() {
     zoomIn,
     zoomOut,
   ]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const cardButtons = cardButtonRefs.current;
+    const focusFrame = window.requestAnimationFrame(() => {
+      closeButtonRef.current?.focus();
+    });
+
+    return () => {
+      window.cancelAnimationFrame(focusFrame);
+
+      const previousIndex = lastOpenedIndex.current;
+
+      if (previousIndex !== null) {
+        window.requestAnimationFrame(() => {
+          cardButtons[previousIndex]?.focus();
+        });
+      }
+    };
+  }, [isOpen]);
 
   /* =========================================================
      BLOQUER LE SCROLL QUAND LE LIGHTBOX EST OUVERT
@@ -232,7 +283,7 @@ export default function Gallery() {
                 alignSelf: "center",
               }}
             >
-              Nos réalisations
+              Exemples de prestations
             </span>
 
             {/* TITRE */}
@@ -251,7 +302,7 @@ export default function Gallery() {
                 boxSizing: "border-box",
               }}
             >
-              Quelques exemples de nos interventions
+              Un aperçu des types d&apos;intervention
             </h2>
 
             {/* SOUS-TITRE */}
@@ -270,8 +321,8 @@ export default function Gallery() {
                 boxSizing: "border-box",
               }}
             >
-              Découvrez quelques réalisations représentatives du savoir-faire
-              HomeAToutFaire.
+              Ces photos d&apos;illustration présentent les types de petits travaux
+              proposés par HomeAToutFaire.
             </p>
 
             {/* BARRE JAUNE */}
@@ -287,7 +338,7 @@ export default function Gallery() {
           </motion.div>
 
           {/* =====================================================
-              GRILLE DES RÉALISATIONS
+              GRILLE DES EXEMPLES
           ===================================================== */}
 
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3 xl:gap-6">
@@ -314,12 +365,23 @@ export default function Gallery() {
                 whileHover={{
                   y: -5,
                 }}
-                onClick={() => {
-                  setZoom(1);
-                  setSelectedIndex(index);
-                }}
-                className="group relative cursor-pointer overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_12px_35px_rgba(15,23,42,0.08)] transition-all duration-300 hover:border-yellow-300 hover:shadow-[0_22px_55px_rgba(15,23,42,0.15)]"
+                className="group relative overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_12px_35px_rgba(15,23,42,0.08)] transition-all duration-300 hover:border-yellow-300 hover:shadow-[0_22px_55px_rgba(15,23,42,0.15)] focus-within:border-yellow-400 focus-within:ring-4 focus-within:ring-yellow-300/25"
               >
+                <button
+                  ref={(element) => {
+                    cardButtonRefs.current[index] = element;
+                  }}
+                  type="button"
+                  aria-haspopup="dialog"
+                  aria-label={`Agrandir l'exemple de prestation : ${photo.title}`}
+                  onClick={() => openGallery(index)}
+                  className="absolute inset-0 z-20 rounded-3xl focus-visible:outline-none"
+                >
+                  <span className="sr-only">
+                    Agrandir l&apos;exemple de prestation : {photo.title}
+                  </span>
+                </button>
+
                 {/* PHOTO PLUS COMPACTE */}
 
                 <div className="relative aspect-[16/10] overflow-hidden">
@@ -338,12 +400,12 @@ export default function Gallery() {
                   {/* BADGE */}
 
                   <div className="absolute left-4 top-4 rounded-full border border-white/25 bg-white/90 px-3 py-1.5 text-[11px] font-bold text-[#082E50] shadow-lg backdrop-blur-md">
-                    Réalisation
+                    Exemple
                   </div>
 
                   {/* ICÔNE ZOOM */}
 
-                  <div className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-white/25 bg-[#06192B]/60 text-white opacity-0 shadow-lg backdrop-blur-md transition-all duration-300 group-hover:opacity-100">
+                  <div className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-white/25 bg-[#06192B]/60 text-white opacity-0 shadow-lg backdrop-blur-md transition-all duration-300 group-hover:opacity-100 group-focus-within:opacity-100">
                     <Maximize2
                       size={17}
                       strokeWidth={2.3}
@@ -358,12 +420,12 @@ export default function Gallery() {
                     </h3>
 
                     <p className="mt-1 text-xs text-blue-100/75 sm:text-sm">
-                      Travail réalisé par HomeAToutFaire
+                      Photo d&apos;illustration
                     </p>
 
                     <div className="mt-2 flex items-center justify-between text-xs font-semibold text-yellow-300 sm:text-sm">
                       <span>
-                        Voir la réalisation
+                        Agrandir l&apos;exemple
                       </span>
 
                       <ChevronRight
@@ -387,9 +449,10 @@ export default function Gallery() {
       <AnimatePresence>
         {selectedIndex !== null && (
           <motion.div
+            ref={dialogRef}
             role="dialog"
             aria-modal="true"
-            aria-label={`Réalisation : ${gallery[selectedIndex].title}`}
+            aria-labelledby="gallery-dialog-title"
             initial={{
               opacity: 0,
             }}
@@ -413,7 +476,10 @@ export default function Gallery() {
               {/* TITRE */}
 
               <div className="max-w-[55%] rounded-2xl border border-white/10 bg-white/8 px-4 py-2.5 text-white backdrop-blur-xl">
-                <p className="truncate text-sm font-semibold sm:text-base">
+                <p
+                  id="gallery-dialog-title"
+                  className="truncate text-sm font-semibold sm:text-base"
+                >
                   {gallery[selectedIndex].title}
                 </p>
 
@@ -456,6 +522,7 @@ export default function Gallery() {
                 <LightboxButton
                   label="Fermer la galerie"
                   onClick={closeGallery}
+                  buttonRef={closeButtonRef}
                   danger
                 >
                   <X size={21} />
@@ -612,6 +679,7 @@ type LightboxButtonProps = {
   children: ReactNode;
   disabled?: boolean;
   danger?: boolean;
+  buttonRef?: RefObject<HTMLButtonElement | null>;
 };
 
 function LightboxButton({
@@ -620,9 +688,11 @@ function LightboxButton({
   children,
   disabled = false,
   danger = false,
+  buttonRef,
 }: LightboxButtonProps) {
   return (
     <motion.button
+      ref={buttonRef}
       type="button"
       aria-label={label}
       disabled={disabled}
