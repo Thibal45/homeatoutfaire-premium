@@ -143,7 +143,10 @@ export default function PlumbingPage() {
               </p>
 
               <div className="mt-7 max-w-[760px]">
-                <ServiceContactCta location="plomberie_page" />
+                <ServiceContactCta
+                  location="plomberie_page"
+                  service="Petits travaux de plomberie"
+                />
               </div>
 
               <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-blue-100/70">
@@ -432,7 +435,10 @@ export default function PlumbingPage() {
             </p>
 
             <div className="mx-auto mt-7 max-w-[760px]">
-              <ServiceContactCta location="plomberie_page_bottom" />
+              <ServiceContactCta
+                  location="plomberie_page_bottom"
+                  service="Petits travaux de plomberie"
+                />
             </div>
           </div>
         </section>

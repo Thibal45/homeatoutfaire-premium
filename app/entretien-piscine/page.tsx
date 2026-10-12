@@ -145,7 +145,10 @@ export default function PoolMaintenancePage() {
               </p>
 
               <div className="mt-7 max-w-[760px]">
-                <ServiceContactCta location="piscine_page" />
+                <ServiceContactCta
+                  location="piscine_page"
+                  service="Entretien piscine - ponctuel ou régulier"
+                />
               </div>
 
               <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-blue-100/70">
@@ -506,7 +509,10 @@ export default function PoolMaintenancePage() {
             </p>
 
             <div className="mx-auto mt-7 max-w-[760px]">
-              <ServiceContactCta location="piscine_page_bottom" />
+              <ServiceContactCta
+                  location="piscine_page_bottom"
+                  service="Entretien piscine - ponctuel ou régulier"
+                />
             </div>
           </div>
         </section>

@@ -143,7 +143,10 @@ export default function ElectricalPage() {
               </p>
 
               <div className="mt-7 max-w-[760px]">
-                <ServiceContactCta location="electricite_page" />
+                <ServiceContactCta
+                  location="electricite_page"
+                  service="Petits travaux électriques"
+                />
               </div>
 
               <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-blue-100/70">
@@ -435,7 +438,10 @@ export default function ElectricalPage() {
             </p>
 
             <div className="mx-auto mt-7 max-w-[760px]">
-              <ServiceContactCta location="electricite_page_bottom" />
+              <ServiceContactCta
+                  location="electricite_page_bottom"
+                  service="Petits travaux électriques"
+                />
             </div>
           </div>
         </section>

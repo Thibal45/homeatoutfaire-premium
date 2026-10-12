@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 
 import {
@@ -26,11 +26,23 @@ type GtagWindow = Window & {
   ) => void;
 };
 
-function trackQuoteSent() {
+const allowedServices = new Set([
+  "Petits travaux électriques",
+  "Petits travaux de plomberie",
+  "Peinture",
+  "Menuiserie",
+  "Entretien piscine - ponctuel ou régulier",
+  "Petit dépannage",
+  "Résidence secondaire / gîte",
+  "Autre",
+]);
+
+function trackQuoteSent(service?: string) {
   const analyticsWindow = window as GtagWindow;
 
   analyticsWindow.gtag?.("event", "quote_sent", {
     form_name: "quote_form",
+    ...(service ? { service } : {}),
   });
 }
 
@@ -40,6 +52,17 @@ export default function QuoteForm() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+  const [selectedService, setSelectedService] = useState("");
+
+  useEffect(() => {
+    const requestedService = new URLSearchParams(window.location.search).get(
+      "service",
+    );
+
+    if (requestedService && allowedServices.has(requestedService)) {
+      setSelectedService(requestedService);
+    }
+  }, []);
 
   async function handleSubmit(
     event: React.FormEvent<HTMLFormElement>,
@@ -60,9 +83,10 @@ export default function QuoteForm() {
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
       );
 
-      trackQuoteSent();
+      trackQuoteSent(selectedService);
 
       formRef.current.reset();
+      setSelectedService("");
       setSuccess(true);
     } catch (sendError) {
       console.error(
@@ -210,7 +234,8 @@ export default function QuoteForm() {
             <select
               id="service"
               name="service"
-              defaultValue=""
+              value={selectedService}
+              onChange={(event) => setSelectedService(event.target.value)}
               required
               className={`${inputClassName} cursor-pointer text-white`}
             >
@@ -258,10 +283,10 @@ export default function QuoteForm() {
               </option>
 
               <option
-                value="Petit dépannage urgent"
+                value="Petit dépannage"
                 className="bg-white text-slate-900"
               >
-                Petit dépannage urgent
+                Petit dépannage
               </option>
 
               <option
