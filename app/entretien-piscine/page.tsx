@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
+  CalendarDays,
   CheckCircle2,
   CircleDollarSign,
   Clock3,
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
     "Entretien de piscine à Sainte-Anastasie, près de Nîmes",
 
   description:
-    "HomeAToutFaire réalise l'entretien courant et les petites interventions sur piscine à Sainte-Anastasie, près de Nîmes, et jusqu'à 50 km. Devis gratuit.",
+    "Entretien de piscine ponctuel ou régulier avec HomeAToutFaire à Sainte-Anastasie, près de Nîmes, et jusqu'à 50 km : nettoyage courant et petites interventions sur existant.",
 
   alternates: {
     canonical: "/entretien-piscine",
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
       "Entretien de piscine à Sainte-Anastasie | HomeAToutFaire",
 
     description:
-      "Entretien courant, nettoyage et petites interventions sur piscine autour de Sainte-Anastasie et Nîmes.",
+      "Entretien de piscine ponctuel ou régulier, nettoyage courant et petites interventions autour de Sainte-Anastasie et Nîmes.",
 
     url: `${siteUrl}/entretien-piscine`,
     siteName: "HomeAToutFaire",
@@ -79,7 +80,7 @@ export default function PoolMaintenancePage() {
 
       <ServiceStructuredData
         name="Entretien courant de piscine"
-        description="Entretien courant, nettoyage et petites opérations accessibles sur une piscine et ses équipements déjà installés."
+        description="Entretien de piscine ponctuel ou régulier, nettoyage courant et petites opérations accessibles sur une piscine et ses équipements déjà installés."
         path="/entretien-piscine"
         breadcrumbName="Entretien de piscine"
       />
@@ -139,7 +140,8 @@ export default function PoolMaintenancePage() {
               <p className="mt-5 max-w-[760px] text-base leading-7 text-blue-50/80 sm:text-lg sm:leading-8">
                 HomeAToutFaire intervient pour l&apos;entretien courant,
                 le nettoyage et les petites interventions sur une piscine
-                existante, dans le cadre de prestations simples de proximité.
+                existante, de façon ponctuelle ou avec une fréquence régulière
+                définie selon vos besoins.
               </p>
 
               <div className="mt-7 max-w-[760px]">
@@ -171,7 +173,7 @@ export default function PoolMaintenancePage() {
                     className="text-yellow-300"
                   />
 
-                  Entretien courant uniquement
+                  Ponctuel ou régulier
                 </span>
               </div>
             </div>
@@ -252,6 +254,71 @@ export default function PoolMaintenancePage() {
                   </p>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* =========================================================
+            ENTRETIEN PONCTUEL OU RÉGULIER
+        ========================================================= */}
+
+        <section className="bg-[#EAF5F8] px-5 py-14 sm:px-8 sm:py-20 lg:px-10">
+          <div className="mx-auto max-w-[1180px]">
+            <div className="mx-auto max-w-[800px] text-center">
+              <span className="text-sm font-bold uppercase tracking-[0.14em] text-[#0A6587]">
+                Une fréquence adaptée à votre piscine
+              </span>
+
+              <h2 className="mt-3 text-2xl font-bold text-[#06192B] sm:text-3xl">
+                Entretien ponctuel ou suivi régulier
+              </h2>
+
+              <p className="mt-4 leading-7 text-slate-600">
+                Vous pouvez faire appel à HomeAToutFaire pour une intervention
+                ponctuelle ou prévoir des passages réguliers lorsque votre
+                bassin demande un entretien plus suivi.
+              </p>
+            </div>
+
+            <div className="mt-9 grid gap-5 md:grid-cols-2">
+              <article className="rounded-3xl border border-white/80 bg-white p-6 shadow-sm sm:p-8">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-yellow-400/15 text-yellow-700">
+                  <Wrench size={22} strokeWidth={2.2} />
+                </div>
+
+                <h3 className="mt-5 text-xl font-bold text-[#06192B]">
+                  Intervention ponctuelle
+                </h3>
+
+                <p className="mt-3 leading-7 text-slate-600">
+                  Pour un nettoyage, une remise au propre ou une petite
+                  opération d&apos;entretien identifiée sur une piscine déjà
+                  installée.
+                </p>
+              </article>
+
+              <article className="rounded-3xl border border-white/80 bg-white p-6 shadow-sm sm:p-8">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-cyan-400/10 text-cyan-700">
+                  <CalendarDays size={22} strokeWidth={2.2} />
+                </div>
+
+                <h3 className="mt-5 text-xl font-bold text-[#06192B]">
+                  Passages réguliers
+                </h3>
+
+                <p className="mt-3 leading-7 text-slate-600">
+                  Lorsque vous souhaitez un suivi dans la durée, la fréquence
+                  des passages est définie avec vous selon le bassin, la saison,
+                  l&apos;utilisation et les opérations d&apos;entretien
+                  réellement nécessaires.
+                </p>
+              </article>
+            </div>
+
+            <div className="mt-6 rounded-2xl border border-[#0A6587]/10 bg-white/70 p-5 text-sm leading-6 text-slate-600 sm:p-6 sm:text-base sm:leading-7">
+              Aucune formule standard n&apos;est imposée : le contenu et la
+              fréquence des interventions sont précisés dans le devis selon
+              votre besoin réel.
             </div>
           </div>
         </section>
@@ -432,9 +499,10 @@ export default function PoolMaintenancePage() {
             </h2>
 
             <p className="mx-auto mt-4 max-w-[680px] leading-7 text-blue-100/75">
-              Décrivez le bassin et l&apos;entretien souhaité pour vérifier
-              rapidement si HomeAToutFaire peut prendre en charge votre
-              demande.
+              Décrivez le bassin, l&apos;entretien souhaité et indiquez si
+              vous recherchez une intervention ponctuelle ou des passages
+              réguliers. HomeAToutFaire pourra alors préparer une proposition
+              adaptée.
             </p>
 
             <div className="mx-auto mt-7 max-w-[760px]">
