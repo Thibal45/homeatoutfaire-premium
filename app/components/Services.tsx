@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
+  ArrowRight,
   Bolt,
   Droplets,
   Hammer,
+  House,
   PaintRoller,
   Waves,
   Wrench,
@@ -283,6 +285,47 @@ export default function Services() {
               );
             })}
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.55, ease: "easeOut" }}
+            className="mt-8 overflow-hidden rounded-3xl border border-[#082E50]/10 bg-[#082E50] p-6 text-white shadow-[0_16px_45px_rgba(8,46,80,0.16)] sm:mt-10 sm:p-8"
+          >
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+              <div className="flex max-w-3xl items-start gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-yellow-400 text-[#06192B]">
+                  <House size={24} strokeWidth={2.2} />
+                </div>
+
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-yellow-300">
+                    Propriétaires & hébergements saisonniers
+                  </p>
+
+                  <h3 className="mt-2 text-xl font-bold sm:text-2xl">
+                    Résidences secondaires & gîtes
+                  </h3>
+
+                  <p className="mt-2 text-sm leading-6 text-blue-100/75 sm:text-base sm:leading-7">
+                    Regroupez plusieurs petits travaux, remises en état légères
+                    et besoins d&apos;entretien courant auprès d&apos;un seul
+                    interlocuteur, même si vous n&apos;occupez pas le logement
+                    toute l&apos;année.
+                  </p>
+                </div>
+              </div>
+
+              <Link
+                href="/residences-secondaires-gites"
+                className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-2xl bg-yellow-400 px-5 py-3 text-sm font-bold text-[#06192B] transition-all hover:-translate-y-0.5 hover:bg-yellow-300"
+              >
+                Découvrir l&apos;offre
+                <ArrowRight size={18} strokeWidth={2.3} />
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
