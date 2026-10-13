@@ -3,6 +3,7 @@
 import type { ElementType } from "react";
 import Image from "next/image";
 import {
+  ArrowDown,
   FileText,
   MapPin,
   Phone,
@@ -41,7 +42,7 @@ export default function Hero() {
     <MotionConfig reducedMotion="user">
       <section
         id="accueil"
-        className="relative isolate min-h-[calc(100svh-68px)] scroll-mt-[68px] overflow-hidden bg-[#06192B] text-white"
+        className="relative isolate min-h-[calc(100svh-68px)] scroll-mt-[68px] overflow-hidden bg-[#06192B] text-white lg:min-h-[760px] lg:max-h-[860px]"
       >
         {/* =========================================================
             PHOTO DE FOND
@@ -94,43 +95,12 @@ export default function Hero() {
             CONTENU GLOBAL
         ========================================================= */}
 
-        <div className="relative z-10 mx-auto flex min-h-[calc(100svh-68px)] w-full max-w-[1480px] flex-col px-5 pb-5 pt-4 sm:px-8 sm:pb-8 sm:pt-8 lg:px-10 lg:pb-9 lg:pt-8 xl:px-12">
-          {/* =======================================================
-              LOGO CENTRÉ
-          ======================================================= */}
-
-          <motion.div
-            initial={{
-              opacity: 0,
-              y: -16,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            transition={{
-              duration: 0.65,
-              ease: "easeOut",
-            }}
-            className="flex justify-center"
-          >
-            <div className="overflow-hidden rounded-[1.6rem] border border-white/20 bg-white p-1 shadow-[0_22px_65px_rgba(0,0,0,0.30)] sm:rounded-[2rem] sm:p-1.5">
-              <Image
-                src="/images/logo-homeatoutfaire.png"
-                alt="HomeAToutFaire - Artisan multiservices à Sainte-Anastasie"
-                width={500}
-                height={145}
-                loading="eager"
-                className="h-auto w-[260px] sm:w-[350px] lg:w-[390px]"
-              />
-            </div>
-          </motion.div>
-
+        <div className="relative z-10 mx-auto flex min-h-[calc(100svh-68px)] w-full max-w-[1480px] flex-col justify-center px-5 py-10 sm:px-8 sm:py-12 lg:min-h-[760px] lg:px-10 lg:py-14 xl:px-12">
           {/* =======================================================
               ZONE PRINCIPALE
           ======================================================= */}
 
-          <div className="mt-3 grid flex-1 items-center sm:mt-5 lg:grid-cols-[0.58fr_0.42fr] lg:gap-12 xl:grid-cols-[0.55fr_0.45fr] xl:gap-16">
+          <div className="grid items-center lg:grid-cols-[0.58fr_0.42fr] lg:gap-12 xl:grid-cols-[0.55fr_0.45fr] xl:gap-16">
             {/* =====================================================
                 COLONNE GAUCHE
             ===================================================== */}
@@ -149,28 +119,29 @@ export default function Hero() {
                 delay: 0.1,
                 ease: "easeOut",
               }}
-              className="w-full max-w-[760px]"
+              className="w-full max-w-[740px]"
             >
               {/* ===================================================
                   PROMESSE PRINCIPALE
               =================================================== */}
 
-              <p className="text-left text-[11px] font-bold uppercase leading-5 tracking-[0.14em] text-yellow-300 sm:text-sm sm:leading-6 sm:tracking-[0.16em]">
-                HomeAToutFaire · Artisan multiservices
+              <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-[#06192B]/55 px-3.5 py-1.5 text-left text-[11px] font-bold uppercase leading-5 tracking-[0.14em] text-yellow-300 shadow-lg backdrop-blur-xl sm:text-xs sm:tracking-[0.16em]">
+                <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,.9)]" />
+                Artisan multiservices local
               </p>
 
-              <h1 className="mt-1.5 max-w-[760px] text-left text-[2rem] font-bold leading-[1.04] tracking-tight text-white sm:mt-2 sm:text-[2.75rem] sm:leading-[1.05] lg:text-[3rem] xl:text-[3.2rem]">
+              <h1 className="mt-4 max-w-[740px] text-left text-[2.15rem] font-bold leading-[1.04] tracking-tight text-white sm:text-[2.85rem] sm:leading-[1.05] lg:text-[3.15rem] xl:text-[3.45rem]">
                 Petits travaux et dépannage à Sainte-Anastasie
               </h1>
 
-              <p className="mt-2 max-w-[690px] text-left text-sm leading-5 text-blue-50/85 sm:mt-3 sm:text-[1.05rem] sm:leading-7">
+              <p className="mt-4 max-w-[650px] text-left text-base leading-7 text-blue-50/85 sm:text-lg sm:leading-8">
                 Un interlocuteur unique pour vos travaux du quotidien, près de
                 Nîmes et jusqu&apos;à environ 50 km aux alentours.
               </p>
 
               {/* DISPONIBILITÉ */}
 
-              <div className="mt-2.5 flex flex-col items-start gap-1 sm:mt-3.5 sm:gap-1.5">
+              <div className="mt-5 flex flex-col items-start gap-2">
                 <div className="inline-flex max-w-full flex-wrap items-center gap-x-2 gap-y-1 rounded-full border border-white/15 bg-[#06192B]/65 px-3 py-1 text-[11px] shadow-lg backdrop-blur-xl sm:px-4 sm:py-1.5 sm:text-sm">
                   <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.9)]" />
 
@@ -197,7 +168,7 @@ export default function Hero() {
                   CARTES
               =================================================== */}
 
-              <div className="mt-3 grid w-full gap-2 sm:mt-4 sm:grid-cols-3 sm:gap-3">
+              <div className="mt-5 grid w-full gap-2 sm:grid-cols-3 sm:gap-3">
                 <HeroCard
                   icon={Zap}
                   title="Réactif"
@@ -224,7 +195,7 @@ export default function Hero() {
                   CTA
               =================================================== */}
 
-              <div className="mt-3 grid w-full gap-2 sm:mt-4 sm:grid-cols-2 sm:gap-3">
+              <div className="mt-5 grid w-full gap-2.5 sm:grid-cols-2 sm:gap-3">
                 <motion.a
                   href="tel:0618085598"
                   aria-label="Appeler HomeAToutFaire au 06 18 08 55 98"
@@ -285,6 +256,14 @@ export default function Hero() {
                   </span>
                 </motion.a>
               </div>
+
+              <a
+                href="#services"
+                className="mt-5 inline-flex items-center gap-2 rounded-lg text-sm font-semibold text-white/75 transition-colors hover:text-yellow-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-yellow-300"
+              >
+                Découvrir les prestations
+                <ArrowDown size={17} strokeWidth={2.2} aria-hidden="true" />
+              </a>
 
             </motion.div>
 

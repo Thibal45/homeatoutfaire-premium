@@ -62,7 +62,7 @@ export default function Stats() {
   return (
     <section
       id="fonctionnement"
-      className="relative overflow-hidden bg-[#082E50] py-16 text-white sm:py-20 lg:py-22"
+      className="relative overflow-hidden bg-[#082E50] py-14 text-white sm:py-18 lg:py-20"
     >
       <div
         aria-hidden="true"
@@ -91,7 +91,7 @@ export default function Stats() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.25 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="how-it-works-heading mx-auto max-w-[900px] text-center"
+            className="mx-auto max-w-[900px] text-center"
           >
             <span className="inline-flex rounded-full border border-yellow-300/30 bg-white/8 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.22em] text-yellow-300">
               Comment ça se passe ?
@@ -107,10 +107,15 @@ export default function Stats() {
               interlocuteurs.
             </p>
 
-            <div className="how-it-works-divider mx-auto mt-4 h-1 w-16 rounded-full bg-yellow-400" />
+            <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-yellow-400" />
           </motion.div>
 
-          <div className="mt-10 grid gap-5 lg:grid-cols-3">
+          <div className="relative mt-10 grid lg:grid-cols-3">
+            <div
+              aria-hidden="true"
+              className="absolute left-[16.66%] right-[16.66%] top-7 hidden h-px bg-gradient-to-r from-yellow-300/30 via-yellow-300/70 to-yellow-300/30 lg:block"
+            />
+
             {steps.map((step, index) => {
               const Icon = step.icon;
 
@@ -125,25 +130,28 @@ export default function Stats() {
                     delay: index * 0.08,
                     ease: "easeOut",
                   }}
-                  className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/8 p-6 shadow-[0_18px_45px_rgba(0,0,0,0.16)] backdrop-blur-xl sm:p-7"
+                  className={`relative grid grid-cols-[auto_1fr] gap-4 py-5 lg:block lg:px-8 lg:py-0 lg:text-center ${
+                    index !== steps.length - 1
+                      ? "border-b border-white/10 lg:border-b-0"
+                      : ""
+                  }`}
                 >
-                  <div className="flex items-center justify-between">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-yellow-400 text-[#06192B]">
+                  <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl bg-yellow-400 text-[#06192B] shadow-[0_12px_30px_rgba(250,204,21,.18)] lg:mx-auto">
                       <Icon size={23} strokeWidth={2.3} />
-                    </div>
-
-                    <span className="text-3xl font-black tracking-tight text-white/10">
+                    <span className="absolute -right-2 -top-2 flex h-6 min-w-6 items-center justify-center rounded-full border border-white/15 bg-[#06192B] px-1 text-[10px] font-black text-yellow-300">
                       {step.number}
                     </span>
                   </div>
 
-                  <h3 className="mt-5 text-xl font-bold text-white">
-                    {step.title}
-                  </h3>
+                  <div>
+                    <h3 className="text-xl font-bold text-white lg:mt-5">
+                      {step.title}
+                    </h3>
 
-                  <p className="mt-3 text-sm leading-6 text-blue-100/70 sm:text-[15px]">
-                    {step.description}
-                  </p>
+                    <p className="mt-2 text-sm leading-6 text-blue-100/70 sm:text-[15px] lg:mx-auto lg:max-w-sm">
+                      {step.description}
+                    </p>
+                  </div>
                 </motion.article>
               );
             })}
@@ -154,7 +162,7 @@ export default function Stats() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.55, delay: 0.12, ease: "easeOut" }}
-            className="mx-auto mt-8 max-w-4xl rounded-3xl border border-white/10 bg-white/6 p-5 backdrop-blur-xl sm:p-6"
+            className="mx-auto mt-8 max-w-5xl rounded-3xl border border-white/10 bg-white/6 p-5 backdrop-blur-xl sm:p-6"
           >
             <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
               <div className="flex max-w-2xl items-start gap-3">

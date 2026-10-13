@@ -62,7 +62,7 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="relative scroll-mt-[68px] overflow-hidden bg-white py-12 sm:py-20 lg:py-22"
+      className="relative scroll-mt-[68px] overflow-hidden bg-white py-14 sm:py-18 lg:py-20"
     >
       {/* =========================================================
           FOND DÉCORATIF
@@ -91,16 +91,7 @@ export default function Services() {
       ========================================================= */}
 
       <div className="relative z-10 mx-auto w-full max-w-[1480px] px-5 sm:px-8 lg:px-10 xl:px-12">
-        <div
-          className="w-full"
-          style={{
-            width: "100%",
-            maxWidth: "1360px",
-            marginLeft: "auto",
-            marginRight: "auto",
-            boxSizing: "border-box",
-          }}
-        >
+        <div className="mx-auto w-full max-w-[1360px]">
           {/* =====================================================
               EN-TÊTE
           ===================================================== */}
@@ -122,73 +113,30 @@ export default function Services() {
               duration: 0.6,
               ease: "easeOut",
             }}
-            className="mb-8 flex w-full flex-col items-center justify-center text-center sm:mb-12"
-            style={{
-              width: "100%",
-              boxSizing: "border-box",
-              textAlign: "center",
-            }}
+            className="mx-auto mb-9 flex w-full max-w-[980px] flex-col items-center justify-center text-center sm:mb-11"
           >
             {/* Badge */}
 
-            <span
-              className="inline-flex rounded-full border border-yellow-300/70 bg-yellow-50 px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#B88311] sm:px-4 sm:py-1.5 sm:text-xs sm:tracking-[0.22em]"
-              style={{
-                alignSelf: "center",
-              }}
-            >
+            <span className="inline-flex rounded-full border border-yellow-300/70 bg-yellow-50 px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#B88311] sm:px-4 sm:py-1.5 sm:text-xs sm:tracking-[0.22em]">
               Nos services
             </span>
 
             {/* Titre */}
 
-            <h2
-              className="mt-3 text-[1.8rem] font-bold leading-[1.12] tracking-tight text-[#082E50] sm:mt-4 sm:text-[2.15rem] lg:text-[2.35rem]"
-              style={{
-                width: "100%",
-                maxWidth: "1050px",
-                marginLeft: "auto",
-                marginRight: "auto",
-                paddingLeft: 0,
-                paddingRight: 0,
-                textAlign: "center",
-                textIndent: 0,
-                boxSizing: "border-box",
-              }}
-            >
+            <h2 className="mt-3 text-[1.8rem] font-bold leading-[1.12] tracking-tight text-[#082E50] sm:mt-4 sm:text-[2.15rem] lg:text-[2.35rem]">
               Des prestations pour toute la maison
             </h2>
 
             {/* Sous-titre */}
 
-            <p
-              className="mt-2.5 text-[15px] leading-6 text-slate-600 sm:mt-3 sm:text-lg sm:leading-7"
-              style={{
-                width: "100%",
-                maxWidth: "980px",
-                marginLeft: "auto",
-                marginRight: "auto",
-                paddingLeft: 0,
-                paddingRight: 0,
-                textAlign: "center",
-                textIndent: 0,
-                boxSizing: "border-box",
-              }}
-            >
+            <p className="mt-2.5 max-w-[850px] text-[15px] leading-6 text-slate-600 sm:mt-3 sm:text-lg sm:leading-7">
               HomeAToutFaire vous accompagne dans tous vos petits travaux, avec
               professionnalisme, réactivité et un travail soigné.
             </p>
 
             {/* Barre or */}
 
-            <div
-              className="mt-3 h-1 w-14 rounded-full bg-[#D5A52E] sm:mt-4 sm:w-16"
-              style={{
-                alignSelf: "center",
-                marginLeft: "auto",
-                marginRight: "auto",
-              }}
-            />
+            <div className="mt-3 h-1 w-14 rounded-full bg-[#D5A52E] sm:mt-4 sm:w-16" />
           </motion.div>
 
           {/* =====================================================
@@ -222,14 +170,7 @@ export default function Services() {
                   whileHover={{
                     y: -5,
                   }}
-                  className="group relative overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_12px_35px_rgba(15,23,42,0.08)] transition-all duration-300 hover:border-yellow-300 hover:shadow-[0_20px_50px_rgba(15,23,42,0.14)]"
-                  style={{
-                    boxSizing: "border-box",
-                    paddingTop: "18px",
-                    paddingRight: "22px",
-                    paddingBottom: "18px",
-                    paddingLeft: "22px",
-                  }}
+                  className="group relative min-h-[220px] overflow-hidden rounded-3xl border border-slate-200/80 bg-white p-5 shadow-[0_12px_35px_rgba(15,23,42,0.08)] transition-all duration-300 hover:border-yellow-300 hover:shadow-[0_20px_50px_rgba(15,23,42,0.14)] sm:p-6"
                 >
                   {/* Halo décoratif */}
 
@@ -241,11 +182,11 @@ export default function Services() {
                   <Link
                     href={service.href}
                     aria-label={`Découvrir ${service.title}`}
-                    className="relative z-10 block h-full rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D5A52E] focus-visible:ring-offset-4"
+                    className="relative z-10 flex h-full flex-col rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D5A52E] focus-visible:ring-offset-4"
                   >
                     {/* Icône */}
 
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-yellow-100 text-[#C88A00] shadow-[0_8px_20px_rgba(213,165,46,0.16)] sm:h-14 sm:w-14">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-yellow-100 text-[#C88A00] shadow-[0_8px_20px_rgba(213,165,46,0.16)] transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105 sm:h-14 sm:w-14">
                       <Icon
                         size={24}
                         strokeWidth={2.2}
@@ -255,31 +196,22 @@ export default function Services() {
 
                     {/* Titre */}
 
-                    <h3
-                      className="mt-3.5 text-lg font-bold leading-tight text-[#082E50] sm:mt-5 sm:text-xl"
-                      style={{
-                        marginLeft: 0,
-                        paddingLeft: 0,
-                      }}
-                    >
+                    <h3 className="mt-3.5 text-lg font-bold leading-tight text-[#082E50] sm:mt-5 sm:text-xl">
                       {service.title}
                     </h3>
 
                     {/* Description */}
 
-                    <p
-                      className="mt-1.5 text-[13px] leading-5 text-slate-600 sm:mt-2 sm:text-[15px] sm:leading-6"
-                      style={{
-                        marginLeft: 0,
-                        paddingLeft: 0,
-                        paddingRight: 0,
-                        textIndent: 0,
-                        boxSizing: "border-box",
-                        overflowWrap: "break-word",
-                      }}
-                    >
+                    <p className="mt-2 text-sm leading-6 text-slate-600 sm:text-[15px]">
                       {service.description}
                     </p>
+
+                    <span className="mt-auto flex items-center gap-2 pt-5 text-sm font-bold text-[#0A6587] transition-colors group-hover:text-[#B88311]">
+                      Voir les prestations
+                      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-slate-100 transition-all group-hover:translate-x-1 group-hover:bg-yellow-100">
+                        <ArrowRight size={15} strokeWidth={2.3} aria-hidden="true" />
+                      </span>
+                    </span>
                   </Link>
                 </motion.article>
               );
