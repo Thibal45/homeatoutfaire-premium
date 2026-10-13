@@ -2,7 +2,6 @@ import ScrollProgress from "./components/ScrollProgress";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Services from "./components/Services";
-import WhyUs from "./components/WhyUs";
 import ServiceArea from "./components/ServiceArea";
 import About from "./components/About";
 import Gallery from "./components/Gallery";
@@ -160,7 +159,6 @@ export default function Home() {
       <main id="contenu-principal">
         <Hero />
         <Services />
-        <WhyUs />
         <ServiceArea />
         <About />
         <Gallery />

@@ -220,7 +220,7 @@ export default function WhatsAppButton() {
                   </p>
 
                   <p className="mt-1.5 text-sm leading-5 text-slate-600">
-                    Écrivez-nous directement sur WhatsApp.
+                    Écrivez-moi directement sur WhatsApp.
                   </p>
                 </div>
 

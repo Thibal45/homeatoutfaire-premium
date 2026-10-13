@@ -268,73 +268,30 @@ export default function Gallery() {
               duration: 0.6,
               ease: "easeOut",
             }}
-            className="mb-11 flex w-full flex-col items-center justify-center sm:mb-12"
-            style={{
-              width: "100%",
-              boxSizing: "border-box",
-              textAlign: "center",
-            }}
+            className="mx-auto mb-9 flex w-full max-w-[960px] flex-col items-center justify-center text-center sm:mb-11"
           >
             {/* BADGE */}
 
-            <span
-              className="inline-flex rounded-full border border-yellow-300/70 bg-yellow-50 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.22em] text-[#B88311]"
-              style={{
-                alignSelf: "center",
-              }}
-            >
+            <span className="inline-flex rounded-full border border-yellow-300/70 bg-yellow-50 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.22em] text-[#B88311]">
               Exemples de prestations
             </span>
 
             {/* TITRE */}
 
-            <h2
-              className="mt-4 text-3xl font-bold leading-tight tracking-tight text-[#082E50] sm:text-[2.15rem] lg:text-[2.35rem]"
-              style={{
-                width: "100%",
-                maxWidth: "960px",
-                marginLeft: "auto",
-                marginRight: "auto",
-                paddingLeft: 0,
-                paddingRight: 0,
-                textAlign: "center",
-                textIndent: 0,
-                boxSizing: "border-box",
-              }}
-            >
+            <h2 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-[#082E50] sm:text-[2.15rem] lg:text-[2.35rem]">
               Un aperçu des types d&apos;intervention
             </h2>
 
             {/* SOUS-TITRE */}
 
-            <p
-              className="mt-3 text-base leading-7 text-slate-600 sm:text-lg"
-              style={{
-                width: "100%",
-                maxWidth: "960px",
-                marginLeft: "auto",
-                marginRight: "auto",
-                paddingLeft: 0,
-                paddingRight: 0,
-                textAlign: "center",
-                textIndent: 0,
-                boxSizing: "border-box",
-              }}
-            >
+            <p className="mt-3 max-w-[820px] text-base leading-7 text-slate-600 sm:text-lg">
               Ces photos d&apos;illustration présentent les types de petits travaux
               proposés par HomeAToutFaire.
             </p>
 
             {/* BARRE JAUNE */}
 
-            <div
-              className="mt-4 h-1 w-16 rounded-full bg-[#D5A52E]"
-              style={{
-                alignSelf: "center",
-                marginLeft: "auto",
-                marginRight: "auto",
-              }}
-            />
+            <div className="mt-4 h-1 w-16 rounded-full bg-[#D5A52E]" />
           </motion.div>
 
           {/* =====================================================
@@ -390,7 +347,7 @@ export default function Gallery() {
                     alt={photo.title}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.07]"
                   />
 
                   {/* DÉGRADÉ */}
@@ -400,7 +357,7 @@ export default function Gallery() {
                   {/* BADGE */}
 
                   <div className="absolute left-4 top-4 rounded-full border border-white/25 bg-white/90 px-3 py-1.5 text-[11px] font-bold text-[#082E50] shadow-lg backdrop-blur-md">
-                    Exemple
+                    Illustration
                   </div>
 
                   {/* ICÔNE ZOOM */}
@@ -419,13 +376,9 @@ export default function Gallery() {
                       {photo.title}
                     </h3>
 
-                    <p className="mt-1 text-xs text-blue-100/75 sm:text-sm">
-                      Photo d&apos;illustration
-                    </p>
-
-                    <div className="mt-2 flex items-center justify-between text-xs font-semibold text-yellow-300 sm:text-sm">
+                    <div className="mt-2.5 flex items-center justify-between text-xs font-semibold text-yellow-300 sm:text-sm">
                       <span>
-                        Agrandir l&apos;exemple
+                        Voir en grand
                       </span>
 
                       <ChevronRight
