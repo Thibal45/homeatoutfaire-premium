@@ -79,6 +79,17 @@ section{
   border-radius: 999px;
 }/* SERVICES PREMIUM */
 
+/* FONCTIONNEMENT */
+
+.how-it-works-heading{
+  margin-inline:auto;
+  text-align:center;
+}
+
+.how-it-works-divider{
+  margin:1rem auto 0;
+}
+
 #services article{
 
 transition:.4s;

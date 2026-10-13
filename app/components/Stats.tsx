@@ -91,7 +91,7 @@ export default function Stats() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.25 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="mx-auto max-w-[900px] text-center"
+            className="how-it-works-heading mx-auto max-w-[900px] text-center"
           >
             <span className="inline-flex rounded-full border border-yellow-300/30 bg-white/8 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.22em] text-yellow-300">
               Comment ça se passe ?
@@ -107,7 +107,7 @@ export default function Stats() {
               interlocuteurs.
             </p>
 
-            <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-yellow-400" />
+            <div className="how-it-works-divider mx-auto mt-4 h-1 w-16 rounded-full bg-yellow-400" />
           </motion.div>
 
           <div className="mt-10 grid gap-5 lg:grid-cols-3">
