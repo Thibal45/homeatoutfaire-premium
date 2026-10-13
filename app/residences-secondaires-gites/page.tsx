@@ -112,7 +112,7 @@ export default function SecondaryHomesPage() {
         breadcrumbName="Résidences secondaires & gîtes"
       />
 
-      <main className="bg-slate-50">
+      <main id="contenu-principal" className="bg-slate-50">
         <section className="relative overflow-hidden bg-[#06192B] px-5 pb-16 pt-28 text-white sm:px-8 sm:pb-20 sm:pt-32 lg:px-10">
           <div
             aria-hidden="true"

@@ -3,7 +3,6 @@
 import type { ElementType } from "react";
 import Image from "next/image";
 import {
-  CheckCircle2,
   FileText,
   MapPin,
   Phone,
@@ -153,18 +152,20 @@ export default function Hero() {
               className="w-full max-w-[760px]"
             >
               {/* ===================================================
-                  TITRE SEO + SLOGAN
+                  PROMESSE PRINCIPALE
               =================================================== */}
 
-              <h1 className="text-left text-[12px] font-bold uppercase leading-5 tracking-[0.12em] text-yellow-300 sm:text-sm sm:leading-6 sm:tracking-[0.14em]">
-                Artisan multiservices à Sainte-Anastasie, près de Nîmes
+              <p className="text-left text-[11px] font-bold uppercase leading-5 tracking-[0.14em] text-yellow-300 sm:text-sm sm:leading-6 sm:tracking-[0.16em]">
+                HomeAToutFaire · Artisan multiservices
+              </p>
+
+              <h1 className="mt-1.5 max-w-[760px] text-left text-[2rem] font-bold leading-[1.04] tracking-tight text-white sm:mt-2 sm:text-[2.75rem] sm:leading-[1.05] lg:text-[3rem] xl:text-[3.2rem]">
+                Petits travaux et dépannage à Sainte-Anastasie
               </h1>
 
-              <p className="mt-1 text-left text-[1.65rem] font-light leading-[1.04] tracking-tight text-blue-100 sm:mt-1.5 sm:text-[2.1rem] sm:leading-[1.08] lg:text-[2.35rem] xl:text-[2.5rem]">
-                Votre confiance,
-                <span className="ml-2 font-semibold text-white">
-                  notre priorité.
-                </span>
+              <p className="mt-2 max-w-[690px] text-left text-sm leading-5 text-blue-50/85 sm:mt-3 sm:text-[1.05rem] sm:leading-7">
+                Un interlocuteur unique pour vos travaux du quotidien, près de
+                Nîmes et jusqu&apos;à environ 50 km aux alentours.
               </p>
 
               {/* DISPONIBILITÉ */}
@@ -174,7 +175,7 @@ export default function Hero() {
                   <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.9)]" />
 
                   <span className="font-semibold text-white">
-                    Disponible du lundi au samedi
+                    Interventions du lundi au samedi
                   </span>
 
                   <span className="text-yellow-300">•</span>
@@ -186,17 +187,11 @@ export default function Hero() {
                   <Zap size={15} strokeWidth={2.4} />
 
                   <span>
-                    Petit dépannage urgent le dimanche matin
+                    Dimanche matin : uniquement pour les dépannages
+                    d&apos;extrême urgence, selon disponibilité
                   </span>
                 </div>
               </div>
-
-              {/* DESCRIPTION */}
-
-              <p className="mt-2.5 max-w-[720px] text-left text-sm leading-5 text-blue-50/85 sm:mt-3.5 sm:text-[1.05rem] sm:leading-7">
-                Petits travaux, dépannage et entretien à Sainte-Anastasie,
-                près de Nîmes, et jusqu&apos;à 50 km aux alentours.
-              </p>
 
               {/* ===================================================
                   CARTES
@@ -291,29 +286,6 @@ export default function Hero() {
                 </motion.a>
               </div>
 
-              {/* ===================================================
-                  GARANTIES
-              =================================================== */}
-
-              <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-blue-100/65 sm:mt-3 sm:gap-x-6 sm:gap-y-2 sm:text-xs">
-                <span className="inline-flex items-center gap-1.5">
-                  <CheckCircle2
-                    size={14}
-                    className="text-emerald-300 sm:h-[15px] sm:w-[15px]"
-                  />
-
-                  Travail de proximité
-                </span>
-
-                <span className="inline-flex items-center gap-1.5">
-                  <ShieldCheck
-                    size={14}
-                    className="text-yellow-300 sm:h-[15px] sm:w-[15px]"
-                  />
-
-                  Un interlocuteur unique
-                </span>
-              </div>
             </motion.div>
 
             {/* =====================================================

@@ -369,7 +369,7 @@ export default function Contact() {
 
                   <ScheduleLine
                     day="Dimanche"
-                    hours="Petit dépannage urgent le matin"
+                    hours="Extrême urgence uniquement le matin, selon disponibilité"
                     highlight
                   />
                 </div>

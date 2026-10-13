@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 
 import {
   CheckCircle2,
@@ -85,6 +86,15 @@ export default function QuoteForm() {
     if (!formRef.current) return;
 
     const formData = new FormData(formRef.current);
+    const honeypot = String(formData.get("website") ?? "").trim();
+
+    if (honeypot) {
+      formRef.current.reset();
+      setSelectedService("");
+      setSuccess(true);
+      return;
+    }
+
     const hasPhone = String(formData.get("phone") ?? "").trim().length > 0;
     const hasEmail = String(formData.get("email") ?? "").trim().length > 0;
 
@@ -140,6 +150,20 @@ export default function QuoteForm() {
       onSubmit={handleSubmit}
       className="relative overflow-hidden rounded-3xl border border-white/15 bg-white/[0.10] p-4 shadow-[0_30px_80px_rgba(0,0,0,0.20)] backdrop-blur-xl sm:p-7 lg:p-8"
     >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-[10000px] top-auto h-px w-px overflow-hidden"
+      >
+        <label htmlFor="website">Ne pas remplir ce champ</label>
+        <input
+          id="website"
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
+
       {/* =========================================================
           DÉCORATIONS
       ========================================================= */}
@@ -221,7 +245,7 @@ export default function QuoteForm() {
         </div>
 
         {/* =======================================================
-            EMAIL + ADRESSE
+          EMAIL + COMMUNE
         ======================================================= */}
 
         <div className="mt-3.5 grid gap-3.5 sm:mt-5 sm:gap-5 md:grid-cols-2">
@@ -244,7 +268,7 @@ export default function QuoteForm() {
           </FormField>
 
           <FormField
-            label="Adresse du chantier"
+            label="Commune ou code postal du chantier"
             htmlFor="address"
             icon={<MapPin size={18} />}
             optional
@@ -253,8 +277,8 @@ export default function QuoteForm() {
               id="address"
               type="text"
               name="address"
-              autoComplete="street-address"
-              placeholder="Adresse de l'intervention"
+              autoComplete="postal-code"
+              placeholder="Ex. La Calmette ou 30190"
               className={inputClassName}
             />
           </FormField>
@@ -548,7 +572,14 @@ export default function QuoteForm() {
         <div className="mt-5 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-4 sm:mt-7 sm:gap-4 sm:pt-6 sm:flex-row">
           <p className="max-w-md text-center text-[11px] leading-4.5 text-blue-100/55 sm:text-left sm:text-xs sm:leading-5">
             Les informations saisies servent uniquement à traiter votre demande
-            de devis.
+            de devis. Consultez la{" "}
+            <Link
+              href="/politique-confidentialite"
+              className="font-semibold text-blue-100/80 underline decoration-blue-100/35 underline-offset-2 transition-colors hover:text-white"
+            >
+              politique de confidentialité
+            </Link>
+            .
           </p>
 
           <button

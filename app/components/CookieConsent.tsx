@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import Script from "next/script";
 import { Cookie } from "lucide-react";
 
@@ -141,9 +142,8 @@ export default function CookieConsent() {
       {/* BANDEAU DE CONSENTEMENT */}
       {showBanner && (
         <div
-          role="dialog"
-          aria-modal="true"
-          aria-label="Préférences de cookies"
+          role="region"
+          aria-labelledby="cookie-consent-title"
           className="fixed inset-x-0 bottom-0 z-[9999] p-3"
         >
           <div className="mx-auto w-full max-w-[1000px] rounded-2xl border border-white/15 bg-[#06192B] shadow-2xl">
@@ -154,7 +154,10 @@ export default function CookieConsent() {
                 </div>
 
                 <div className="min-w-0 flex-1">
-                  <h2 className="text-base font-bold text-white">
+                  <h2
+                    id="cookie-consent-title"
+                    className="text-base font-bold text-white"
+                  >
                     Respect de votre vie privée
                   </h2>
 
@@ -166,7 +169,14 @@ export default function CookieConsent() {
 
                   <p className="mt-1 text-xs leading-4 text-blue-100/55">
                     Vous pouvez accepter ou refuser cette mesure
-                    d&apos;audience.
+                    d&apos;audience. Consultez la{" "}
+                    <Link
+                      href="/politique-confidentialite"
+                      className="font-semibold text-blue-100/80 underline decoration-blue-100/35 underline-offset-2 transition-colors hover:text-white"
+                    >
+                      politique de confidentialité
+                    </Link>
+                    .
                   </p>
                 </div>
               </div>

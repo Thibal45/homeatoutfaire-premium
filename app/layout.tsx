@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import CookieConsent from "./components/CookieConsent";
+import MotionPreferences from "./components/MotionPreferences";
 import "./globals.css";
 
 const siteUrl = "https://www.homeatoutfaire30.fr";
@@ -88,7 +89,11 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body>
-        {children}
+        <a className="skip-link" href="#contenu-principal">
+          Aller au contenu principal
+        </a>
+
+        <MotionPreferences>{children}</MotionPreferences>
 
         <CookieConsent />
 

@@ -84,7 +84,7 @@ export default function PaintingPage() {
         breadcrumbName="Peinture"
       />
 
-      <main className="bg-slate-50">
+      <main id="contenu-principal" className="bg-slate-50">
         {/* =========================================================
             HERO
         ========================================================= */}
