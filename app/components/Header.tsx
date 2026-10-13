@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import {
   Mail,
   MapPin,
@@ -21,7 +22,7 @@ const navigation = [
     id: "services",
   },
   {
-    label: "Réalisations",
+    label: "Exemples",
     href: "/#galerie",
     id: "galerie",
   },
@@ -44,6 +45,7 @@ function trackPhoneClick(location: "header_desktop" | "header_mobile") {
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const sections = navigation
@@ -81,6 +83,23 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
+    if (!menuOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) {
         setMenuOpen(false);
@@ -107,27 +126,29 @@ export default function Header() {
         <div className="hidden lg:block">
           <div className="mx-auto grid h-[72px] w-full max-w-[1480px] grid-cols-[1fr_auto_1fr] items-center gap-6 px-5 sm:px-8 lg:px-10 xl:px-12">
             {/* =====================================================
-                GAUCHE : ADRESSE + SIRET SUR 2 LIGNES
+                GAUCHE : IDENTITÉ DE L'ENTREPRISE
             ===================================================== */}
 
             <div className="flex min-w-0 items-center justify-start">
-              <div className="flex items-start gap-2.5">
-                <MapPin
-                  size={16}
-                  strokeWidth={2.2}
-                  className="mt-0.5 shrink-0 text-[#D5A52E]"
+              <Link
+                href="/"
+                aria-label="Accueil HomeAToutFaire"
+                className="group flex min-w-0 items-center gap-3 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D5A52E]"
+              >
+                <Image
+                  src="/images/logo-homeatoutfaire.png"
+                  alt="HomeAToutFaire"
+                  width={1076}
+                  height={287}
+                  className="h-auto w-[150px] xl:w-[170px]"
                 />
 
-                <div className="min-w-0">
-                  <p className="m-0 truncate text-xs font-medium leading-5 text-slate-700 xl:text-[13px]">
-                    28, rue du Bel Air 30190 SAINTE ANASTASIE
-                  </p>
-
-                  <p className="m-0 text-[11px] font-medium leading-5 text-slate-500 xl:text-xs">
-                    SIRET : 10665167200011
-                  </p>
-                </div>
-              </div>
+                <span className="hidden border-l border-slate-200 pl-3 text-[11px] font-medium leading-4 text-slate-500 xl:block">
+                  Entreprise mobile
+                  <br />
+                  rayon d&apos;environ 50 km
+                </span>
+              </Link>
             </div>
 
             {/* =====================================================
@@ -223,17 +244,20 @@ export default function Header() {
 
         <div className="lg:hidden">
           <div className="mx-auto flex h-[68px] w-full items-center justify-between px-5 sm:px-8">
-            <div className="flex min-w-0 items-center gap-2">
-              <MapPin
-                size={16}
-                strokeWidth={2.2}
-                className="shrink-0 text-[#D5A52E]"
+            <Link
+              href="/"
+              aria-label="Accueil HomeAToutFaire"
+              onClick={() => setMenuOpen(false)}
+              className="min-w-0 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D5A52E]"
+            >
+              <Image
+                src="/images/logo-homeatoutfaire.png"
+                alt="HomeAToutFaire"
+                width={1076}
+                height={287}
+                className="h-auto w-[142px] sm:w-[158px]"
               />
-
-              <span className="truncate text-xs font-medium text-slate-600">
-                Sainte-Anastasie
-              </span>
-            </div>
+            </Link>
 
             <div className="flex items-center gap-2">
               <a
@@ -251,6 +275,7 @@ export default function Header() {
               </a>
 
               <button
+                ref={menuButtonRef}
                 type="button"
                 aria-label={
                   menuOpen
@@ -258,6 +283,7 @@ export default function Header() {
                     : "Ouvrir le menu"
                 }
                 aria-expanded={menuOpen}
+                aria-controls="navigation-mobile"
                 onClick={() => {
                   setMenuOpen((current) => !current);
                 }}
@@ -283,95 +309,94 @@ export default function Header() {
             MENU MOBILE
         ========================================================= */}
 
-        <div
-          className={`overflow-hidden border-t border-slate-100 bg-white transition-all duration-300 lg:hidden ${
-            menuOpen
-              ? "max-h-[460px] opacity-100"
-              : "max-h-0 opacity-0"
-          }`}
-        >
-          <nav
-            aria-label="Navigation mobile"
-            className="mx-auto w-full px-5 py-4 sm:px-8"
+        {menuOpen && (
+          <div
+            id="navigation-mobile"
+            className="border-t border-slate-100 bg-white shadow-lg lg:hidden"
           >
-            <div className="flex flex-col">
-              {navigation.map((item) => {
-                const active =
-                  activeSection === item.id;
+            <nav
+              aria-label="Navigation mobile"
+              className="mx-auto w-full px-5 py-4 sm:px-8"
+            >
+              <div className="flex flex-col">
+                {navigation.map((item) => {
+                  const active =
+                    activeSection === item.id;
 
-                return (
-                  <Link
-                    key={item.id}
-                    href={item.href}
-                    onClick={() => {
-                      setMenuOpen(false);
+                  return (
+                    <Link
+                      key={item.id}
+                      href={item.href}
+                      onClick={() => {
+                        setMenuOpen(false);
 
-                      if (item.id === "devis") {
-                        trackQuoteClick("header_mobile_nav");
-                      }
-                    }}
-                    className={`rounded-xl px-4 py-3.5 text-sm font-semibold transition-colors ${
-                      active
-                        ? "bg-yellow-50 text-[#B88311]"
-                        : "text-slate-700 hover:bg-slate-50 hover:text-[#082E50]"
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                );
-              })}
-            </div>
-
-            <div className="mt-4 border-t border-slate-100 pt-4">
-              <div className="flex items-start gap-3 rounded-xl px-4 py-2.5 text-sm text-slate-600">
-                <MapPin
-                  size={17}
-                  className="mt-0.5 shrink-0 text-[#D5A52E]"
-                />
-
-                <span>
-                  28, rue du Bel Air
-                  <br />
-                  30190 SAINTE ANASTASIE
-                </span>
+                        if (item.id === "devis") {
+                          trackQuoteClick("header_mobile_nav");
+                        }
+                      }}
+                      className={`rounded-xl px-4 py-3.5 text-sm font-semibold transition-colors ${
+                        active
+                          ? "bg-yellow-50 text-[#B88311]"
+                          : "text-slate-700 hover:bg-slate-50 hover:text-[#082E50]"
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                })}
               </div>
 
-              <div className="px-4 py-2 text-xs font-medium text-slate-500">
-                SIRET : 10665167200011
+              <div className="mt-4 border-t border-slate-100 pt-4">
+                <div className="flex items-start gap-3 rounded-xl px-4 py-2.5 text-sm text-slate-600">
+                  <MapPin
+                    size={17}
+                    className="mt-0.5 shrink-0 text-[#D5A52E]"
+                  />
+
+                  <span>
+                    Sainte-Anastasie (30)
+                    <br />
+                    Intervention jusqu&apos;à environ 50 km
+                  </span>
+                </div>
+
+                <div className="px-4 py-2 text-xs font-medium leading-5 text-slate-500">
+                  Entreprise mobile — pas d&apos;accueil du public sur place
+                </div>
+
+                <a
+                  href="mailto:hatf30190@gmail.com"
+                  onClick={() => {
+                    trackContactClick("email", "header_mobile");
+                  }}
+                  className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm text-slate-600"
+                >
+                  <Mail
+                    size={17}
+                    className="shrink-0 text-[#D5A52E]"
+                  />
+
+                  hatf30190@gmail.com
+                </a>
+
+                <a
+                  href="tel:0618085598"
+                  onClick={() => {
+                    trackPhoneClick("header_mobile");
+                  }}
+                  className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm text-slate-600"
+                >
+                  <Phone
+                    size={17}
+                    className="shrink-0 text-[#D5A52E]"
+                  />
+
+                  06 18 08 55 98
+                </a>
               </div>
-
-              <a
-                href="mailto:hatf30190@gmail.com"
-                onClick={() => {
-                  trackContactClick("email", "header_mobile");
-                }}
-                className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm text-slate-600"
-              >
-                <Mail
-                  size={17}
-                  className="shrink-0 text-[#D5A52E]"
-                />
-
-                hatf30190@gmail.com
-              </a>
-
-              <a
-                href="tel:0618085598"
-                onClick={() => {
-                  trackPhoneClick("header_mobile");
-                }}
-                className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm text-slate-600"
-              >
-                <Phone
-                  size={17}
-                  className="shrink-0 text-[#D5A52E]"
-                />
-
-                06 18 08 55 98
-              </a>
-            </div>
-          </nav>
-        </div>
+            </nav>
+          </div>
+        )}
       </header>
 
       {/* 3px ligne or + 72px header desktop */}

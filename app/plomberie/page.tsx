@@ -83,7 +83,7 @@ export default function PlumbingPage() {
         breadcrumbName="Plomberie"
       />
 
-      <main className="bg-slate-50">
+      <main id="contenu-principal" className="bg-slate-50">
         {/* =========================================================
             HERO
         ========================================================= */}

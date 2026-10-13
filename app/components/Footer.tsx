@@ -100,7 +100,7 @@ export default function Footer() {
               </h2>
 
               <p className="mt-3 text-sm font-medium leading-6 text-blue-100/75 sm:text-base">
-                Votre confiance, notre priorité.
+                Un interlocuteur unique pour vos petits travaux.
               </p>
 
               <p className="mt-4 max-w-xl text-sm leading-6 text-blue-100/55">
@@ -167,7 +167,7 @@ export default function Footer() {
               <FooterContact
                 icon={<MapPin size={18} strokeWidth={2.2} />}
               >
-                Sainte-Anastasie (30)
+                Sainte-Anastasie · déplacements jusqu&apos;à environ 50 km
               </FooterContact>
             </div>
           </div>
@@ -176,7 +176,7 @@ export default function Footer() {
               BAS DU FOOTER
           ===================================================== */}
 
-          <div className="pt-7">
+          <div className="flex flex-col gap-4 pt-7 lg:flex-row lg:items-center lg:justify-between">
             <p className="m-0 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-blue-100/50">
               <span>
                 © {new Date().getFullYear()} HomeAToutFaire — Tous droits
@@ -191,6 +191,25 @@ export default function Footer() {
                 SIRET : 10665167200011
               </span>
             </p>
+
+            <nav
+              aria-label="Informations légales"
+              className="flex flex-wrap gap-x-5 gap-y-2 text-xs font-medium text-blue-100/60"
+            >
+              <Link
+                href="/mentions-legales"
+                className="rounded-md transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5A52E]/70"
+              >
+                Mentions légales
+              </Link>
+
+              <Link
+                href="/politique-confidentialite"
+                className="rounded-md transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5A52E]/70"
+              >
+                Politique de confidentialité
+              </Link>
+            </nav>
           </div>
         </div>
       </div>

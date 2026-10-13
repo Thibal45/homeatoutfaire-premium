@@ -33,8 +33,17 @@ export default function ServiceStructuredData({
         provider: {
           "@id": businessId,
         },
-        areaServed:
-          "Sainte-Anastasie et jusqu’à environ 50 km aux alentours",
+        areaServed: [
+          "Sainte-Anastasie",
+          "Dions",
+          "La Calmette",
+          "Saint-Chaptes",
+          "Poulx",
+          "Nîmes",
+          "Marguerittes",
+          "Uzès",
+          "Jusqu’à environ 50 km autour de Sainte-Anastasie",
+        ],
       },
       {
         "@type": "BreadcrumbList",

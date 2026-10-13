@@ -85,7 +85,7 @@ export default function PoolMaintenancePage() {
         breadcrumbName="Entretien de piscine"
       />
 
-      <main className="bg-slate-50">
+      <main id="contenu-principal" className="bg-slate-50">
         {/* =========================================================
             HERO
         ========================================================= */}

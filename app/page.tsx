@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Services from "./components/Services";
 import WhyUs from "./components/WhyUs";
+import ServiceArea from "./components/ServiceArea";
 import About from "./components/About";
 import Gallery from "./components/Gallery";
 import Reviews from "./components/Reviews";
@@ -30,20 +31,32 @@ const jsonLd = {
 
   logo: "https://www.homeatoutfaire30.fr/images/logo-homeatoutfaire.png",
 
+  sameAs: [
+    "https://www.google.com/maps/search/?api=1&query=HomeAToutFaire&query_place_id=ChIJp5B_zKJ7l40RhGKlLKRL-C4",
+  ],
+
   description:
     "HomeAToutFaire propose des petits travaux multiservices, de l’entretien courant et de petits dépannages à Sainte-Anastasie, près de Nîmes, et jusqu’à environ 50 km aux alentours.",
 
   address: {
     "@type": "PostalAddress",
-    streetAddress: "28, rue du Bel Air",
     postalCode: "30190",
     addressLocality: "Sainte-Anastasie",
     addressRegion: "Gard",
     addressCountry: "FR",
   },
 
-  areaServed:
-    "Sainte-Anastasie et jusqu’à environ 50 km aux alentours",
+  areaServed: [
+    "Sainte-Anastasie",
+    "Dions",
+    "La Calmette",
+    "Saint-Chaptes",
+    "Poulx",
+    "Nîmes",
+    "Marguerittes",
+    "Uzès",
+    "Jusqu’à environ 50 km autour de Sainte-Anastasie",
+  ],
 
   openingHoursSpecification: [
     {
@@ -137,17 +150,18 @@ export default function Home() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd),
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
 
       <ScrollProgress />
       <Header />
 
-      <main>
+      <main id="contenu-principal">
         <Hero />
         <Services />
         <WhyUs />
+        <ServiceArea />
         <About />
         <Gallery />
         <Reviews />
