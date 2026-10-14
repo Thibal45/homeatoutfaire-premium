@@ -20,11 +20,10 @@ import ServiceStructuredData from "../components/ServiceStructuredData";
 const siteUrl = "https://www.homeatoutfaire30.fr";
 
 export const metadata: Metadata = {
-  title:
-    "Entretien de piscine à Sainte-Anastasie, près de Nîmes",
+  title: "Entretien piscine près de Nîmes",
 
   description:
-    "Entretien de piscine ponctuel ou régulier avec HomeAToutFaire à Sainte-Anastasie, près de Nîmes, et jusqu'à 50 km : nettoyage courant et petites interventions sur existant.",
+    "Entretien ponctuel ou régulier de piscine près de Sainte-Anastasie et Nîmes : nettoyage courant et petites interventions sur existant, jusqu'à 50 km.",
 
   alternates: {
     canonical: "/entretien-piscine",

@@ -19,8 +19,7 @@ import ServiceStructuredData from "../components/ServiceStructuredData";
 const siteUrl = "https://www.homeatoutfaire30.fr";
 
 export const metadata: Metadata = {
-  title:
-    "Petits travaux de menuiserie à Sainte-Anastasie, près de Nîmes",
+  title: "Petits travaux de menuiserie près de Nîmes",
 
   description:
     "HomeAToutFaire réalise vos petits travaux de menuiserie, réglages et réparations simples à Sainte-Anastasie, près de Nîmes, et jusqu'à 50 km. Devis gratuit.",

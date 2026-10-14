@@ -18,8 +18,7 @@ import ServiceStructuredData from "../components/ServiceStructuredData";
 const siteUrl = "https://www.homeatoutfaire30.fr";
 
 export const metadata: Metadata = {
-  title:
-    "Petits travaux de plomberie à Sainte-Anastasie, près de Nîmes",
+  title: "Petits travaux de plomberie près de Nîmes",
 
   description:
     "HomeAToutFaire réalise de petits travaux de plomberie sur installations existantes à Sainte-Anastasie, près de Nîmes, et jusqu'à 50 km. Devis gratuit.",

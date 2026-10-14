@@ -19,8 +19,7 @@ import ServiceStructuredData from "../components/ServiceStructuredData";
 const siteUrl = "https://www.homeatoutfaire30.fr";
 
 export const metadata: Metadata = {
-  title:
-    "Petits travaux électriques à Sainte-Anastasie, près de Nîmes",
+  title: "Petits travaux électriques près de Nîmes",
 
   description:
     "HomeAToutFaire réalise de petits travaux électriques sur installation existante à Sainte-Anastasie, près de Nîmes, et jusqu'à 50 km. Devis gratuit.",

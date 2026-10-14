@@ -17,11 +17,10 @@ import ServiceStructuredData from "../components/ServiceStructuredData";
 const siteUrl = "https://www.homeatoutfaire30.fr";
 
 export const metadata: Metadata = {
-  title:
-    "Petits travaux pour résidences secondaires et gîtes près de Nîmes",
+  title: "Travaux pour gîtes près de Nîmes",
 
   description:
-    "HomeAToutFaire accompagne les propriétaires de résidences secondaires, gîtes et locations saisonnières pour leurs petits travaux, remises en état légères, entretien courant et piscine autour de Sainte-Anastasie et Nîmes.",
+    "Petits travaux et entretien courant pour résidences secondaires, gîtes et locations saisonnières autour de Sainte-Anastasie et Nîmes.",
 
   alternates: {
     canonical: "/residences-secondaires-gites",

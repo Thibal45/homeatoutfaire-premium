@@ -7,6 +7,10 @@ import { Cookie } from "lucide-react";
 
 const GA_MEASUREMENT_ID = "G-W93SKYD01D";
 const CONSENT_KEY = "homeatoutfaire-cookie-consent";
+const ANALYTICS_HOSTNAMES = new Set([
+  "homeatoutfaire30.fr",
+  "www.homeatoutfaire30.fr",
+]);
 
 type ConsentChoice = "granted" | "denied" | null;
 
@@ -95,10 +99,12 @@ export default function CookieConsent() {
     return null;
   }
 
+  const canLoadAnalytics = ANALYTICS_HOSTNAMES.has(window.location.hostname);
+
   return (
     <>
       {/* GOOGLE ANALYTICS */}
-      {consent === "granted" && (
+      {consent === "granted" && canLoadAnalytics && (
         <>
           <Script
             id="google-consent-init"
