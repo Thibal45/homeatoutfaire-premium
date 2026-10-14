@@ -19,8 +19,7 @@ import ServiceStructuredData from "../components/ServiceStructuredData";
 const siteUrl = "https://www.homeatoutfaire30.fr";
 
 export const metadata: Metadata = {
-  title:
-    "Petits travaux de peinture à Sainte-Anastasie, près de Nîmes",
+  title: "Petits travaux de peinture près de Nîmes",
 
   description:
     "HomeAToutFaire réalise vos petits travaux de peinture et rafraîchissement intérieur à Sainte-Anastasie, près de Nîmes, et jusqu'à 50 km. Devis gratuit.",

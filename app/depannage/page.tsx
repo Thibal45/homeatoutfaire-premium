@@ -18,8 +18,7 @@ import ServiceStructuredData from "../components/ServiceStructuredData";
 const siteUrl = "https://www.homeatoutfaire30.fr";
 
 export const metadata: Metadata = {
-  title:
-    "Petit dépannage à Sainte-Anastasie, près de Nîmes",
+  title: "Petit dépannage près de Nîmes",
 
   description:
     "HomeAToutFaire intervient pour vos petits dépannages et réparations courantes à Sainte-Anastasie, près de Nîmes, et jusqu'à 50 km. Devis gratuit.",
