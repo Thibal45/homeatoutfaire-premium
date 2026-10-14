@@ -1,3 +1,5 @@
+import { serviceAreaNames } from "../data/service-areas";
+
 const siteUrl = "https://www.homeatoutfaire30.fr";
 const businessId = `${siteUrl}/#business`;
 
@@ -33,17 +35,7 @@ export default function ServiceStructuredData({
         provider: {
           "@id": businessId,
         },
-        areaServed: [
-          "Sainte-Anastasie",
-          "Dions",
-          "La Calmette",
-          "Saint-Chaptes",
-          "Poulx",
-          "Nîmes",
-          "Marguerittes",
-          "Uzès",
-          "Jusqu’à environ 50 km autour de Sainte-Anastasie",
-        ],
+        areaServed: serviceAreaNames,
       },
       {
         "@type": "BreadcrumbList",

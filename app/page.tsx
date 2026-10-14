@@ -12,6 +12,7 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import BackToTop from "./components/BackToTop";
 import WhatsAppButton from "./components/WhatsAppButton";
+import { serviceAreaNames } from "./data/service-areas";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -45,17 +46,7 @@ const jsonLd = {
     addressCountry: "FR",
   },
 
-  areaServed: [
-    "Sainte-Anastasie",
-    "Dions",
-    "La Calmette",
-    "Saint-Chaptes",
-    "Poulx",
-    "Nîmes",
-    "Marguerittes",
-    "Uzès",
-    "Jusqu’à environ 50 km autour de Sainte-Anastasie",
-  ],
+  areaServed: serviceAreaNames,
 
   openingHoursSpecification: [
     {

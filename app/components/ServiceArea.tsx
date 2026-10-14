@@ -41,8 +41,10 @@ export default function ServiceArea() {
           </h2>
 
           <p className="mt-4 max-w-xl text-base leading-7 text-blue-100/75 sm:text-lg sm:leading-8">
-            La possibilité d&apos;intervention dépend du type de travaux, de la
-            distance et des disponibilités. Un code postal suffit pour vérifier.
+            Interventions notamment à Sainte-Anastasie, La Calmette,
+            Saint-Geniès-de-Malgoirès et dans les communes voisines, selon le
+            type de travaux, la distance et les disponibilités. Un code postal
+            suffit pour vérifier.
           </p>
 
           <div className="mt-6 flex items-start gap-3 border-l-2 border-yellow-300/70 pl-4 text-sm leading-6 text-blue-100/70">
