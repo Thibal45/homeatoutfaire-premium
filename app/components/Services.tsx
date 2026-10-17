@@ -143,7 +143,7 @@ export default function Services() {
               GRILLE DES SERVICES
           ===================================================== */}
 
-          <div className="grid gap-3.5 sm:gap-5 md:grid-cols-2 xl:grid-cols-3 xl:gap-6">
+          <div className="grid gap-3.5 min-[400px]:grid-cols-2 sm:gap-5 xl:grid-cols-3 xl:gap-6">
             {services.map((service, index) => {
               const Icon = service.icon;
 
@@ -170,7 +170,7 @@ export default function Services() {
                   whileHover={{
                     y: -5,
                   }}
-                  className="group relative min-h-[220px] overflow-hidden rounded-3xl border border-slate-200/80 bg-white p-5 shadow-[0_12px_35px_rgba(15,23,42,0.08)] transition-all duration-300 hover:border-yellow-300 hover:shadow-[0_20px_50px_rgba(15,23,42,0.14)] sm:p-6"
+                  className="group relative min-h-[220px] overflow-hidden rounded-3xl border border-slate-200/80 bg-white p-5 shadow-[0_12px_35px_rgba(15,23,42,0.08)] transition-all duration-300 hover:border-yellow-300 hover:shadow-[0_20px_50px_rgba(15,23,42,0.14)] min-[400px]:min-h-[260px] min-[400px]:p-4 sm:p-6"
                 >
                   {/* Halo décoratif */}
 
@@ -196,13 +196,13 @@ export default function Services() {
 
                     {/* Titre */}
 
-                    <h3 className="mt-3.5 text-lg font-bold leading-tight text-[#082E50] sm:mt-5 sm:text-xl">
+                    <h3 className="mt-3.5 text-lg font-bold leading-tight text-[#082E50] min-[400px]:text-base sm:mt-5 sm:text-xl">
                       {service.title}
                     </h3>
 
                     {/* Description */}
 
-                    <p className="mt-2 text-sm leading-6 text-slate-600 sm:text-[15px]">
+                    <p className="mt-2 text-sm leading-6 text-slate-600 min-[400px]:text-[13px] min-[400px]:leading-5 sm:text-[15px] sm:leading-6">
                       {service.description}
                     </p>
 

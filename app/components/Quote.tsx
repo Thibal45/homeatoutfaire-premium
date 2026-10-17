@@ -126,7 +126,7 @@ export default function Quote() {
               delay: 0.08,
               ease: "easeOut",
             }}
-            className="mb-5 grid gap-2.5 sm:mb-7 sm:grid-cols-3 sm:gap-4"
+            className="mb-5 grid gap-2.5 min-[400px]:grid-cols-3 sm:mb-7 sm:gap-4"
           >
             <Benefit
               icon={<CheckCircle2 size={19} strokeWidth={2.3} />}
@@ -199,7 +199,7 @@ function Benefit({
 }: BenefitProps) {
   return (
     <div
-      className="flex items-center gap-3 rounded-2xl border border-[#082E50]/10 bg-white shadow-[0_8px_24px_rgba(15,23,42,0.06)]"
+      className="flex items-center gap-3 rounded-2xl border border-[#082E50]/10 bg-white shadow-[0_8px_24px_rgba(15,23,42,0.06)] min-[400px]:flex-col min-[400px]:justify-center min-[400px]:gap-2 min-[400px]:text-center sm:flex-row sm:justify-start sm:gap-3 sm:text-left"
       style={{
         boxSizing: "border-box",
         paddingTop: "11px",
