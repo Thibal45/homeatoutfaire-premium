@@ -150,13 +150,13 @@ export default function CookieConsent() {
         <div
           role="region"
           aria-labelledby="cookie-consent-title"
-          className="fixed inset-x-0 bottom-0 z-[9999] p-3"
+          className="fixed inset-x-0 bottom-0 z-[9999] p-2.5 sm:p-3"
         >
           <div className="mx-auto w-full max-w-[1000px] rounded-2xl border border-white/15 bg-[#06192B] shadow-2xl">
-            <div className="p-4">
+            <div className="p-3.5 sm:p-4">
               <div className="flex items-start gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-yellow-400/15 text-yellow-300">
-                  <Cookie size={21} strokeWidth={2.1} />
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-yellow-400/15 text-yellow-300 sm:h-10 sm:w-10">
+                  <Cookie size={20} strokeWidth={2.1} />
                 </div>
 
                 <div className="min-w-0 flex-1">
@@ -167,13 +167,13 @@ export default function CookieConsent() {
                     Respect de votre vie privée
                   </h2>
 
-                  <p className="mt-1 text-sm leading-5 text-blue-100/80">
+                  <p className="mt-1 text-[13px] leading-5 text-blue-100/80 sm:text-sm">
                     HomeAToutFaire utilise Google Analytics uniquement avec
                     votre accord afin de mesurer la fréquentation du site et
                     améliorer son fonctionnement.
                   </p>
 
-                  <p className="mt-1 text-xs leading-4 text-blue-100/55">
+                  <p className="mt-1 text-[11px] leading-4 text-blue-100/55 sm:text-xs">
                     Vous pouvez accepter ou refuser cette mesure
                     d&apos;audience. Consultez la{" "}
                     <Link
@@ -188,7 +188,7 @@ export default function CookieConsent() {
               </div>
 
               {/* BOUTONS TOUJOURS VISIBLES */}
-              <div className="mt-4 flex w-full flex-col gap-2 sm:flex-row">
+              <div className="mt-3 grid w-full grid-cols-2 gap-2 sm:mt-4">
                 <button
                   type="button"
                   onClick={refuseAnalytics}

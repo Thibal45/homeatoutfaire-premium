@@ -58,7 +58,7 @@ export default function Hero() {
             fill
             preload
             sizes="100vw"
-            className="object-cover object-[58%_45%]"
+            className="object-cover object-[68%_center] lg:object-[58%_45%]"
           />
         </div>
 
@@ -73,7 +73,7 @@ export default function Hero() {
 
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-[2] bg-[linear-gradient(90deg,rgba(3,18,32,0.94)_0%,rgba(4,27,47,0.82)_34%,rgba(4,27,47,0.40)_58%,rgba(4,20,35,0.10)_100%)]"
+          className="pointer-events-none absolute inset-0 z-[2] bg-[linear-gradient(90deg,rgba(3,18,32,0.96)_0%,rgba(4,27,47,0.88)_58%,rgba(4,20,35,0.68)_100%)] lg:bg-[linear-gradient(90deg,rgba(3,18,32,0.94)_0%,rgba(4,27,47,0.82)_34%,rgba(4,27,47,0.40)_58%,rgba(4,20,35,0.10)_100%)]"
         />
 
         <div
@@ -95,7 +95,7 @@ export default function Hero() {
             CONTENU GLOBAL
         ========================================================= */}
 
-        <div className="relative z-10 mx-auto flex min-h-[calc(100svh-68px)] w-full max-w-[1480px] flex-col justify-center px-5 py-10 sm:px-8 sm:py-12 lg:min-h-[760px] lg:px-10 lg:py-14 xl:px-12">
+        <div className="relative z-10 mx-auto flex min-h-[calc(100svh-68px)] w-full max-w-[1480px] flex-col justify-center px-5 py-8 sm:px-8 sm:py-12 lg:min-h-[760px] lg:px-10 lg:py-14 xl:px-12">
           {/* =======================================================
               ZONE PRINCIPALE
           ======================================================= */}
@@ -168,7 +168,7 @@ export default function Hero() {
                   CARTES
               =================================================== */}
 
-              <div className="mt-5 grid w-full gap-2 sm:grid-cols-3 sm:gap-3">
+              <div className="mt-5 grid w-full gap-2 min-[380px]:grid-cols-3 sm:gap-3">
                 <HeroCard
                   icon={Zap}
                   title="Réactif"
@@ -195,7 +195,7 @@ export default function Hero() {
                   CTA
               =================================================== */}
 
-              <div className="mt-5 grid w-full gap-2.5 sm:grid-cols-2 sm:gap-3">
+              <div className="mt-5 grid w-full gap-2.5 min-[380px]:grid-cols-2 sm:gap-3">
                 <motion.a
                   href="tel:0618085598"
                   aria-label="Appeler HomeAToutFaire au 06 18 08 55 98"
@@ -207,7 +207,7 @@ export default function Hero() {
                   whileTap={{
                     scale: 0.98,
                   }}
-                  className="inline-flex min-h-[50px] w-full items-center justify-center gap-3 rounded-2xl bg-yellow-400 px-5 py-2.5 font-bold text-[#06192B] shadow-[0_14px_38px_rgba(250,204,21,0.28)] transition-colors hover:bg-yellow-300 sm:min-h-[56px] sm:px-6 sm:py-3"
+                  className="inline-flex min-h-[50px] w-full items-center justify-center gap-3 rounded-2xl bg-yellow-400 px-5 py-2.5 font-bold text-[#06192B] shadow-[0_14px_38px_rgba(250,204,21,0.28)] transition-colors hover:bg-yellow-300 min-[380px]:min-h-[76px] min-[380px]:flex-col min-[380px]:gap-1 min-[380px]:px-2 min-[380px]:py-2 sm:min-h-[56px] sm:flex-row sm:gap-3 sm:px-6 sm:py-3"
                 >
                   <Phone
                     size={20}
@@ -237,7 +237,7 @@ export default function Hero() {
                   whileTap={{
                     scale: 0.98,
                   }}
-                  className="inline-flex min-h-[50px] w-full items-center justify-center gap-3 rounded-2xl border border-white/25 bg-[#06192B]/60 px-5 py-2.5 font-semibold text-white shadow-lg backdrop-blur-xl transition-colors hover:border-yellow-300/60 hover:bg-white hover:text-[#06192B] sm:min-h-[56px] sm:px-6 sm:py-3"
+                  className="inline-flex min-h-[50px] w-full items-center justify-center gap-3 rounded-2xl border border-white/25 bg-[#06192B]/60 px-5 py-2.5 font-semibold text-white shadow-lg backdrop-blur-xl transition-colors hover:border-yellow-300/60 hover:bg-white hover:text-[#06192B] min-[380px]:min-h-[76px] min-[380px]:flex-col min-[380px]:gap-1 min-[380px]:px-2 min-[380px]:py-2 sm:min-h-[56px] sm:flex-row sm:gap-3 sm:px-6 sm:py-3"
                 >
                   <FileText
                     size={20}
@@ -316,7 +316,7 @@ function HeroCard({
       transition={{
         duration: 0.2,
       }}
-      className="flex min-h-[60px] items-center gap-3 rounded-2xl border border-white/12 bg-[#06192B]/58 px-3 py-2 shadow-[0_12px_28px_rgba(0,0,0,0.14)] backdrop-blur-xl sm:min-h-[72px] sm:px-4 sm:py-2.5"
+      className="flex min-h-[60px] items-center gap-3 rounded-2xl border border-white/12 bg-[#06192B]/58 px-3 py-2 shadow-[0_12px_28px_rgba(0,0,0,0.14)] backdrop-blur-xl min-[380px]:min-h-[108px] min-[380px]:flex-col min-[380px]:justify-center min-[380px]:gap-1.5 min-[380px]:px-2 min-[380px]:text-center sm:min-h-[72px] sm:flex-row sm:justify-start sm:gap-3 sm:px-4 sm:py-2.5 sm:text-left"
     >
       <div
         className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl sm:h-10 sm:w-10 ${iconClassName}`}

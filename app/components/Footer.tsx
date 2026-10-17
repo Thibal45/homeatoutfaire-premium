@@ -125,7 +125,7 @@ export default function Footer() {
 
                 <nav
                   aria-label="Services HomeAToutFaire"
-                  className="mt-4 grid max-w-2xl gap-x-8 gap-y-2 sm:grid-cols-2"
+                  className="mt-4 grid max-w-2xl gap-x-6 gap-y-2 min-[400px]:grid-cols-2 sm:gap-x-8"
                 >
                   {serviceLinks.map((service) => (
                     <Link
