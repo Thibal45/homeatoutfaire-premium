@@ -11,7 +11,7 @@ type GtagWindow = Window & {
   ) => void;
 };
 
-const googleReviewsUrl = "https://g.page/r/CYRipSykS_guEBM/review";
+const googleReviewsUrl = "https://g.page/r/Cf0mvGh1AFkOECE/review";
 
 function trackGoogleReviewClick() {
   const analyticsWindow = window as GtagWindow;
