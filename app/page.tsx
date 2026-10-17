@@ -33,6 +33,7 @@ const jsonLd = {
 
   sameAs: [
     "https://www.google.com/maps/search/?api=1&query=HomeAToutFaire&query_place_id=ChIJp5B_zKJ7l40RhGKlLKRL-C4",
+    "https://www.facebook.com/profile.php?id=61595599822418",
   ],
 
   description:

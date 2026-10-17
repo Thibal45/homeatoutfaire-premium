@@ -9,6 +9,7 @@ type AnalyticsWindow = Window & {
 };
 
 export type ContactMethod = "email" | "phone" | "whatsapp";
+export type SocialPlatform = "facebook" | "instagram";
 
 function trackEvent(eventName: string, parameters?: GtagParameters) {
   if (typeof window === "undefined") return;
@@ -33,6 +34,16 @@ export function trackQuoteClick(location: string, service?: string) {
   trackEvent("click_quote", {
     location,
     ...(service ? { service } : {}),
+  });
+}
+
+export function trackSocialClick(
+  platform: SocialPlatform,
+  location: string,
+) {
+  trackEvent("click_social", {
+    platform,
+    location,
   });
 }
 

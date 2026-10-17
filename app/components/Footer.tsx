@@ -8,6 +8,10 @@ import {
 } from "lucide-react";
 import type { ContactMethod } from "../lib/analytics";
 import TrackedContactLink from "./TrackedContactLink";
+import TrackedSocialLink from "./TrackedSocialLink";
+
+const facebookUrl =
+  "https://www.facebook.com/profile.php?id=61595599822418";
 
 const serviceLinks = [
   {
@@ -193,9 +197,20 @@ export default function Footer() {
             </p>
 
             <nav
-              aria-label="Informations légales"
+              aria-label="Réseaux sociaux et informations légales"
               className="flex flex-wrap gap-x-5 gap-y-2 text-xs font-medium text-blue-100/60"
             >
+              <TrackedSocialLink
+                href={facebookUrl}
+                location="footer"
+                platform="facebook"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-md transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5A52E]/70"
+              >
+                Facebook
+              </TrackedSocialLink>
+
               <Link
                 href="/mentions-legales"
                 className="rounded-md transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5A52E]/70"
