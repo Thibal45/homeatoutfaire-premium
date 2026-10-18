@@ -56,10 +56,10 @@ export default function About() {
           <Image
             src="/images/thibaut-sachot-homeatoutfaire.webp"
             alt="Thibaut SACHOT, interlocuteur HomeAToutFaire"
-            width={640}
-            height={800}
+            width={480}
+            height={640}
             sizes="(max-width: 1024px) 100vw, 460px"
-            className="aspect-[3/4] w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.025]"
+            className="aspect-[3/4] w-full object-contain object-center transition-transform duration-700 group-hover:scale-[1.025]"
           />
 
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#06192B] via-[#06192B]/88 to-transparent px-6 pb-6 pt-20 text-white sm:px-8 sm:pb-8">
