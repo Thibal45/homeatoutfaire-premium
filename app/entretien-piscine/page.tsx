@@ -43,9 +43,9 @@ export const metadata: Metadata = {
 
     images: [
       {
-        url: "/images/logo-homeatoutfaire.png",
-        width: 1076,
-        height: 287,
+        url: "/images/homeatoutfaire-social-share.png",
+        width: 1200,
+        height: 630,
         alt: "HomeAToutFaire - Entretien de piscine à Sainte-Anastasie",
       },
     ],
