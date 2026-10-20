@@ -60,9 +60,9 @@ export const metadata: Metadata = {
 
     images: [
       {
-        url: "/images/logo-homeatoutfaire.png",
-        width: 1076,
-        height: 287,
+        url: "/images/homeatoutfaire-social-share.png",
+        width: 1200,
+        height: 630,
         alt: "HomeAToutFaire - Artisan multiservices à Sainte-Anastasie",
       },
     ],
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
     description:
       "Petits travaux multiservices, entretien courant et petit dépannage autour de Sainte-Anastasie et Nîmes.",
 
-    images: ["/images/logo-homeatoutfaire.png"],
+    images: ["/images/homeatoutfaire-social-share.png"],
   },
 };
 
