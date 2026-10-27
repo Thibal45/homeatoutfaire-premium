@@ -12,6 +12,7 @@ import TrackedSocialLink from "./TrackedSocialLink";
 
 const facebookUrl =
   "https://www.facebook.com/profile.php?id=61595599822418";
+const instagramUrl = "https://www.instagram.com/home.atoutfaire30/";
 
 const serviceLinks = [
   {
@@ -209,6 +210,17 @@ export default function Footer() {
                 className="rounded-md transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5A52E]/70"
               >
                 Facebook
+              </TrackedSocialLink>
+
+              <TrackedSocialLink
+                href={instagramUrl}
+                location="footer"
+                platform="instagram"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-md transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5A52E]/70"
+              >
+                Instagram
               </TrackedSocialLink>
 
               <Link
