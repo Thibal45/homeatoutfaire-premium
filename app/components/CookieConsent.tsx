@@ -1,7 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Script from "next/script";
 import { Cookie } from "lucide-react";
 
@@ -47,12 +49,18 @@ function deleteGoogleAnalyticsCookies() {
 }
 
 export default function CookieConsent() {
+  const pathname = usePathname();
   const [consent, setConsent] = useState<ConsentChoice>(null);
   const [isReady, setIsReady] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
+  const [bannerHost, setBannerHost] = useState<HTMLElement | null>(null);
+  const bannerRef = useRef<HTMLDivElement>(null);
+  const focusOnOpen = useRef(false);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
+      // Refresh the host after client navigation replaces a page's Header.
+      setBannerHost(document.getElementById("cookie-consent-slot"));
       const savedConsent = window.localStorage.getItem(CONSENT_KEY);
 
       if (savedConsent === "granted" || savedConsent === "denied") {
@@ -69,7 +77,14 @@ export default function CookieConsent() {
     return () => {
       window.clearTimeout(timer);
     };
-  }, []);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (showBanner && focusOnOpen.current) {
+      focusOnOpen.current = false;
+      bannerRef.current?.focus();
+    }
+  }, [showBanner]);
 
   function acceptAnalytics() {
     window.localStorage.setItem(CONSENT_KEY, "granted");
@@ -92,6 +107,11 @@ export default function CookieConsent() {
   }
 
   function reopenPreferences() {
+    if (showBanner) {
+      bannerRef.current?.focus();
+      return;
+    }
+    focusOnOpen.current = true;
     setShowBanner(true);
   }
 
@@ -100,6 +120,43 @@ export default function CookieConsent() {
   }
 
   const canLoadAnalytics = ANALYTICS_HOSTNAMES.has(window.location.hostname);
+
+  const banner = showBanner ? (
+    <div
+      ref={bannerRef}
+      role="region"
+      tabIndex={-1}
+      aria-labelledby="cookie-consent-title"
+      className="scroll-mt-[83px] border-b border-slate-200 bg-[#06192B] px-5 py-4 text-white focus-visible:outline-4 focus-visible:outline-offset-[-4px] focus-visible:outline-yellow-300 sm:px-8 lg:scroll-mt-[87px] lg:px-10"
+    >
+      <div className="mx-auto grid w-full max-w-[1360px] items-center gap-4 md:grid-cols-[minmax(0,1fr)_auto]">
+        <div className="flex min-w-0 items-start gap-3">
+          <Cookie size={22} strokeWidth={2.1} aria-hidden="true" className="mt-0.5 shrink-0 text-yellow-300" />
+          <div className="min-w-0">
+            <h2 id="cookie-consent-title" className="text-sm font-bold text-white">
+              Respect de votre vie privée
+            </h2>
+            <p className="mt-1 text-sm leading-6 text-blue-100">
+              Google Analytics mesure la fréquentation du site uniquement avec votre accord.
+              Vous pouvez continuer votre visite sans accepter cette mesure d&apos;audience.{" "}
+              <Link href="/politique-confidentialite" className="font-semibold underline underline-offset-2 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-300">
+                Politique de confidentialité
+              </Link>
+              .
+            </p>
+          </div>
+        </div>
+        <div className="grid w-full grid-cols-2 gap-2 md:w-[280px]">
+          <button type="button" onClick={refuseAnalytics} className="min-h-12 rounded-xl border border-white/50 bg-[#102C44] px-3 py-3 text-sm font-bold text-white hover:bg-[#183C58] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-300">
+            Tout refuser
+          </button>
+          <button type="button" onClick={acceptAnalytics} className="min-h-12 rounded-xl border border-yellow-300 bg-yellow-300 px-3 py-3 text-sm font-bold text-[#06192B] hover:bg-yellow-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+            Tout accepter
+          </button>
+        </div>
+      </div>
+    </div>
+  ) : null;
 
   return (
     <>
@@ -145,92 +202,20 @@ export default function CookieConsent() {
         </>
       )}
 
-      {/* BANDEAU DE CONSENTEMENT */}
-      {showBanner && (
-        <div
-          role="region"
-          aria-labelledby="cookie-consent-title"
-          className="fixed inset-x-0 bottom-0 z-[9999] p-2.5 sm:p-3"
-        >
-          <div className="mx-auto w-full max-w-[1000px] rounded-2xl border border-white/15 bg-[#06192B] shadow-2xl">
-            <div className="p-3.5 sm:p-4">
-              <div className="flex items-start gap-3">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-yellow-400/15 text-yellow-300 sm:h-10 sm:w-10">
-                  <Cookie size={20} strokeWidth={2.1} />
-                </div>
-
-                <div className="min-w-0 flex-1">
-                  <h2
-                    id="cookie-consent-title"
-                    className="text-base font-bold text-white"
-                  >
-                    Respect de votre vie privée
-                  </h2>
-
-                  <p className="mt-1 text-[13px] leading-5 text-blue-100/80 sm:text-sm">
-                    HomeAToutFaire utilise Google Analytics uniquement avec
-                    votre accord afin de mesurer la fréquentation du site et
-                    améliorer son fonctionnement.
-                  </p>
-
-                  <p className="mt-1 text-[11px] leading-4 text-blue-100/55 sm:text-xs">
-                    Vous pouvez accepter ou refuser cette mesure
-                    d&apos;audience. Consultez la{" "}
-                    <Link
-                      href="/politique-confidentialite"
-                      className="font-semibold text-blue-100/80 underline decoration-blue-100/35 underline-offset-2 transition-colors hover:text-white"
-                    >
-                      politique de confidentialité
-                    </Link>
-                    .
-                  </p>
-                </div>
-              </div>
-
-              {/* BOUTONS TOUJOURS VISIBLES */}
-              <div className="mt-3 grid w-full grid-cols-2 gap-2 sm:mt-4">
-                <button
-                  type="button"
-                  onClick={refuseAnalytics}
-                  className="min-h-[48px] flex-1 rounded-xl px-4 py-3 text-sm font-bold"
-                  style={{
-                    backgroundColor: "#102C44",
-                    color: "#FFFFFF",
-                    border: "1px solid rgba(255,255,255,0.35)",
-                  }}
-                >
-                  Tout refuser
-                </button>
-
-                <button
-                  type="button"
-                  onClick={acceptAnalytics}
-                  className="min-h-[48px] flex-1 rounded-xl px-4 py-3 text-sm font-bold"
-                  style={{
-                    backgroundColor: "#FACC15",
-                    color: "#06192B",
-                    border: "1px solid #FACC15",
-                  }}
-                >
-                  Tout accepter
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* In-flow after Header; a non-overlay fallback also covers error pages. */}
+      {bannerHost ? createPortal(banner, bannerHost) : banner}
 
       {/* MODIFIER LE CHOIX */}
-      {!showBanner && (
+      <div className="border-t border-slate-200 bg-[#F5F7FA] px-5 py-3 text-center">
         <button
           type="button"
           onClick={reopenPreferences}
           aria-label="Gérer mes préférences de cookies"
-          className="fixed bottom-3 left-1/2 z-[100] -translate-x-1/2 rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-[#082E50] shadow-md"
+          className="min-h-11 rounded-lg px-4 py-2 text-sm font-semibold text-[#082E50] underline underline-offset-4 hover:bg-slate-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#082E50]"
         >
           Gérer mes cookies
         </button>
-      )}
+      </div>
     </>
   );
 }

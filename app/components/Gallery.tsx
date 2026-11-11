@@ -4,6 +4,7 @@ import type { ReactNode, RefObject } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
+import Link from "next/link";
 
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -16,7 +17,7 @@ import {
   X,
 } from "lucide-react";
 
-import { gallery } from "../data/gallery";
+import { ceilingProject, gallery, illustrations } from "../data/gallery";
 
 export default function Gallery() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -273,20 +274,20 @@ export default function Gallery() {
             {/* BADGE */}
 
             <span className="inline-flex rounded-full border border-yellow-300/70 bg-yellow-50 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.22em] text-[#B88311]">
-              Exemples de prestations
+              Réalisations et prestations
             </span>
 
             {/* TITRE */}
 
             <h2 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-[#082E50] sm:text-[2.15rem] lg:text-[2.35rem]">
-              Un aperçu des types d&apos;intervention
+              Des travaux qui prennent vie en images
             </h2>
 
             {/* SOUS-TITRE */}
 
             <p className="mt-3 max-w-[820px] text-base leading-7 text-slate-600 sm:text-lg">
-              Ces photos d&apos;illustration présentent les types de petits travaux
-              proposés par HomeAToutFaire.
+              Découvrez un chantier réalisé par HomeAToutFaire, puis un aperçu
+              illustré des types d&apos;intervention proposés.
             </p>
 
             {/* BARRE JAUNE */}
@@ -294,12 +295,96 @@ export default function Gallery() {
             <div className="mt-4 h-1 w-16 rounded-full bg-[#D5A52E]" />
           </motion.div>
 
+          <article
+            aria-labelledby="ceiling-project-title"
+            className="mb-10 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_12px_35px_rgba(15,23,42,0.06)] sm:mb-12"
+          >
+            <div className="p-5 sm:p-7">
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#082E50]">
+                Chantier réalisé · Peinture intérieure
+              </p>
+              <p className="mt-2 text-sm font-semibold text-slate-600">
+                {ceilingProject.location}
+              </p>
+              <h3
+                id="ceiling-project-title"
+                className="mt-3 max-w-3xl text-2xl font-bold leading-snug text-[#082E50] sm:text-3xl"
+              >
+                {ceilingProject.title}
+              </h3>
+              <p className="mt-3 max-w-3xl leading-7 text-slate-600">
+                {ceilingProject.description}
+              </p>
+              <ul className="mt-4 max-w-3xl list-disc space-y-2 pl-5 text-sm leading-6 text-slate-600">
+                {ceilingProject.steps.map((step) => <li key={step}>{step}</li>)}
+              </ul>
+            </div>
+            <div className="grid gap-4 px-5 sm:grid-cols-2 sm:px-7">
+              {ceilingProject.photos.map((photo, index) => (
+                <figure key={photo.image} className={`min-w-0 ${index >= 2 ? "sm:col-span-2 sm:mx-auto sm:w-full sm:max-w-[630px]" : ""}`}>
+                  <button
+                    ref={(element) => {
+                      cardButtonRefs.current[index] = element;
+                    }}
+                    type="button"
+                    aria-haspopup="dialog"
+                    aria-label={`Agrandir la réalisation : ${photo.title}`}
+                    onClick={() => openGallery(index)}
+                    className="group block w-full overflow-hidden rounded-2xl bg-slate-100 text-left focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[#082E50]"
+                  >
+                    <Image
+                      src={photo.image}
+                      alt={photo.alt}
+                      width={photo.width}
+                      height={photo.height}
+                      sizes="(max-width: 639px) calc(100vw - 80px), (max-width: 1479px) 45vw, 630px"
+                      className="h-auto w-full"
+                    />
+                    <span className="flex min-h-11 items-center justify-between gap-3 bg-[#082E50] px-4 py-3 text-sm font-semibold text-white group-hover:bg-[#0B426F]">
+                      Voir la photo en entier
+                      <Maximize2 size={17} aria-hidden="true" className="shrink-0" />
+                    </span>
+                  </button>
+                  <figcaption className="mt-2 text-sm leading-6 text-slate-600">
+                    <span className="block font-semibold text-[#082E50]">{photo.title}</span>
+                    {photo.caption}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+            <div className="flex flex-col items-start gap-4 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-7">
+              <p className="max-w-xl text-sm leading-6 text-slate-600">
+                Un projet de remise en peinture ? Décrivez votre besoin pour
+                vérifier ensemble l&apos;intervention adaptée.
+              </p>
+              <Link
+                href="/#devis"
+                className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-xl bg-[#D5A52E] px-5 py-3 text-sm font-bold text-[#082E50] transition-colors hover:bg-yellow-400 focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[#082E50]"
+              >
+                Parler de mon projet
+              </Link>
+            </div>
+          </article>
+
+          <div className="mb-5 text-center sm:mb-6">
+            <h3 className="text-xl font-bold text-[#082E50] sm:text-2xl">
+              Un aperçu des types d&apos;intervention
+            </h3>
+            <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-slate-600">
+              Les images ci-dessous sont des illustrations de prestations,
+              et non des photos de chantiers réalisés par HomeAToutFaire.
+            </p>
+          </div>
+
           {/* =====================================================
               GRILLE DES EXEMPLES
           ===================================================== */}
 
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3 xl:gap-6">
-            {gallery.map((photo, index) => (
+            {illustrations.map((photo, illustrationIndex) => {
+              const index = ceilingProject.photos.length + illustrationIndex;
+
+              return (
               <motion.article
                 key={photo.image}
                 initial={{
@@ -316,7 +401,7 @@ export default function Gallery() {
                 }}
                 transition={{
                   duration: 0.5,
-                  delay: index * 0.06,
+                  delay: illustrationIndex * 0.06,
                   ease: "easeOut",
                 }}
                 whileHover={{
@@ -344,7 +429,7 @@ export default function Gallery() {
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <Image
                     src={photo.image}
-                    alt={photo.title}
+                    alt={photo.alt}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.07]"
@@ -390,7 +475,8 @@ export default function Gallery() {
                   </div>
                 </div>
               </motion.article>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
@@ -425,19 +511,20 @@ export default function Gallery() {
                 BARRE SUPÉRIEURE
             =================================================== */}
 
-            <div className="absolute inset-x-4 top-4 z-30 flex items-center justify-between sm:inset-x-6 sm:top-6">
+            <div className="absolute inset-x-4 top-4 z-30 flex flex-wrap items-center justify-between gap-2 sm:inset-x-6 sm:top-6 sm:flex-nowrap">
               {/* TITRE */}
 
-              <div className="max-w-[55%] rounded-2xl border border-white/10 bg-white/8 px-4 py-2.5 text-white backdrop-blur-xl">
+              <div className="min-w-0 max-w-full rounded-2xl border border-white/10 bg-white/8 px-4 py-2.5 text-white backdrop-blur-xl sm:max-w-[55%]">
                 <p
                   id="gallery-dialog-title"
-                  className="truncate text-sm font-semibold sm:text-base"
+                  className="text-sm font-semibold sm:text-base"
                 >
                   {gallery[selectedIndex].title}
                 </p>
 
                 <p className="mt-0.5 text-xs text-white/55">
-                  {selectedIndex + 1} / {gallery.length}
+                  {gallery[selectedIndex].label}
+                  {" · "}{selectedIndex + 1} / {gallery.length}
                 </p>
               </div>
 
@@ -561,9 +648,10 @@ export default function Gallery() {
             >
               <Image
                 src={gallery[selectedIndex].image}
-                alt={gallery[selectedIndex].title}
+                alt={gallery[selectedIndex].alt}
                 width={1400}
                 height={1050}
+                sizes="84vw"
                 priority
                 draggable={false}
                 style={{

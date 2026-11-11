@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test:quote": "node --experimental-vm-modules --test tests/quote-security.test.mjs tests/quote-form.integration.test.mjs"
+    "test:quote": "node --experimental-vm-modules --test tests/quote-security.test.mjs tests/quote-form.integration.test.mjs",
+    "test:gallery": "node --experimental-vm-modules --test tests/gallery.integration.test.mjs",
+    "test:consent": "node --experimental-vm-modules --test tests/cookie-consent.integration.test.mjs"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
