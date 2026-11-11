@@ -52,8 +52,8 @@ export const illustrations = [
     title: "Menuiserie",
   },
   {
-    image: "/images/realisations/realisation3.jpg",
-    title: "Installation électrique",
+    image: "/images/realisations/petits-travaux-electriques-illustration.jpg",
+    title: "Petits travaux électriques",
   },
   {
     image: "/images/realisations/realisation4.jpg",
