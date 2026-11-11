@@ -1,6 +1,8 @@
-# Quote security activation — do not merge until configured and tested
+# Quote security activation — owner approval required before production
 
 Scope: anti-spam only. No photo upload, no paid plan, no identity blacklist.
+
+Preview configuration and verification completed on 11 November 2026. See `quote-security-verification.md` for live evidence, the 25-test regression suite, simulation limits and the release checklist. Production remains unchanged until release approval.
 
 ## Required setup
 
@@ -11,11 +13,11 @@ Scope: anti-spam only. No photo upload, no paid plan, no identity blacklist.
 
 ## Tests before production
 
-- `node --test tests/quote-security.test.mjs`, `npx tsc --noEmit`, `npm run build`.
+- `npm run test:quote`, `npx tsc --noEmit`, `npm run build`.
 - In the preview: no Google CAPTCHA request before explicit activation; deny analytics and still complete the CAPTCHA; keyboard/mobile/compact widget; token expiry; script blocked; validation errors retain fields; a slow/double click cannot send twice.
 - Exact scam email/domain rejected before sending. Legitimate Google Photos links, phone-only contact and out-of-area owner addresses remain allowed.
 - One clearly labelled synthetic request to the owner's inbox with a valid CAPTCHA. Confirm receipt and render escaped HTML as text. Test content contains no real client details.
-- EmailJS must reject direct requests with absent/invalid CAPTCHA **before any email is sent**. Do not exhaust quota or send to other recipients.
+- Confirm provider enforcement **before any email is sent**: the official EmailJS Test It control returned 400 `reCAPTCHA: The g-recaptcha-response parameter not found` for the protected template. Do not exhaust quota or send to other recipients. A forged non-empty token was not live-tested; do not describe it as tested.
 - Validate success analytics only after EmailJS success. Stored cooldown contains only a timestamp, no personal data; applies for 60 seconds and tolerates unavailable storage.
 
 ## Limits and rollback
