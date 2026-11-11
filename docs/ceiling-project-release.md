@@ -1,67 +1,28 @@
-# Chantier plafond — proposition à valider avant mise en production
+# Chantier plafond — Sainte-Anastasie
 
-## État
+## Périmètre validé
 
-Branche locale `feat/realisation-plafond`, basée sur le commit main
-`4303636071a481029f0bbeef5502c7ec1b6a0d5e`.
-Autorisation de diffusion confirmée par l'utilisateur dans cette conversation.
-La préparation d'une PR et d'une preview est autorisée ; aucune fusion ni
-publication sociale sans validation explicite. Les coordonnées habituelles,
-la protection du formulaire et les autres prestations restent inchangées.
+L’utilisateur a confirmé la diffusion des photos avec l’accord du propriétaire. Sa dernière validation accepte une image avant retouchée avec la mention de reconstitution illustrative, et demande de poursuivre l’intégration du site et la préparation des publications. Aucun message social n’est envoyé dans cette étape.
 
-## Informations établies par le propriétaire du site
+Travaux décrits : réparation du trou et préparation, peinture isolante anti-taches bloquant le fond existant, finition mate lessivable. Aucun prix, délai, garantie ou réparation de la cause initiale du dégât n’est annoncé.
 
-- Rénovation d'un plafond à la suite d'un dégât des eaux.
-- Seules des photos après intervention ont été prises.
-- Deux fichiers originaux fournis : `1000025025.jpg` et `1000025026.jpg`.
-- Commune : Sainte-Anastasie (Gard).
-- Réparation du trou et préparation avant mise en peinture.
-- Application d'une peinture isolante anti-taches bloquant le fond existant.
-- Application d'une peinture de finition mate lessivable.
-- Autorisation du propriétaire pour la diffusion des photos confirmée.
+## Visuels retenus
 
-## Choix des images
+- Avant : « Intérieur ancien avec poêle et traces d’eau.png », `libfile_a759598c11a88191b4790775379de4c4`. Version JPEG optimisée : `public/images/realisations/plafond-avant-reconstitution.jpg`. Mention sous l’image et dans l’agrandissement : reconstitution illustrative ; état avant travaux non photographié.
+- Après complémentaire : « Salon rénové, lumière naturelle préservée.png », `libfile_1102f02393e881918785d24943d39a68`. Version JPEG optimisée : `public/images/realisations/plafond-apres-sejour-ameliore.jpg`. Photo après intervention, rendu amélioré.
+- Après principal : dernière version intermédiaire validée par l’utilisateur le 11 novembre 2026, issue de `1000025026(1).jpg` (`libfile_f2ea14a3e51c8191bf9e6b798a18fe51`). Version JPEG : `public/images/realisations/plafond-apres-angle-comparable-retouche.jpg`. Photo retouchée avec luminosité et blanc du plafond harmonisés ; ce traitement est indiqué sous l’image et dans l’agrandissement.
+- Les trois images mesurent 1448 × 1086 pixels. Conversion JPEG des versions retenues, sans nouvelle retouche.
+- La nouvelle photo après offre un angle comparable à la reconstitution avant ; la troisième image montre une autre vue du séjour. Les images restent entières, les mentions sont hors de la photo dans la galerie du site.
+- Les deux JPEG originaux après intervention restent conservés dans le dépôt.
 
-La galerie utilise exclusivement des copies des deux JPEG originaux.
-Aucune reconstitution avant travaux et aucune retouche générative n'est
-intégrée : ces images ne documentent pas l'état photographié d'origine.
-Ne pas les utiliser comme preuve avant/après ni dans les publications.
-Les originaux sont préservés, sans changement du contenu ni du cadrage.
+## Présentation
 
-## Changements préparés
+Trois vues au-dessus des six illustrations existantes : avant et après principal côte à côte à partir de 640 px, puis autre vue du résultat centrée en dessous. Sur petit écran, toutes les vues sont empilées. Galerie agrandissable, navigation clavier, fermeture Échap et restitution du focus. Chaque image conserve sa propre nature lors de la navigation dans l’agrandissement.
 
-- Présentation du chantier au-dessus des six illustrations existantes.
-- Deux photos complètes, empilées sur petit écran, côte à côte à partir de 640 px.
-- Agrandissement via la galerie existante, navigation clavier et fermeture Échap.
-- Libellés distincts pour chantier réel/après intervention et illustrations.
-- Bouton vers la demande de devis existante, sans nouvelle promesse commerciale.
-- Pas de page locale supplémentaire, ni d'avis, délai, prix ou garantie inventé.
+La bannière cookies se trouve dans le flux sous le menu, sans recouvrir le contenu. Le bouton de préférences reste dans le pied de page. Aucun accord de cookies n’est donné à la place du visiteur.
 
-## Limites éditoriales
+Les textes Facebook et le scénario de Reel sont dans `docs/ceiling-social-drafts.md`. Aucune publication ni programmation sur les réseaux sociaux n’est effectuée.
 
-Ne pas annoncer une réparation de la fuite initiale, une conformité, un prix,
-une durée ou une garantie de non-réapparition des taches. Ces éléments ne sont
-pas établis. Aucun lien commercial vers du remplacement de cumulus n'est ajouté.
+## Vérifications à la livraison
 
-## Validation
-
-Informations et accord de diffusion confirmés : pousser la branche,
-ouvrir une PR, contrôler la preview Vercel, demander
-la validation de fusion, puis vérifier la production READY après fusion.
-Ne pas fusionner ni publier des posts sans validation explicite.
-
-Les créneaux des publications sont des essais éditoriaux, pas des horaires
-optimaux démontrés par des statistiques de la page.
-
-## Contrôles locaux
-
-- Galerie : 5 scénarios d'intégration + test parent passent.
-- Formulaire : 25 tests existants passent, aucun envoi réel effectué.
-- TypeScript et lint des fichiers modifiés passent.
-- Build Next.js 16.3.0 / React 19.2.4, versions identiques au lockfile : passe
-  avec `next build --webpack`.
-- Identité SHA-256 des deux JPEG copiés et de leurs originaux vérifiée.
-- Aperçu local : non vérifié visuellement (le lanceur fourni passe des options
-  Vite incompatibles avec le script Next.js existant). Ne pas changer le script
-  de l'application pour cette seule limitation d'environnement.
-- La vérification visuelle doit se faire sur la preview Vercel de la PR.
+Consigner les résultats effectivement obtenus dans la description de la PR. La preview peut ne pas disposer de la clé reCAPTCHA ; ne pas changer la configuration de production pour contourner cette limite. Vérifier le commit et l’état READY avant livraison.

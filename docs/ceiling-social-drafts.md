@@ -1,87 +1,61 @@
-# HomeAToutFaire — publications à relire, non publiées
+# HomeAToutFaire — contenus prêts, non publiés
 
-Faits et accord de diffusion du chantier plafond confirmés dans la conversation.
-Photos : les deux JPEG originaux, pas de reconstitution présentée comme un avant.
-Ne rien publier sans validation explicite. Horaires indicatifs à tester en
-heure de Paris, sans statistiques d'audience permettant de prétendre à un optimum.
+Chantier à Sainte-Anastasie. Informations et autorisation de diffusion fournies par le propriétaire du site. Reconstitution de l’avant avec mention acceptée par l’utilisateur le 11 novembre 2026. Aucune publication sociale effectuée.
 
-## Publication 1 — chantier à Sainte-Anastasie
-
-**Texte prêt à relire**
+## Facebook — publication du chantier
 
 Un plafond remis à neuf à Sainte-Anastasie 🖌️
 
-Après un dégât des eaux, HomeAToutFaire est intervenu pour réparer une zone
-trouée et remettre le plafond en peinture :
+Sur ce chantier, je suis intervenu pour reprendre une zone trouée et remettre le plafond en peinture :
 
-• réparation et préparation de la zone concernée ;
-• application d’une peinture isolante anti-taches pour bloquer les marques du fond existant ;
-• finition avec une peinture mate lessivable.
+• réparation du trou et préparation du support ;
+• application d’une peinture isolante « stop taches » pour bloquer les marques du fond existant ;
+• application d’une peinture de finition mate lessivable.
 
-Ces deux photos montrent le résultat après intervention.
+📷 Avant : reconstitution illustrative à partir d’une photo après intervention, l’état avant travaux n’ayant pas été photographié. Après : photo du résultat retouchée pour harmoniser la luminosité et le blanc du plafond. Une autre vue du séjour complète la présentation.
 
-Un projet de remise en peinture ? Décrivez votre besoin sur
-https://www.homeatoutfaire30.fr/#devis ou appelez le 06 18 08 55 98.
+Un plafond à reprendre ou une pièce à rafraîchir ? Parlons de votre projet.
 
+📞 06 18 08 55 98
+🌐 https://www.homeatoutfaire30.fr/#devis
+📍 Sainte-Anastasie et dans un rayon d’environ 50 km.
+
+#HomeAToutFaire #SainteAnastasie #PeintureInterieure #PetitsTravaux #Gard
+
+Visuels, dans cet ordre : `plafond-avant-reconstitution.jpg`, `plafond-apres-angle-comparable-retouche.jpg`, puis `plafond-apres-sejour-ameliore.jpg`. Conserver la mention explicative dans le texte publié ; si un visuel est partagé seul, sa légende doit aussi préciser sa nature.
+
+## Facebook — publication conseil
+
+Des taches sur un plafond ? La préparation compte autant que la finition 🖌️
+
+À Sainte-Anastasie, j’ai repris une zone trouée, préparé le support, appliqué une peinture isolante anti-taches, puis une finition mate lessivable.
+
+Voici le résultat après intervention. Vous avez un plafond à reprendre ou une pièce à remettre en peinture ? Décrivez-moi votre besoin pour que nous en parlions.
+
+📞 06 18 08 55 98
+🌐 https://www.homeatoutfaire30.fr/#devis
 📍 Sainte-Anastasie et environ 50 km autour.
+
+#HomeAToutFaire #Peinture #SainteAnastasie #Gard
+
+Visuel : `plafond-apres-angle-comparable-retouche.jpg`. Photo après intervention retouchée : luminosité et blanc du plafond harmonisés.
+
+## Reel — scénario de 12 secondes
+
+Diaporama vertical ; photos entières sur fond uni, textes dans des espaces séparés des photos. Pas de musique sans droit d’usage professionnel vérifié.
+
+- 0–4 s : reconstitution avant, avec mention lisible durant toute son apparition : « Avant — reconstitution illustrative · État avant travaux non photographié ».
+- 4–8 s : photo après, avec « Après — plafond rénové · Photo retouchée » ; sous la photo : « Réparation · Peinture anti-taches · Finition mate lessivable ».
+- 8–12 s : logo et coordonnées : « HomeAToutFaire · Sainte-Anastasie et alentours · 06 18 08 55 98 · homeatoutfaire30.fr ».
+
+Légende :
+
+Un plafond rénové à Sainte-Anastasie 🖌️ Réparation, peinture isolante anti-taches et finition mate lessivable.
+
+L’avant est une reconstitution illustrative : l’état avant travaux n’a pas été photographié. L’après est une photo retouchée pour harmoniser la luminosité et le blanc du plafond.
+
+Un projet ? https://www.homeatoutfaire30.fr/ — 06 18 08 55 98.
 
 #HomeAToutFaire #SainteAnastasie #PeintureInterieure #Gard
 
-**Visuel** : carrousel des deux photos originales après intervention, chacune
-en entier, sans comparaison avant/après. La première photo ouvre le carrousel.
-
-**Appel à l’action** : décrire le projet via le formulaire ou appeler.
-
-**Créneau à tester** : jeudi à 18 h 30.
-
-## Publication 2 — préparer une demande de devis
-
-**Texte prêt à relire**
-
-Un petit projet de travaux ? Trois informations pour bien commencer 👇
-
-1. La commune du chantier.
-2. Ce que vous souhaitez faire réparer, entretenir ou remettre en peinture.
-3. Vos coordonnées pour être recontacté.
-
-Une description simple suffit pour engager l’échange : inutile de connaître
-tous les termes techniques !
-
-Vous pouvez utiliser le formulaire sur https://www.homeatoutfaire30.fr/#devis
-ou appeler directement le 06 18 08 55 98. Pas besoin de WhatsApp.
-
-HomeAToutFaire intervient à Sainte-Anastasie et dans un rayon d’environ 50 km,
-selon la nature du besoin.
-
-#HomeAToutFaire #PetitsTravaux #SainteAnastasie #Gard
-
-**Visuel** : carte graphique simple avec le logo existant du site et trois
-rubriques : « Votre commune », « Votre besoin », « Vos coordonnées ».
-Aucune nouvelle photo nécessaire. Ne pas montrer un véritable formulaire rempli.
-
-**Appel à l’action** : formulaire de devis ou appel téléphonique.
-
-**Créneau à tester** : samedi à 10 h.
-
-## Reel — deux vues du résultat, 12 secondes
-
-**Montage à préparer** : diaporama vertical, sans inventer de séquence de travail.
-Conserver les photos complètes sur un fond uni adapté au 9:16, sans recadrage
-qui masquerait le plafond. Pas de zoom artificiel sur un faux défaut.
-
-- 0–4 s : première photo ; « Plafond rénové à Sainte-Anastasie ».
-- 4–8 s : deuxième photo ; « Réparation · Anti-taches · Finition mate lessivable ».
-- 8–12 s : logo existant ; « Un projet ? homeatoutfaire30.fr · 06 18 08 55 98 ».
-
-**Légende prête à relire**
-
-Deux vues d’un plafond rénové après un dégât des eaux à Sainte-Anastasie 🖌️
-Réparation de la zone trouée, peinture isolante anti-taches et finition mate lessivable.
-Un projet de remise en peinture ? Contactez HomeAToutFaire :
-https://www.homeatoutfaire30.fr/ — 06 18 08 55 98.
-
-**Appel à l’action** : contacter HomeAToutFaire pour décrire le besoin.
-
-**Créneau à tester** : mardi suivant à 18 h 30, pour espacer les deux contenus
-consacrés au même chantier. Sans musique, ou seulement une piste dont les
-droits permettent l'usage professionnel sur la plateforme concernée.
+Le Reel est un scénario prêt à monter, pas un fichier vidéo réalisé. Aucun créneau de publication ni programmation automatique n’est engagé.

@@ -61,41 +61,47 @@ test("real project and illustration gallery", async t => {
   });
   await act(async () => root.render(React.createElement(Gallery)));
   try {
-    await t.test("two full-frame real photos are distinct from six illustrations", () => {
+    await t.test("before reconstruction and after photo have distinct provenance labels", () => {
       const article = document.querySelector('[aria-labelledby="ceiling-project-title"]');
-      assert.equal(article.querySelectorAll("figure").length, 2);
+      assert.equal(article.querySelectorAll("figure").length, 3);
       for (const img of article.querySelectorAll("img")) {
-        assert.equal(img.width, 2048); assert.equal(img.height, 1536);
+        assert.equal(img.width, 1448); assert.equal(img.height, 1086);
         assert.match(img.className, /h-auto w-full/);
         assert.doesNotMatch(img.className, /object-cover/);
       }
-      assert.equal(document.querySelectorAll('[aria-haspopup="dialog"]').length, 8);
+      assert.equal(document.querySelectorAll('[aria-haspopup="dialog"]').length, 9);
       assert.match(document.body.textContent, /non des photos de chantiers réalisés/);
-      assert.doesNotMatch(article.textContent, /avant travaux|Dions|certifi|garanti/i);
+      assert.match(article.textContent, /Avant — reconstitution illustrative/);
+      assert.match(article.textContent, /État avant travaux non photographié/);
+      assert.match(article.textContent, /Après — plafond rénové/);
+      assert.doesNotMatch(article.textContent, /Dions|certifi|garanti/i);
       assert.match(article.textContent, /Sainte-Anastasie/);
       assert.equal(article.querySelectorAll("li").length, 3);
       assert.match(article.textContent, /mate lessivable/);
       assert.equal(article.querySelector("a").getAttribute("href"), "/#devis");
     });
-    await t.test("real image opens with correct title, source, counter and scroll lock", async () => {
-      document.querySelector('[aria-label="Agrandir la réalisation : Plafond rénové — vue du séjour"]').focus();
-      await click("Agrandir la réalisation : Plafond rénové — vue du séjour");
+    await t.test("reconstruction opens with provenance, correct source, counter and scroll lock", async () => {
+      document.querySelector('[aria-label="Agrandir la réalisation : Avant — reconstitution illustrative"]').focus();
+      await click("Agrandir la réalisation : Avant — reconstitution illustrative");
       const dialog = document.querySelector('[role="dialog"]');
       assert.equal(dialog.getAttribute("aria-modal"), "true");
-      assert.match(dialog.textContent, /Chantier réalisé · Après intervention · 1 \/ 8/);
-      assert.match(dialog.querySelector("img").src, /plafond-apres-vue-sejour/);
+      assert.match(dialog.textContent, /Reconstitution illustrative · État avant travaux non photographié · 1 \/ 9/);
+      assert.match(dialog.querySelector("img").src, /plafond-avant-reconstitution/);
       assert.equal(document.body.style.overflow, "hidden");
     });
     await t.test("navigation preserves real/illustration labels and wraps correctly", async () => {
       await key("ArrowRight");
-      assert.match(document.querySelector('[role="dialog"] img').src, /plafond-apres-vue-poele/);
-      await click("Image suivante");
-      assert.match(document.querySelector('[role="dialog"]').textContent, /Illustration de prestation · 3 \/ 8/);
-      assert.match(document.querySelector('[role="dialog"] img').src, /realisation1.jpg/);
-      await key("ArrowLeft"); await key("ArrowLeft"); await key("ArrowLeft");
-      assert.match(document.querySelector('[role="dialog"]').textContent, /8 \/ 8/);
+      assert.match(document.querySelector('[role="dialog"] img').src, /plafond-apres-angle-comparable-retouche/);
+      assert.match(document.querySelector('[role="dialog"]').textContent, /Après intervention · Photo retouchée/);
       await key("ArrowRight");
-      assert.match(document.querySelector('[role="dialog"]').textContent, /1 \/ 8/);
+      assert.match(document.querySelector('[role="dialog"] img').src, /plafond-apres-sejour-ameliore/);
+      await click("Image suivante");
+      assert.match(document.querySelector('[role="dialog"]').textContent, /Illustration de prestation · 4 \/ 9/);
+      assert.match(document.querySelector('[role="dialog"] img').src, /realisation1.jpg/);
+      await key("ArrowLeft"); await key("ArrowLeft"); await key("ArrowLeft"); await key("ArrowLeft");
+      assert.match(document.querySelector('[role="dialog"]').textContent, /9 \/ 9/);
+      await key("ArrowRight");
+      assert.match(document.querySelector('[role="dialog"]').textContent, /1 \/ 9/);
     });
     await t.test("keyboard focus is contained and Escape restores opener and scrolling", async () => {
       await act(async () => new Promise(resolve => setTimeout(resolve, 25)));
@@ -107,12 +113,12 @@ test("real project and illustration gallery", async t => {
       await act(async () => new Promise(resolve => setTimeout(resolve, 25)));
       assert.equal(document.querySelector('[role="dialog"]'), null);
       assert.equal(document.body.style.overflow, "");
-      assert.equal(document.activeElement.getAttribute("aria-label"), "Agrandir la réalisation : Plafond rénové — vue du séjour");
+      assert.equal(document.activeElement.getAttribute("aria-label"), "Agrandir la réalisation : Avant — reconstitution illustrative");
     });
     await t.test("illustration card opens at its own offset rather than a real photo", async () => {
       await click("Agrandir l'exemple de prestation : Peinture intérieure");
       assert.match(document.querySelector('[role="dialog"] img').src, /realisation1.jpg/);
-      assert.match(document.querySelector('[role="dialog"]').textContent, /Illustration de prestation · 3 \/ 8/);
+      assert.match(document.querySelector('[role="dialog"]').textContent, /Illustration de prestation · 4 \/ 9/);
       await key("Escape");
     });
   } finally { await act(async () => root.unmount()); dom.window.close(); }

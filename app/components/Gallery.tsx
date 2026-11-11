@@ -321,7 +321,7 @@ export default function Gallery() {
             </div>
             <div className="grid gap-4 px-5 sm:grid-cols-2 sm:px-7">
               {ceilingProject.photos.map((photo, index) => (
-                <figure key={photo.image} className="min-w-0">
+                <figure key={photo.image} className={`min-w-0 ${index >= 2 ? "sm:col-span-2 sm:mx-auto sm:w-full sm:max-w-[630px]" : ""}`}>
                   <button
                     ref={(element) => {
                       cardButtonRefs.current[index] = element;
@@ -335,8 +335,8 @@ export default function Gallery() {
                     <Image
                       src={photo.image}
                       alt={photo.alt}
-                      width={2048}
-                      height={1536}
+                      width={photo.width}
+                      height={photo.height}
                       sizes="(max-width: 639px) calc(100vw - 80px), (max-width: 1479px) 45vw, 630px"
                       className="h-auto w-full"
                     />
@@ -346,7 +346,8 @@ export default function Gallery() {
                     </span>
                   </button>
                   <figcaption className="mt-2 text-sm leading-6 text-slate-600">
-                    {photo.title} · Après intervention
+                    <span className="block font-semibold text-[#082E50]">{photo.title}</span>
+                    {photo.caption}
                   </figcaption>
                 </figure>
               ))}
@@ -516,15 +517,13 @@ export default function Gallery() {
               <div className="min-w-0 max-w-full rounded-2xl border border-white/10 bg-white/8 px-4 py-2.5 text-white backdrop-blur-xl sm:max-w-[55%]">
                 <p
                   id="gallery-dialog-title"
-                  className="truncate text-sm font-semibold sm:text-base"
+                  className="text-sm font-semibold sm:text-base"
                 >
                   {gallery[selectedIndex].title}
                 </p>
 
                 <p className="mt-0.5 text-xs text-white/55">
-                  {gallery[selectedIndex].kind === "realisation"
-                    ? "Chantier réalisé · Après intervention"
-                    : "Illustration de prestation"}
+                  {gallery[selectedIndex].label}
                   {" · "}{selectedIndex + 1} / {gallery.length}
                 </p>
               </div>
