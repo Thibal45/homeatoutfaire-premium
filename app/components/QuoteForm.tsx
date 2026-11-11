@@ -1,8 +1,13 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import QuoteCaptcha from "./QuoteCaptcha";
+import {
+  cooldownRemaining, QUOTE_COOLDOWN_KEY, QUOTE_COOLDOWN_MS,
+  QUOTE_LIMITS, QUOTE_SERVICES, validateQuote,
+} from "../lib/quote-security";
 
 import {
   CheckCircle2,
@@ -23,16 +28,8 @@ import {
   trackQuoteSent,
 } from "../lib/analytics";
 
-const allowedServices = new Set([
-  "Petits travaux électriques",
-  "Petits travaux de plomberie",
-  "Peinture",
-  "Menuiserie",
-  "Entretien piscine - ponctuel ou régulier",
-  "Petit dépannage",
-  "Résidence secondaire / gîte",
-  "Autre",
-]);
+const allowedServices = new Set<string>(QUOTE_SERVICES);
+const captchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? "";
 
 function trackEmailClick(location: string) {
   trackContactClick("email", location);
@@ -49,12 +46,23 @@ function trackPhoneClick(location: string, service?: string) {
 export default function QuoteForm() {
   const formRef = useRef<HTMLFormElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
+  const submitLock = useRef(false);
+  const lastSent = useRef<string | null>(null);
+  const securityErrorRef = useRef<HTMLParagraphElement>(null);
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [contactError, setContactError] = useState(false);
   const [selectedService, setSelectedService] = useState("");
+  const [securityError, setSecurityError] = useState("");
+  const [captchaToken, setCaptchaToken] = useState("");
+  const [captchaResetKey, setCaptchaResetKey] = useState(0);
+  const receiveCaptchaToken = useCallback((token: string) => setCaptchaToken(token), []);
+
+  useEffect(() => {
+    if (securityError) securityErrorRef.current?.focus();
+  }, [securityError]);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -83,7 +91,7 @@ export default function QuoteForm() {
   ) {
     event.preventDefault();
 
-    if (!formRef.current) return;
+    if (!formRef.current || submitLock.current) return;
 
     const formData = new FormData(formRef.current);
     const honeypot = String(formData.get("website") ?? "").trim();
@@ -94,6 +102,18 @@ export default function QuoteForm() {
       setSuccess(true);
       return;
     }
+
+    setSecurityError("");
+    setSuccess(false);
+    setError(false);
+    const fields = {
+      name: String(formData.get("name") ?? "").trim(),
+      phone: String(formData.get("phone") ?? "").trim(),
+      email: String(formData.get("email") ?? "").trim(),
+      address: String(formData.get("address") ?? "").trim(),
+      service: String(formData.get("service") ?? "").trim(),
+      message: String(formData.get("message") ?? "").trim(),
+    };
 
     const hasPhone = String(formData.get("phone") ?? "").trim().length > 0;
     const hasEmail = String(formData.get("email") ?? "").trim().length > 0;
@@ -106,6 +126,23 @@ export default function QuoteForm() {
       return;
     }
 
+    const validationError = validateQuote(fields);
+    if (validationError) { setSecurityError(validationError); return; }
+
+    let previousSend = lastSent.current;
+    try { previousSend = window.localStorage.getItem(QUOTE_COOLDOWN_KEY) ?? previousSend; } catch { /* Contact remains available when browser storage is disabled. */ }
+    const remaining = cooldownRemaining(previousSend);
+    if (remaining > 0) {
+      setSecurityError(`Votre précédente demande a été envoyée. Patientez ${Math.ceil(remaining / 1000)} secondes avant un nouvel envoi.`);
+      return;
+    }
+    if (!captchaSiteKey || !captchaToken) {
+      setSecurityError(captchaSiteKey
+        ? "Activez puis complétez la vérification anti-robot avant d’envoyer votre demande."
+        : "La vérification est momentanément indisponible. Contactez-moi par téléphone ou par e-mail.");
+      return;
+    }
+
     const contactMethod = hasPhone && hasEmail
       ? "phone_and_email"
       : hasPhone
@@ -114,33 +151,38 @@ export default function QuoteForm() {
 
     setContactError(false);
     setLoading(true);
+    submitLock.current = true;
     setSuccess(false);
     setError(false);
 
     try {
-      const { sendForm } = await import("@emailjs/browser");
+      const { send } = await import("@emailjs/browser");
 
-      await sendForm(
+      await send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-        formRef.current,
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
+        { ...fields, "g-recaptcha-response": captchaToken },
+        {
+          publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
+          limitRate: { id: "homeatoutfaire-quote", throttle: QUOTE_COOLDOWN_MS },
+        },
       );
+
+      lastSent.current = String(Date.now());
+      try { window.localStorage.setItem(QUOTE_COOLDOWN_KEY, lastSent.current); } catch { /* In-memory duplicate protection still applies. */ }
 
       trackQuoteSent(selectedService, contactMethod);
 
       formRef.current.reset();
       setSelectedService("");
       setSuccess(true);
-    } catch (sendError) {
-      console.error(
-        "Erreur EmailJS :",
-        sendError,
-      );
-
+    } catch {
       setError(true);
     } finally {
+      submitLock.current = false;
       setLoading(false);
+      setCaptchaToken("");
+      setCaptchaResetKey((key) => key + 1);
     }
   }
 
@@ -217,6 +259,7 @@ export default function QuoteForm() {
               id="name"
               type="text"
               name="name"
+              maxLength={QUOTE_LIMITS.name}
               autoComplete="name"
               placeholder="Votre nom et prénom"
               required
@@ -234,6 +277,7 @@ export default function QuoteForm() {
               id="phone"
               type="tel"
               name="phone"
+              maxLength={QUOTE_LIMITS.phone}
               autoComplete="tel"
               placeholder="06 00 00 00 00"
               onChange={() => setContactError(false)}
@@ -258,6 +302,7 @@ export default function QuoteForm() {
               id="email"
               type="email"
               name="email"
+              maxLength={QUOTE_LIMITS.email}
               autoComplete="email"
               placeholder="votre@email.fr"
               onChange={() => setContactError(false)}
@@ -277,6 +322,7 @@ export default function QuoteForm() {
               id="address"
               type="text"
               name="address"
+              maxLength={QUOTE_LIMITS.address}
               autoComplete="postal-code"
               placeholder="Ex. La Calmette ou 30190"
               className={inputClassName}
@@ -401,6 +447,7 @@ export default function QuoteForm() {
               id="message"
               rows={5}
               name="message"
+              maxLength={QUOTE_LIMITS.message}
               placeholder="Décrivez les travaux souhaités, le problème rencontré, les dimensions éventuelles ou toute information utile..."
               required
               className={`${inputClassName} min-h-[125px] resize-y leading-5 sm:min-h-[160px] sm:leading-6`}
@@ -476,6 +523,14 @@ export default function QuoteForm() {
             </div>
           </div>
         </div>
+
+        <QuoteCaptcha siteKey={captchaSiteKey} onToken={receiveCaptchaToken} resetKey={captchaResetKey} />
+
+        {securityError && (
+          <p ref={securityErrorRef} tabIndex={-1} role="alert" className="mt-4 rounded-xl border border-yellow-300/30 bg-yellow-400/10 p-3 text-sm leading-6 text-yellow-100 outline-none">
+            {securityError}
+          </p>
+        )}
 
         {/* =======================================================
             SUCCÈS

@@ -21,7 +21,7 @@ export default function PrivacyPolicyPage() {
       eyebrow="Vie privée"
       title="Politique de confidentialité"
       description="Cette page explique quelles données peuvent être traitées lorsque vous consultez le site ou contactez HomeAToutFaire, pourquoi elles le sont et comment exercer vos droits."
-      updatedAt="13 octobre 2026"
+      updatedAt="11 novembre 2026"
     >
       <section>
         <h2>Responsable du traitement</h2>
@@ -62,6 +62,28 @@ export default function PrivacyPolicyPage() {
           cas échéant, à organiser la prestation. Le traitement repose sur les
           mesures précontractuelles prises à votre demande et sur l&apos;intérêt
           légitime de HomeAToutFaire à répondre aux sollicitations reçues.
+        </p>
+      </section>
+
+      <section>
+        <h2>Protection du formulaire contre les abus</h2>
+        <p>
+          Une vérification Google reCAPTCHA v2 protège l&apos;envoi des demandes
+          contre les robots. Elle n&apos;est chargée qu&apos;après votre clic sur
+          « Activer la vérification anti-robot ». Google peut alors traiter des
+          données techniques, notamment l&apos;adresse IP et des informations sur
+          le navigateur, conformément à sa{" "}
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">
+            politique de confidentialité
+          </a>.
+          Cette vérification est distincte de Google Analytics. Si vous ne
+          souhaitez pas l&apos;utiliser, vous pouvez contacter HomeAToutFaire
+          directement par téléphone ou par e-mail.
+        </p>
+        <p>
+          Après un envoi réussi, le navigateur mémorise uniquement l&apos;heure
+          d&apos;envoi pour limiter les doublons pendant une minute. Aucune donnée
+          de votre demande n&apos;est enregistrée dans ce stockage local.
         </p>
       </section>
 
