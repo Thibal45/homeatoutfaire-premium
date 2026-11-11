@@ -404,6 +404,8 @@ export default function Header() {
         aria-hidden="true"
         className="h-[71px] lg:h-[75px]"
       />
+      {/* Normal-flow consent slot: never overlays the page content. */}
+      <div id="cookie-consent-slot" />
     </>
   );
 }
