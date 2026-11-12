@@ -24,7 +24,7 @@ function trackWhatsAppClick() {
 export default function WhatsAppButton() {
   const [visible, setVisible] = useState(false);
   const [footerVisible, setFooterVisible] = useState(false);
-  const [galleryVisible, setGalleryVisible] = useState(false);
+  const [protectedSectionVisible, setProtectedSectionVisible] = useState(false);
   const [messageOpen, setMessageOpen] = useState(false);
 
   const phone = "33618085598";
@@ -86,20 +86,24 @@ export default function WhatsAppButton() {
   =============================================================== */
 
   useEffect(() => {
-    const gallery = document.getElementById("galerie");
-
-    if (!gallery) return;
+    const sections = ["galerie", "devis"].map(id => document.getElementById(id)).filter((element): element is HTMLElement => element !== null);
+    const visibleSections = new Set<Element>();
+    if (!sections.length) return;
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        setGalleryVisible(entry.isIntersecting);
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) visibleSections.add(entry.target);
+          else visibleSections.delete(entry.target);
+        });
+        setProtectedSectionVisible(visibleSections.size > 0);
       },
       {
-        threshold: 0.08,
+        threshold: 0,
       },
     );
 
-    observer.observe(gallery);
+    sections.forEach(section => observer.observe(section));
 
     return () => {
       observer.disconnect();
@@ -118,7 +122,7 @@ export default function WhatsAppButton() {
      * On ne fait volontairement aucun setState()
      * synchrone ici.
      */
-    if (!visible || footerVisible || galleryVisible) {
+    if (!visible || footerVisible || protectedSectionVisible) {
       return;
     }
 
@@ -134,14 +138,14 @@ export default function WhatsAppButton() {
       window.clearTimeout(openTimer);
       window.clearTimeout(closeTimer);
     };
-  }, [visible, footerVisible, galleryVisible]);
+  }, [visible, footerVisible, protectedSectionVisible]);
 
   /* ===============================================================
      VISIBILITÉ RÉELLE DU BOUTON ET DE LA BULLE
   =============================================================== */
 
   const whatsappVisible =
-    visible && !footerVisible && !galleryVisible;
+    visible && !footerVisible && !protectedSectionVisible;
 
   const bubbleVisible =
     whatsappVisible && messageOpen;

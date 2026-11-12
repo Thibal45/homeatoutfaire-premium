@@ -1,47 +1,46 @@
-import {
-  Paintbrush,
-  Hammer,
-  Wrench,
-  Zap,
-  Droplets,
-  ShieldAlert,
-} from "lucide-react";
+import { Bolt, Droplets, Hammer, PaintRoller, Waves, Wrench } from "lucide-react";
 
 export const services = [
   {
     title: "Petits travaux électriques",
     description:
-      "Remplacement d'interrupteurs, prises, luminaires et petits dépannages.",
-    icon: Zap,
+      "Remplacement d'interrupteurs, prises, luminaires et petits dépannages sur existant.",
+    icon: Bolt,
+    href: "/electricite",
   },
   {
     title: "Petits travaux de plomberie",
     description:
-      "Réparation de fuites, remplacement de robinetterie et petits dépannages.",
+      "Petites réparations, robinetterie et dépannages simples sur installation existante.",
     icon: Wrench,
+    href: "/plomberie",
   },
   {
     title: "Peinture",
     description:
-      "Travaux de peinture intérieure et extérieure avec finitions soignées.",
-    icon: Paintbrush,
+      "Rafraîchissement, retouches et petits travaux de peinture avec finitions soignées.",
+    icon: PaintRoller,
+    href: "/peinture",
   },
   {
     title: "Menuiserie",
     description:
-      "Montage de meubles, pose d'étagères, réparations et ajustements.",
+      "Montage, réglages, petites réparations et ajustements sur éléments existants.",
     icon: Hammer,
+    href: "/menuiserie",
   },
   {
     title: "Entretien piscine",
     description:
-      "Nettoyage, contrôle de l'eau, maintenance et préparation saisonnière.",
-    icon: Droplets,
+      "Entretien ponctuel ou régulier, nettoyage courant et petites interventions sur votre piscine.",
+    icon: Waves,
+    href: "/entretien-piscine",
   },
   {
-    title: "Dépannage d'urgence",
+    title: "Petit dépannage",
     description:
-      "Intervention rapide sur les petits travaux urgents.",
-    icon: ShieldAlert,
+      "Intervention sur les petits travaux nécessitant une prise en charge rapide.",
+    icon: Droplets,
+    href: "/depannage",
   },
 ];

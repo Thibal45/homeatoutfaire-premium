@@ -273,7 +273,7 @@ export default function Gallery() {
           >
             {/* BADGE */}
 
-            <span className="inline-flex rounded-full border border-yellow-300/70 bg-yellow-50 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.22em] text-[#B88311]">
+            <span className="inline-flex rounded-full border border-yellow-300/70 bg-yellow-50 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.22em] text-[#86600D]">
               Réalisations et prestations
             </span>
 
@@ -474,6 +474,14 @@ export default function Gallery() {
                     </div>
                   </div>
                 </div>
+                <Link
+                  href={photo.href}
+                  className="relative z-30 flex min-h-12 items-center justify-between gap-3 px-5 py-3 text-sm font-bold text-[#0A6587] hover:bg-sky-50"
+                  aria-label={`Voir les prestations : ${photo.title}`}
+                >
+                  Découvrir les prestations
+                  <ChevronRight size={18} aria-hidden="true" />
+                </Link>
               </motion.article>
               );
             })}

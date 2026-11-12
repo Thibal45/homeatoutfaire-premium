@@ -49,6 +49,7 @@ export default function QuoteForm() {
   const submitLock = useRef(false);
   const lastSent = useRef<string | null>(null);
   const securityErrorRef = useRef<HTMLParagraphElement>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -63,6 +64,10 @@ export default function QuoteForm() {
   useEffect(() => {
     if (securityError) securityErrorRef.current?.focus();
   }, [securityError]);
+
+  useEffect(() => {
+    if (success || error) resultRef.current?.focus();
+  }, [success, error]);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -242,6 +247,9 @@ export default function QuoteForm() {
             <p className="mt-1 text-xs leading-5 text-blue-100/70 sm:text-sm sm:leading-6">
               Quelques informations suffisent pour étudier votre demande.
             </p>
+            <p className="mt-2 text-xs leading-5 text-blue-100/85">
+              * Champs obligatoires. Téléphone ou e-mail : renseignez au moins l&apos;un des deux.
+            </p>
           </div>
         </div>
 
@@ -253,6 +261,7 @@ export default function QuoteForm() {
           <FormField
             label="Nom et prénom"
             htmlFor="name"
+            required
             icon={<UserRound size={18} />}
           >
             <input
@@ -356,6 +365,7 @@ export default function QuoteForm() {
           <FormField
             label="Type de prestation"
             htmlFor="service"
+            required
             icon={<Wrench size={18} />}
           >
             <select
@@ -441,6 +451,7 @@ export default function QuoteForm() {
           <FormField
             label="Votre projet"
             htmlFor="message"
+            required
             icon={<FileText size={18} />}
           >
             <textarea
@@ -538,6 +549,8 @@ export default function QuoteForm() {
 
         {success && (
           <div
+            ref={resultRef}
+            tabIndex={-1}
             role="status"
             className="mt-4 flex items-start gap-3 rounded-2xl border border-emerald-300/20 bg-emerald-400/10 px-3.5 py-3 text-emerald-100 sm:mt-6 sm:px-4 sm:py-3.5"
           >
@@ -564,6 +577,8 @@ export default function QuoteForm() {
 
         {error && (
           <div
+            ref={resultRef}
+            tabIndex={-1}
             role="alert"
             className="mt-4 flex items-start gap-3 rounded-2xl border border-red-300/20 bg-red-400/10 px-3.5 py-3 text-red-100 sm:mt-6 sm:px-4 sm:py-3.5"
           >
@@ -679,6 +694,7 @@ type FormFieldProps = {
   icon: ReactNode;
   children: ReactNode;
   optional?: boolean;
+  required?: boolean;
 };
 
 function FormField({
@@ -687,6 +703,7 @@ function FormField({
   icon,
   children,
   optional = false,
+  required = false,
 }: FormFieldProps) {
   return (
     <div>
@@ -700,6 +717,7 @@ function FormField({
 
         <span>
           {label}
+          {required && <span aria-hidden="true"> *</span>}
         </span>
 
         {optional && (

@@ -119,7 +119,7 @@ export default function Contact() {
             }}
           >
             <span
-              className="inline-flex rounded-full border border-yellow-300/70 bg-yellow-50 px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#B88311] sm:px-4 sm:py-1.5 sm:text-xs sm:tracking-[0.22em]"
+              className="inline-flex rounded-full border border-yellow-300/70 bg-yellow-50 px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#86600D] sm:px-4 sm:py-1.5 sm:text-xs sm:tracking-[0.22em]"
               style={{
                 alignSelf: "center",
               }}
@@ -346,7 +346,7 @@ export default function Contact() {
                   </div>
 
                   <div>
-                    <p className="m-0 text-xs font-semibold uppercase tracking-[0.12em] text-[#B88311] sm:text-sm sm:tracking-[0.14em]">
+                    <p className="m-0 text-xs font-semibold uppercase tracking-[0.12em] text-[#86600D] sm:text-sm sm:tracking-[0.14em]">
                       Horaires
                     </p>
 
@@ -483,7 +483,7 @@ function ScheduleLine({
       <span
         className={
           highlight
-            ? "text-sm font-semibold text-[#B88311] sm:text-right sm:text-base"
+            ? "text-sm font-semibold text-[#86600D] sm:text-right sm:text-base"
             : "text-sm font-semibold text-[#082E50] sm:text-right sm:text-base"
         }
       >

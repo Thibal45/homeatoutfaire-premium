@@ -2,61 +2,8 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  Bolt,
-  Droplets,
-  Hammer,
-  House,
-  PaintRoller,
-  Waves,
-  Wrench,
-} from "lucide-react";
-
-const services = [
-  {
-    title: "Petits travaux électriques",
-    description:
-      "Remplacement d'interrupteurs, prises, luminaires et petits dépannages sur existant.",
-    icon: Bolt,
-    href: "/electricite",
-  },
-  {
-    title: "Petits travaux de plomberie",
-    description:
-      "Petites réparations, robinetterie et dépannages simples sur installation existante.",
-    icon: Wrench,
-    href: "/plomberie",
-  },
-  {
-    title: "Peinture",
-    description:
-      "Rafraîchissement, retouches et petits travaux de peinture avec finitions soignées.",
-    icon: PaintRoller,
-    href: "/peinture",
-  },
-  {
-    title: "Menuiserie",
-    description:
-      "Montage, réglages, petites réparations et ajustements sur éléments existants.",
-    icon: Hammer,
-    href: "/menuiserie",
-  },
-  {
-    title: "Entretien piscine",
-    description:
-      "Entretien ponctuel ou régulier, nettoyage courant et petites interventions sur votre piscine.",
-    icon: Waves,
-    href: "/entretien-piscine",
-  },
-  {
-    title: "Petit dépannage",
-    description:
-      "Intervention sur les petits travaux nécessitant une prise en charge rapide.",
-    icon: Droplets,
-    href: "/depannage",
-  },
-];
+import { ArrowRight, House } from "lucide-react";
+import { services } from "../data/services";
 
 export default function Services() {
   return (
@@ -117,7 +64,7 @@ export default function Services() {
           >
             {/* Badge */}
 
-            <span className="inline-flex rounded-full border border-yellow-300/70 bg-yellow-50 px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#B88311] sm:px-4 sm:py-1.5 sm:text-xs sm:tracking-[0.22em]">
+            <span className="inline-flex rounded-full border border-yellow-300/70 bg-yellow-50 px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#86600D] sm:px-4 sm:py-1.5 sm:text-xs sm:tracking-[0.22em]">
               Nos services
             </span>
 
@@ -206,7 +153,7 @@ export default function Services() {
                       {service.description}
                     </p>
 
-                    <span className="mt-auto flex items-center gap-2 pt-5 text-sm font-bold text-[#0A6587] transition-colors group-hover:text-[#B88311]">
+                    <span className="mt-auto flex items-center gap-2 pt-5 text-sm font-bold text-[#0A6587] transition-colors group-hover:text-[#86600D]">
                       Voir les prestations
                       <span className="flex h-7 w-7 items-center justify-center rounded-full bg-slate-100 transition-all group-hover:translate-x-1 group-hover:bg-yellow-100">
                         <ArrowRight size={15} strokeWidth={2.3} aria-hidden="true" />
