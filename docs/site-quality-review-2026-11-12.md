@@ -7,7 +7,7 @@ Scope: the existing public HomeAToutFaire website. Branding, validated business 
 - Next.js 16.2.11 → 16.4.6; aligned eslint-config-next; refreshed compatible dependencies and lockfile. Next's published advisory GHSA-2464-fhr4-w9xw identifies 16.4.1 as patched; the resolved image processor is sharp 0.35.5.
 - CSP restricts base URLs, embedded objects, embedding parents and native form destinations. It does not impose a nonce or script-source policy; this is not a claim of complete XSS protection. The static rendering and existing EmailJS/reCAPTCHA/analytics integrations remain intact.
 - Cookie acceptance/refusal survives blocked localStorage during client navigation. Withdrawal disables Google Analytics immediately, including when the new preference cannot be persisted. No contact details are stored.
-- Stronger gold text contrast, visible keyboard focus, fixed-header anchor clearance and 16 px mobile form text. Back-to-top respects reduced motion.
+- Stronger gold text contrast, visible keyboard focus, fixed-header anchor clearance and 16 px mobile form text. Back-to-top respects reduced motion. The mobile menu scrolls within short viewports.
 - Mandatory fields are marked. Form success/provider-error messages receive focus; the visitor's request is retained on failure. Floating WhatsApp is hidden over the gallery and quote form.
 - Service cards now use one shared catalogue. Gallery illustrations link directly to their service pages. The generic gallery label is now “Petit dépannage”.
 - A branded French 404 provides service, home and telephone routes.

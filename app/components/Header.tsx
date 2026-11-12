@@ -313,7 +313,7 @@ export default function Header() {
         {menuOpen && (
           <div
             id="navigation-mobile"
-            className="border-t border-slate-100 bg-white shadow-lg lg:hidden"
+            className="max-h-[calc(100dvh-71px)] overflow-y-auto overscroll-contain border-t border-slate-100 bg-white shadow-lg lg:hidden"
           >
             <nav
               aria-label="Navigation mobile"
