@@ -57,7 +57,7 @@ export const illustrations = [
   },
   {
     image: "/images/realisations/realisation4.jpg",
-    title: "Plomberie",
+    title: "Petits travaux de plomberie",
   },
   {
     image: "/images/realisations/realisation5.jpg",
