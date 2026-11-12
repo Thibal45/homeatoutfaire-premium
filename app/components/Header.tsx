@@ -167,6 +167,7 @@ export default function Header() {
                   <Link
                     key={item.id}
                     href={item.href}
+                    aria-current={active ? "location" : undefined}
                     onClick={() => {
                       if (item.id === "devis") {
                         trackQuoteClick("header_desktop_nav");
@@ -203,7 +204,7 @@ export default function Header() {
                   onClick={() => {
                     trackContactClick("email", "header_desktop");
                   }}
-                  className="flex items-center gap-2 whitespace-nowrap text-xs font-medium leading-5 text-slate-700 transition-colors hover:text-[#B88311] xl:text-[13px]"
+                  className="flex items-center gap-2 whitespace-nowrap text-xs font-medium leading-5 text-slate-700 transition-colors hover:text-[#86600D] xl:text-[13px]"
                 >
                   <Mail
                     size={15}
@@ -221,7 +222,7 @@ export default function Header() {
                   onClick={() => {
                     trackPhoneClick("header_desktop");
                   }}
-                  className="flex items-center gap-2 whitespace-nowrap text-xs font-medium leading-5 text-slate-700 transition-colors hover:text-[#B88311] xl:text-[13px]"
+                  className="flex items-center gap-2 whitespace-nowrap text-xs font-medium leading-5 text-slate-700 transition-colors hover:text-[#86600D] xl:text-[13px]"
                 >
                   <Phone
                     size={15}
@@ -312,7 +313,7 @@ export default function Header() {
         {menuOpen && (
           <div
             id="navigation-mobile"
-            className="border-t border-slate-100 bg-white shadow-lg lg:hidden"
+            className="max-h-[calc(100dvh-71px)] overflow-y-auto overscroll-contain border-t border-slate-100 bg-white shadow-lg lg:hidden"
           >
             <nav
               aria-label="Navigation mobile"
@@ -327,6 +328,7 @@ export default function Header() {
                     <Link
                       key={item.id}
                       href={item.href}
+                      aria-current={active ? "location" : undefined}
                       onClick={() => {
                         setMenuOpen(false);
 
@@ -336,7 +338,7 @@ export default function Header() {
                       }}
                       className={`rounded-xl px-4 py-3.5 text-sm font-semibold transition-colors ${
                         active
-                          ? "bg-yellow-50 text-[#B88311]"
+                          ? "bg-yellow-50 text-[#86600D]"
                           : "text-slate-700 hover:bg-slate-50 hover:text-[#082E50]"
                       }`}
                     >

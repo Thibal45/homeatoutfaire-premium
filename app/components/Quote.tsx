@@ -81,7 +81,7 @@ export default function Quote() {
               textAlign: "center",
             }}
           >
-            <span className="inline-flex items-center gap-2 rounded-full border border-yellow-300/70 bg-yellow-50 px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#B88311] sm:px-4 sm:py-1.5 sm:text-xs sm:tracking-[0.22em]">
+            <span className="inline-flex items-center gap-2 rounded-full border border-yellow-300/70 bg-yellow-50 px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#86600D] sm:px-4 sm:py-1.5 sm:text-xs sm:tracking-[0.22em]">
               <FileText
                 size={14}
                 strokeWidth={2.3}
@@ -208,7 +208,7 @@ function Benefit({
         paddingLeft: "14px",
       }}
     >
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-yellow-100 text-[#B88311] sm:h-10 sm:w-10">
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-yellow-100 text-[#86600D] sm:h-10 sm:w-10">
         {icon}
       </div>
 

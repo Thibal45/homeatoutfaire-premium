@@ -44,28 +44,34 @@ export const ceilingProject = {
 
 export const illustrations = [
   {
+    href: "/peinture",
     image: "/images/realisations/realisation1.jpg",
     title: "Peinture intérieure",
   },
   {
+    href: "/menuiserie",
     image: "/images/realisations/realisation2.jpg",
     title: "Menuiserie",
   },
   {
+    href: "/electricite",
     image: "/images/realisations/petits-travaux-electriques-illustration.jpg",
     title: "Petits travaux électriques",
   },
   {
+    href: "/plomberie",
     image: "/images/realisations/realisation4.jpg",
     title: "Petits travaux de plomberie",
   },
   {
+    href: "/entretien-piscine",
     image: "/images/realisations/realisation5.jpg",
     title: "Entretien piscine",
   },
   {
+    href: "/depannage",
     image: "/images/realisations/realisation6.jpg",
-    title: "Dépannage",
+    title: "Petit dépannage",
   },
 ].map((photo) => ({ ...photo, alt: photo.title, label: "Illustration de prestation", kind: "illustration" as const }));
 

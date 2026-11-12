@@ -70,6 +70,7 @@ test("real project and illustration gallery", async t => {
         assert.doesNotMatch(img.className, /object-cover/);
       }
       assert.equal(document.querySelectorAll('[aria-haspopup="dialog"]').length, 9);
+      assert.deepEqual([...document.querySelectorAll('a[aria-label^="Voir les prestations :"]')].map(a => a.getAttribute("href")), ["/peinture", "/menuiserie", "/electricite", "/plomberie", "/entretien-piscine", "/depannage"]);
       assert.match(document.body.textContent, /non des photos de chantiers réalisés/);
       assert.match(article.textContent, /Avant — reconstitution illustrative/);
       assert.match(article.textContent, /État avant travaux non photographié/);

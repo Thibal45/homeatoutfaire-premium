@@ -17,10 +17,11 @@ Object.defineProperty(globalThis, "navigator", { configurable: true, value: firs
 const { createRoot } = await import("react-dom/client");
 const key = "homeatoutfaire-cookie-consent";
 
-async function mount({ hostname = "www.homeatoutfaire30.fr", saved = null, withHost = true } = {}) {
+async function mount({ hostname = "www.homeatoutfaire30.fr", saved = null, withHost = true, storageThrows = false } = {}) {
   const dom = new JSDOM(`<header>${withHost ? '<div id="cookie-consent-slot"></div>' : ''}</header><main>Page content</main><div id="root"></div>`, { url: `https://${hostname}/`, pretendToBeVisual: true });
   globalThis.window = dom.window; globalThis.document = dom.window.document;
   if (saved) dom.window.localStorage.setItem(key, saved);
+  if (storageThrows) Object.defineProperty(dom.window, "localStorage", { get() { throw new Error("Storage disabled"); } });
   let pathname = "/";
   const context = vm.createContext({ window: dom.window, document: dom.window.document, console });
   const exportsByModule = {
@@ -65,6 +66,27 @@ async function mount({ hostname = "www.homeatoutfaire30.fr", saved = null, withH
 }
 
 test("consent banner presentation and consent preservation", async t => {
+  await t.test("blocked storage permits a refusal and preserves it across client navigation", async () => {
+    const h = await mount({ storageThrows: true });
+    assert.ok(h.banner()); assert.equal(h.scripts().length, 0);
+    await h.click("Tout refuser");
+    assert.equal(h.banner(), null);
+    await h.navigate();
+    assert.equal(h.banner(), null); assert.equal(h.scripts().length, 0);
+    await h.click("Gérer mes cookies"); assert.ok(h.banner());
+    await h.close();
+  });
+  await t.test("blocked storage permits explicit acceptance and immediate withdrawal without reloading", async () => {
+    const h = await mount({ storageThrows: true });
+    await h.click("Tout accepter");
+    assert.equal(h.scripts().length, 2);
+    await h.navigate(); assert.equal(h.banner(), null);
+    await h.click("Gérer mes cookies"); await h.click("Tout refuser");
+    assert.equal(h.scripts().length, 0);
+    assert.equal(h.dom.window["ga-disable-G-W93SKYD01D"], true);
+    await h.navigate(); assert.equal(h.scripts().length, 0);
+    await h.close();
+  });
   await t.test("initial undecided visit renders in the header slot, never as an overlay", async () => {
     const h = await mount();
     assert.equal(h.banner().parentElement.id, "cookie-consent-slot");

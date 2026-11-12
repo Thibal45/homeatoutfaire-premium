@@ -118,7 +118,7 @@ export default function WhyUs() {
             }}
           >
             <span
-              className="inline-flex rounded-full border border-yellow-300/70 bg-yellow-50 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.22em] text-[#B88311]"
+              className="inline-flex rounded-full border border-yellow-300/70 bg-yellow-50 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.22em] text-[#86600D]"
               style={{
                 alignSelf: "center",
               }}
@@ -245,7 +245,7 @@ export default function WhyUs() {
 
                     <div className="mt-5 h-px w-full bg-slate-100" />
 
-                    <div className="mt-4 flex items-center gap-2 text-sm font-semibold text-[#B88311]">
+                    <div className="mt-4 flex items-center gap-2 text-sm font-semibold text-[#86600D]">
                       <CheckCircle2
                         size={17}
                         strokeWidth={2.3}

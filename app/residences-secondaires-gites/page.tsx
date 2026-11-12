@@ -279,7 +279,7 @@ export default function SecondaryHomesPage() {
                     {need.description}
                   </p>
 
-                  <span className="mt-4 inline-flex text-sm font-semibold text-[#B88311]">
+                  <span className="mt-4 inline-flex text-sm font-semibold text-[#86600D]">
                     Voir le service →
                   </span>
                 </Link>

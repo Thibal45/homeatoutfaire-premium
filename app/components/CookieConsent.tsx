@@ -56,14 +56,22 @@ export default function CookieConsent() {
   const [bannerHost, setBannerHost] = useState<HTMLElement | null>(null);
   const bannerRef = useRef<HTMLDivElement>(null);
   const focusOnOpen = useRef(false);
+  const sessionConsent = useRef<ConsentChoice>(null);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
       // Refresh the host after client navigation replaces a page's Header.
       setBannerHost(document.getElementById("cookie-consent-slot"));
-      const savedConsent = window.localStorage.getItem(CONSENT_KEY);
+      let savedConsent = sessionConsent.current;
+      try {
+        if (savedConsent === null) {
+          const saved = window.localStorage.getItem(CONSENT_KEY);
+          if (saved === "granted" || saved === "denied") savedConsent = saved;
+        }
+      } catch { /* Keep the visitor's choice for this visit when storage is blocked. */ }
 
       if (savedConsent === "granted" || savedConsent === "denied") {
+        sessionConsent.current = savedConsent;
         setConsent(savedConsent);
         setShowBanner(false);
       } else {
@@ -87,21 +95,29 @@ export default function CookieConsent() {
   }, [showBanner]);
 
   function acceptAnalytics() {
-    window.localStorage.setItem(CONSENT_KEY, "granted");
+    sessionConsent.current = "granted";
+    try { window.localStorage.setItem(CONSENT_KEY, "granted"); } catch { /* Session-only choice. */ }
+    Reflect.set(window, `ga-disable-${GA_MEASUREMENT_ID}`, false);
     setConsent("granted");
     setShowBanner(false);
   }
 
   function refuseAnalytics() {
-    const previousConsent = window.localStorage.getItem(CONSENT_KEY);
-
-    window.localStorage.setItem(CONSENT_KEY, "denied");
+    const previousConsent = consent;
+    sessionConsent.current = "denied";
+    let saved = false;
+    try { window.localStorage.setItem(CONSENT_KEY, "denied"); saved = true; } catch { /* Session-only choice. */ }
+    const analyticsWindow = window as Window & {
+      gtag?: (command: string, action: string, values: Record<string, string>) => void;
+    };
+    Reflect.set(analyticsWindow, `ga-disable-${GA_MEASUREMENT_ID}`, true);
+    analyticsWindow.gtag?.("consent", "update", { analytics_storage: "denied" });
     setConsent("denied");
     setShowBanner(false);
 
     deleteGoogleAnalyticsCookies();
 
-    if (previousConsent === "granted") {
+    if (previousConsent === "granted" && saved) {
       window.location.reload();
     }
   }
