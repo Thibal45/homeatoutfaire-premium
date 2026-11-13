@@ -16,8 +16,8 @@ globalThis.document = firstDom.window.document;
 Object.defineProperty(globalThis, "navigator", { configurable: true, value: firstDom.window.navigator });
 const { createRoot } = await import("react-dom/client");
 
-async function mount({ siteKey = "unit-test-key", script = "ready", provider = "success", storageThrows = false, previousSend = null } = {}) {
-  const dom = new JSDOM("<!doctype html><div id='root'></div>", { url: "https://test.invalid/" });
+async function mount({ siteKey = "unit-test-key", script = "ready", provider = "success", storageThrows = false, previousSend = null, query = "" } = {}) {
+  const dom = new JSDOM("<!doctype html><div id='root'></div>", { url: `https://test.invalid/${query}` });
   globalThis.window = dom.window;
   globalThis.document = dom.window.document;
   const s = { sends: [], analytics: [], scriptLoads: 0, resets: 0, widget: null, resolve: null, reject: null };
@@ -40,7 +40,7 @@ async function mount({ siteKey = "unit-test-key", script = "ready", provider = "
   }
   const context = vm.createContext({
     window: dom.window, document: dom.window.document, FormData: dom.window.FormData,
-    URLSearchParams, console, Date,
+    URLSearchParams, HTMLInputElement: dom.window.HTMLInputElement, console, Date,
     process: { env: { NEXT_PUBLIC_RECAPTCHA_SITE_KEY: siteKey, NEXT_PUBLIC_EMAILJS_SERVICE_ID: "test-service", NEXT_PUBLIC_EMAILJS_TEMPLATE_ID: "test-template", NEXT_PUBLIC_EMAILJS_PUBLIC_KEY: "test-public-key" } },
   });
   const cache = new Map();
@@ -63,7 +63,7 @@ async function mount({ siteKey = "unit-test-key", script = "ready", provider = "
       cache.set(specifier, m);
       await m.link(() => {}); await m.evaluate(); return m;
     }
-    const filename = specifier === "./QuoteCaptcha" ? "app/components/QuoteCaptcha.tsx" : specifier === "../lib/quote-security" ? "app/lib/quote-security.ts" : specifier === "QuoteForm" ? "app/components/QuoteForm.tsx" : null;
+    const filename = specifier === "./QuoteCaptcha" ? "app/components/QuoteCaptcha.tsx" : specifier === "../lib/quote-security" ? "app/lib/quote-security.ts" : specifier === "../lib/quote-prefill" ? "app/lib/quote-prefill.ts" : specifier === "QuoteForm" ? "app/components/QuoteForm.tsx" : null;
     if (!filename) throw new Error(`Unexpected import: ${specifier}`);
     const source = await readFile(new URL(`../${filename}`, import.meta.url), "utf8");
     const compiled = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2020, jsx: ts.JsxEmit.ReactJSX } }).outputText;
@@ -89,6 +89,21 @@ async function mount({ siteKey = "unit-test-key", script = "ready", provider = "
 }
 
 test("component security integration (all providers mocked, no real CAPTCHA)", async t => {
+  await t.test("same-page discovery hands a valid service and commune to the existing form", async () => {
+    const h=await mount();
+    await React.act(async()=>h.dom.window.dispatchEvent(new h.dom.window.CustomEvent("hatf:quote-prefill", {detail:{service:"Peinture",commune:"Uzès"}})));
+    assert.equal(h.form.elements.service.value,"Peinture");assert.equal(h.form.elements.address.value,"Uzès");assert.equal(h.s.sends.length,0);
+    await React.act(async()=>h.dom.window.dispatchEvent(new h.dom.window.CustomEvent("hatf:quote-prefill", {detail:{service:"Not offered",commune:"x".repeat(201)}})));
+    assert.equal(h.form.elements.service.value,"Peinture");assert.equal(h.form.elements.address.value,"Uzès");
+    await h.close();
+  });
+  await t.test("a town selected on the site pre-fills the optional field without submitting", async () => {
+    const h=await mount({ query: "?commune=N%C3%AEmes" });
+    await React.act(async()=>new Promise(resolve=>setTimeout(resolve,15)));
+    assert.equal(h.form.elements.address.value,"Nîmes"); assert.equal(h.s.sends.length,0);
+    await h.close();
+  });
+
   await t.test("Google script is not loaded before explicit activation", async () => {
     const h = await mount(); assert.equal(h.s.scriptLoads, 0); await h.activate(); assert.equal(h.s.scriptLoads, 1); await h.close();
   });

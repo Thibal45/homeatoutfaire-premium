@@ -1,46 +1,101 @@
-import { Bolt, Droplets, Hammer, PaintRoller, Waves, Wrench } from "lucide-react";
+import {
+  Bolt,
+  Droplets,
+  Hammer,
+  PaintRoller,
+  Waves,
+  Wrench,
+} from "lucide-react";
 
 export const services = [
   {
     title: "Petits travaux électriques",
-    description:
-      "Remplacement d'interrupteurs, prises, luminaires et petits dépannages sur existant.",
+    shortTitle: "Électricité",
     icon: Bolt,
     href: "/electricite",
+    description:
+      "Des interventions simples sur votre installation existante, pour les petits besoins du quotidien.",
+    image: "/images/realisations/petits-travaux-electriques-illustration.jpg",
+    examples: [
+      "Prises et interrupteurs existants",
+      "Pose de luminaires sur alimentation existante",
+      "Petits dépannages accessibles",
+    ],
+    quoteService: "Petits travaux électriques",
   },
   {
     title: "Petits travaux de plomberie",
-    description:
-      "Petites réparations, robinetterie et dépannages simples sur installation existante.",
+    shortTitle: "Plomberie",
     icon: Wrench,
     href: "/plomberie",
+    description:
+      "Un robinet qui fatigue, un siphon à changer : on regarde ensemble la petite intervention adaptée.",
+    image: "/images/realisations/realisation4.jpg",
+    examples: [
+      "Remplacement de robinetterie",
+      "Siphons et petites fuites accessibles",
+      "Interventions simples sur existant",
+    ],
+    quoteService: "Petits travaux de plomberie",
   },
   {
     title: "Peinture",
-    description:
-      "Rafraîchissement, retouches et petits travaux de peinture avec finitions soignées.",
+    shortTitle: "Peinture",
     icon: PaintRoller,
     href: "/peinture",
+    description:
+      "Redonner de la lumière à une pièce, rafraîchir un plafond ou soigner les finitions de votre intérieur.",
+    image: "/images/realisations/realisation1.jpg",
+    examples: [
+      "Murs et plafonds",
+      "Préparation des supports et retouches",
+      "Remises en peinture ciblées",
+    ],
+    quoteService: "Peinture",
   },
   {
-    title: "Menuiserie",
-    description:
-      "Montage, réglages, petites réparations et ajustements sur éléments existants.",
+    title: "Petits travaux de menuiserie",
+    shortTitle: "Menuiserie",
     icon: Hammer,
     href: "/menuiserie",
+    description:
+      "Les petits réglages et aménagements qui rendent votre maison plus agréable à vivre.",
+    image: "/images/realisations/realisation2.jpg",
+    examples: [
+      "Montage de meubles et étagères",
+      "Réglages de portes et poignées",
+      "Petites réparations sur existant",
+    ],
+    quoteService: "Menuiserie",
   },
   {
-    title: "Entretien piscine",
-    description:
-      "Entretien ponctuel ou régulier, nettoyage courant et petites interventions sur votre piscine.",
+    title: "Entretien de piscine",
+    shortTitle: "Piscine",
     icon: Waves,
     href: "/entretien-piscine",
+    description:
+      "Un entretien courant, ponctuel ou régulier, pour profiter plus sereinement de votre piscine.",
+    image: "/images/realisations/realisation5.jpg",
+    examples: [
+      "Nettoyage courant du bassin",
+      "Nettoyage de la ligne d’eau",
+      "Entretien ponctuel ou régulier",
+    ],
+    quoteService: "Entretien piscine - ponctuel ou régulier",
   },
   {
     title: "Petit dépannage",
-    description:
-      "Intervention sur les petits travaux nécessitant une prise en charge rapide.",
+    shortTitle: "Dépannage",
     icon: Droplets,
     href: "/depannage",
+    description:
+      "Un petit problème à résoudre ? Décrivez-le pour vérifier rapidement sa prise en charge.",
+    image: "/images/realisations/realisation6.jpg",
+    examples: [
+      "Petites réparations du quotidien",
+      "Remplacements et réglages simples",
+      "Demande étudiée avant déplacement",
+    ],
+    quoteService: "Petit dépannage",
   },
 ];

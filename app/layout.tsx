@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import CookieConsent from "./components/CookieConsent";
@@ -6,6 +7,15 @@ import MotionPreferences from "./components/MotionPreferences";
 import "./globals.css";
 
 const siteUrl = "https://www.homeatoutfaire30.fr";
+
+const manrope = localFont({
+  src: [
+    { path: "./fonts/manrope-regular.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/manrope-bold.woff2", weight: "700", style: "normal" },
+  ],
+  display: "swap",
+  variable: "--font-manrope",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -87,7 +97,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr">
+    <html lang="fr" className={manrope.variable}>
       <body>
         <a className="skip-link" href="#contenu-principal">
           Aller au contenu principal

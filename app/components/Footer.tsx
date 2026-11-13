@@ -1,306 +1,111 @@
-import type { ReactNode } from "react";
 import Link from "next/link";
-
-import {
-  Mail,
-  MapPin,
-  Phone,
-} from "lucide-react";
-import type { ContactMethod } from "../lib/analytics";
-import TrackedContactLink from "./TrackedContactLink";
+import { ArrowUpRight, MapPin } from "lucide-react";
 import TrackedSocialLink from "./TrackedSocialLink";
+import TrackedContactLink from "./TrackedContactLink";
 
-const facebookUrl =
-  "https://www.facebook.com/profile.php?id=61595599822418";
-const instagramUrl = "https://www.instagram.com/home.atoutfaire30/";
-
-const serviceLinks = [
-  {
-    label: "Petits travaux de plomberie",
-    href: "/plomberie",
-  },
-  {
-    label: "Petits travaux électriques",
-    href: "/electricite",
-  },
-  {
-    label: "Petits travaux de peinture",
-    href: "/peinture",
-  },
-  {
-    label: "Petits travaux de menuiserie",
-    href: "/menuiserie",
-  },
-  {
-    label: "Entretien de piscine",
-    href: "/entretien-piscine",
-  },
-  {
-    label: "Petit dépannage",
-    href: "/depannage",
-  },
-  {
-    label: "Résidences secondaires & gîtes",
-    href: "/residences-secondaires-gites",
-  },
+const links = [
+  ["Petits travaux électriques", "/electricite"],
+  ["Petits travaux de plomberie", "/plomberie"],
+  ["Peinture", "/peinture"],
+  ["Petite menuiserie", "/menuiserie"],
+  ["Entretien de piscine", "/entretien-piscine"],
+  ["Petit dépannage", "/depannage"],
+  ["Résidences secondaires & gîtes", "/residences-secondaires-gites"],
 ];
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-[#06192B] text-white">
-      {/* =========================================================
-          FOND DÉCORATIF
-      ========================================================= */}
-
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 overflow-hidden"
-      >
-        <div className="absolute -left-24 top-0 h-64 w-64 rounded-full bg-cyan-400/10 blur-[110px]" />
-
-        <div className="absolute -right-20 bottom-0 h-72 w-72 rounded-full bg-[#D5A52E]/10 blur-[120px]" />
-
-        <div
-          className="absolute inset-0 opacity-[0.035]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.35) 1px, transparent 1px)",
-            backgroundSize: "46px 46px",
-          }}
-        />
-
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,rgba(1,10,20,0.25)_100%)]" />
-      </div>
-
-      {/* =========================================================
-          CONTENEUR PRINCIPAL
-      ========================================================= */}
-
-      <div className="relative z-10 mx-auto w-full max-w-[1480px] px-5 py-12 sm:px-8 sm:py-14 lg:px-10 lg:py-16 xl:px-12">
-        <div
-          className="w-full"
-          style={{
-            width: "100%",
-            maxWidth: "1360px",
-            marginLeft: "auto",
-            marginRight: "auto",
-            boxSizing: "border-box",
-          }}
-        >
-          {/* =====================================================
-              PARTIE PRINCIPALE
-          ===================================================== */}
-
-          <div className="grid gap-10 border-b border-white/10 pb-10 md:grid-cols-[1.1fr_0.9fr] md:items-start">
-            {/* ===================================================
-                IDENTITÉ + SERVICES
-            =================================================== */}
-
-            <div>
-              <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
-                Home
-                <span className="text-[#D5A52E]">
-                  AToutFaire
-                </span>
-              </h2>
-
-              <p className="mt-3 text-sm font-medium leading-6 text-blue-100/75 sm:text-base">
-                Un interlocuteur unique pour vos petits travaux.
-              </p>
-
-              <p className="mt-4 max-w-xl text-sm leading-6 text-blue-100/55">
-                Services de proximité pour vos petits travaux, dépannages et
-                besoins du quotidien autour de Sainte-Anastasie.
-              </p>
-
-              <div className="mt-6 h-1 w-14 rounded-full bg-[#D5A52E]" />
-
-              {/* =================================================
-                  LIENS SERVICES
-              ================================================= */}
-
-              <div className="mt-7">
-                <p className="text-xs font-bold uppercase tracking-[0.16em] text-yellow-300">
-                  Nos services
-                </p>
-
-                <nav
-                  aria-label="Services HomeAToutFaire"
-                  className="mt-4 grid max-w-2xl gap-x-6 gap-y-2 min-[400px]:grid-cols-2 sm:gap-x-8"
-                >
-                  {serviceLinks.map((service) => (
-                    <Link
-                      key={service.href}
-                      href={service.href}
-                      className="group inline-flex w-fit items-center gap-2 rounded-md text-sm font-medium text-blue-100/65 transition-colors duration-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5A52E]/70"
-                    >
-                      <span
-                        aria-hidden="true"
-                        className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#D5A52E] transition-transform duration-300 group-hover:scale-125"
-                      />
-
-                      <span>
-                        {service.label}
-                      </span>
-                    </Link>
-                  ))}
-                </nav>
-              </div>
-            </div>
-
-            {/* ===================================================
-                COORDONNÉES
-            =================================================== */}
-
-            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-1 md:justify-items-end md:pt-1">
-              <FooterContact
-                icon={<Phone size={18} strokeWidth={2.2} />}
-                href="tel:0618085598"
-                method="phone"
-              >
-                06 18 08 55 98
-              </FooterContact>
-
-              <FooterContact
-                icon={<Mail size={18} strokeWidth={2.2} />}
-                href="mailto:hatf30190@gmail.com"
-                method="email"
-              >
-                hatf30190@gmail.com
-              </FooterContact>
-
-              <FooterContact
-                icon={<MapPin size={18} strokeWidth={2.2} />}
-              >
-                Sainte-Anastasie · déplacements jusqu&apos;à environ 50 km
-              </FooterContact>
-            </div>
-          </div>
-
-          {/* =====================================================
-              BAS DU FOOTER
-          ===================================================== */}
-
-          <div className="flex flex-col gap-4 pt-7 lg:flex-row lg:items-center lg:justify-between">
-            <p className="m-0 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-blue-100/50">
-              <span>
-                © {new Date().getFullYear()} HomeAToutFaire — Tous droits
-                réservés.
-              </span>
-
-              <span className="hidden text-blue-100/25 sm:inline">
-                •
-              </span>
-
-              <span className="text-xs font-medium text-blue-100/55">
-                SIRET : 10665167200011
-              </span>
-            </p>
-
-            <nav
-              aria-label="Réseaux sociaux et informations légales"
-              className="flex flex-wrap gap-x-5 gap-y-2 text-xs font-medium text-blue-100/60"
+    <footer className="site-footer">
+      <div className="site-container">
+        <div className="footer-top">
+          <div>
+            <Link
+              href="/"
+              className="footer-brand"
+              aria-label="Accueil HomeAToutFaire"
             >
-              <TrackedSocialLink
-                href={facebookUrl}
-                location="footer"
-                platform="facebook"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-md transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5A52E]/70"
-              >
-                Facebook
-              </TrackedSocialLink>
-
-              <TrackedSocialLink
-                href={instagramUrl}
-                location="footer"
-                platform="instagram"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-md transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5A52E]/70"
-              >
-                Instagram
-              </TrackedSocialLink>
-
-              <Link
-                href="/mentions-legales"
-                className="rounded-md transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5A52E]/70"
-              >
-                Mentions légales
-              </Link>
-
-              <Link
-                href="/politique-confidentialite"
-                className="rounded-md transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5A52E]/70"
-              >
-                Politique de confidentialité
-              </Link>
+              Home<span>AToutFaire</span>
+              <span className="brand-dot">.</span>
+            </Link>
+            <p>
+              Les petits travaux.
+              <br />
+              La confiance en plus.
+            </p>
+            <span className="footer-location">
+              <MapPin size={15} aria-hidden="true" /> Sainte-Anastasie · Gard
+            </span>
+          </div>
+          <div className="footer-services">
+            <h2>Un coup de main pour…</h2>
+            <nav aria-label="Services HomeAToutFaire">
+              {links.map(([label, href]) => (
+                <Link href={href} key={href}>
+                  {label}
+                  <ArrowUpRight size={14} aria-hidden="true" />
+                </Link>
+              ))}
             </nav>
           </div>
+          <div className="footer-contact">
+            <h2>On en parle ?</h2>
+            <TrackedContactLink
+              href="tel:0618085598"
+              method="phone"
+              location="footer"
+              className="footer-phone"
+            >
+              06 18 08 55 98
+            </TrackedContactLink>
+            <TrackedContactLink
+              href="mailto:hatf30190@gmail.com"
+              method="email"
+              location="footer"
+              className="footer-email"
+            >
+              hatf30190@gmail.com
+            </TrackedContactLink>
+            <p>
+              Lundi au samedi · 8 h – 18 h<br />
+              Dimanche matin : extrême urgence,
+              <br />
+              selon disponibilité.
+            </p>
+            <div className="footer-socials">
+              <TrackedSocialLink
+                href="https://www.facebook.com/profile.php?id=61595599822418"
+                platform="facebook"
+                location="footer"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-social"
+              >
+                Facebook <ArrowUpRight size={14} aria-hidden="true" />
+              </TrackedSocialLink>
+              <TrackedSocialLink
+                href="https://www.instagram.com/home.atoutfaire30/"
+                platform="instagram"
+                location="footer"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-social"
+              >
+                Instagram <ArrowUpRight size={14} aria-hidden="true" />
+              </TrackedSocialLink>
+            </div>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <p>
+            © {new Date().getFullYear()} HomeAToutFaire · Thibaut SACHOT ·
+            SIRET 10665167200011
+          </p>
+          <nav aria-label="Informations légales">
+            <Link href="/mentions-legales">Mentions légales</Link>
+            <Link href="/politique-confidentialite">Confidentialité</Link>
+          </nav>
         </div>
       </div>
     </footer>
   );
-}
-
-/* ===============================================================
-   LIGNE DE CONTACT
-================================================================ */
-
-type FooterContactProps = {
-  icon: ReactNode;
-  children: ReactNode;
-  href?: string;
-  method?: ContactMethod;
-};
-
-function FooterContact({
-  icon,
-  children,
-  href,
-  method,
-}: FooterContactProps) {
-  const content = (
-    <span
-      className="flex items-center gap-3"
-      style={{
-        boxSizing: "border-box",
-      }}
-    >
-      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/8 bg-white/8 text-[#D5A52E]">
-        {icon}
-      </span>
-
-      <span className="text-sm font-medium text-blue-50">
-        {children}
-      </span>
-    </span>
-  );
-
-  if (href && method) {
-    return (
-      <TrackedContactLink
-        href={href}
-        location="footer"
-        method={method}
-        className="rounded-xl transition-all duration-300 hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5A52E]/70"
-      >
-        {content}
-      </TrackedContactLink>
-    );
-  }
-
-  if (href) {
-    return (
-      <a
-        href={href}
-        className="rounded-xl transition-all duration-300 hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5A52E]/70"
-      >
-        {content}
-      </a>
-    );
-  }
-
-  return content;
 }

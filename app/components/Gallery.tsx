@@ -22,6 +22,7 @@ import { ceilingProject, gallery, illustrations } from "../data/gallery";
 export default function Gallery() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [zoom, setZoom] = useState(1);
+  const [comparison, setComparison] = useState(50);
   const cardButtonRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -52,9 +53,7 @@ export default function Gallery() {
 
     setZoom(1);
 
-    setSelectedIndex(
-      (selectedIndex + 1) % gallery.length,
-    );
+    setSelectedIndex((selectedIndex + 1) % gallery.length);
   }, [selectedIndex]);
 
   /* =========================================================
@@ -66,9 +65,7 @@ export default function Gallery() {
 
     setZoom(1);
 
-    setSelectedIndex(
-      (selectedIndex - 1 + gallery.length) % gallery.length,
-    );
+    setSelectedIndex((selectedIndex - 1 + gallery.length) % gallery.length);
   }, [selectedIndex]);
 
   /* =========================================================
@@ -76,15 +73,11 @@ export default function Gallery() {
   ========================================================= */
 
   const zoomIn = useCallback(() => {
-    setZoom((current) =>
-      Math.min(current + 0.2, 3),
-    );
+    setZoom((current) => Math.min(current + 0.2, 3));
   }, []);
 
   const zoomOut = useCallback(() => {
-    setZoom((current) =>
-      Math.max(current - 0.2, 1),
-    );
+    setZoom((current) => Math.max(current - 0.2, 1));
   }, []);
 
   const resetZoom = useCallback(() => {
@@ -124,9 +117,10 @@ export default function Gallery() {
       }
 
       if (event.key === "Tab") {
-        const focusableElements = dialogRef.current?.querySelectorAll<HTMLElement>(
-          'button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])',
-        );
+        const focusableElements =
+          dialogRef.current?.querySelectorAll<HTMLElement>(
+            'button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])',
+          );
 
         if (!focusableElements || focusableElements.length === 0) return;
 
@@ -143,16 +137,10 @@ export default function Gallery() {
       }
     };
 
-    window.addEventListener(
-      "keydown",
-      handleKeyDown,
-    );
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      window.removeEventListener(
-        "keydown",
-        handleKeyDown,
-      );
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [
     closeGallery,
@@ -203,125 +191,127 @@ export default function Gallery() {
   }, [selectedIndex]);
 
   return (
-    <section
-      id="galerie"
-      className="relative scroll-mt-[68px] overflow-hidden bg-[#F7F9FC] py-14 sm:py-16 lg:py-18"
-    >
-      {/* =========================================================
-          FOND DÉCORATIF
-      ========================================================= */}
-
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 overflow-hidden"
-      >
-        <div className="absolute -left-24 top-20 h-72 w-72 rounded-full bg-sky-200/25 blur-[110px]" />
-
-        <div className="absolute -right-20 bottom-10 h-80 w-80 rounded-full bg-yellow-200/25 blur-[120px]" />
-
-        <div
-          className="absolute inset-0 opacity-[0.025]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(8,46,80,0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(8,46,80,0.35) 1px, transparent 1px)",
-            backgroundSize: "44px 44px",
-          }}
-        />
-      </div>
-
-      {/* =========================================================
-          CONTENEUR PRINCIPAL
-      ========================================================= */}
-
-      <div className="relative z-10 mx-auto w-full max-w-[1480px] px-5 sm:px-8 lg:px-10 xl:px-12">
-        {/* =======================================================
-            LARGEUR COMMUNE EN-TÊTE + PHOTOS
-        ======================================================= */}
-
-        <div
-          className="w-full"
-          style={{
-            width: "100%",
-            maxWidth: "1360px",
-            marginLeft: "auto",
-            marginRight: "auto",
-            boxSizing: "border-box",
-          }}
-        >
-          {/* =====================================================
-              EN-TÊTE PARFAITEMENT CENTRÉ
-          ===================================================== */}
-
-          <motion.div
-            initial={{
-              opacity: 0,
-              y: 24,
-            }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-            }}
-            viewport={{
-              once: true,
-              amount: 0.25,
-            }}
-            transition={{
-              duration: 0.6,
-              ease: "easeOut",
-            }}
-            className="mx-auto mb-9 flex w-full max-w-[960px] flex-col items-center justify-center text-center sm:mb-11"
-          >
-            {/* BADGE */}
-
-            <span className="inline-flex rounded-full border border-yellow-300/70 bg-yellow-50 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.22em] text-[#86600D]">
-              Réalisations et prestations
-            </span>
-
-            {/* TITRE */}
-
-            <h2 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-[#082E50] sm:text-[2.15rem] lg:text-[2.35rem]">
-              Des travaux qui prennent vie en images
-            </h2>
-
-            {/* SOUS-TITRE */}
-
-            <p className="mt-3 max-w-[820px] text-base leading-7 text-slate-600 sm:text-lg">
-              Découvrez un chantier réalisé par HomeAToutFaire, puis un aperçu
-              illustré des types d&apos;intervention proposés.
+    <section id="galerie" className="section-space gallery-section">
+      <div className="site-container">
+        <div className="section-heading split-heading">
+          <div>
+            <p className="eyebrow">
+              <span className="eyebrow-line" /> 02 / LE SOIN DU DÉTAIL
             </p>
-
-            {/* BARRE JAUNE */}
-
-            <div className="mt-4 h-1 w-16 rounded-full bg-[#D5A52E]" />
-          </motion.div>
-
-          <article
-            aria-labelledby="ceiling-project-title"
-            className="mb-10 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_12px_35px_rgba(15,23,42,0.06)] sm:mb-12"
-          >
-            <div className="p-5 sm:p-7">
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#082E50]">
-                Chantier réalisé · Peinture intérieure
-              </p>
-              <p className="mt-2 text-sm font-semibold text-slate-600">
-                {ceilingProject.location}
-              </p>
-              <h3
-                id="ceiling-project-title"
-                className="mt-3 max-w-3xl text-2xl font-bold leading-snug text-[#082E50] sm:text-3xl"
+            <h2 className="display-title">
+              Du concret.
+              <br />
+              <span>Et ça se voit.</span>
+            </h2>
+          </div>
+          <p>
+            Un plafond remis à neuf à Sainte-Anastasie.
+            <br />
+            Découvrez l’intervention, du support à la finition.
+          </p>
+        </div>
+        <article
+          aria-labelledby="ceiling-project-title"
+          className="project-feature"
+        >
+          <div className="project-showcase">
+            <div className="project-comparison-block">
+              <div
+                className="project-comparison"
+                style={
+                  { "--comparison": `${comparison}%` } as React.CSSProperties
+                }
               >
-                {ceilingProject.title}
-              </h3>
-              <p className="mt-3 max-w-3xl leading-7 text-slate-600">
-                {ceilingProject.description}
+                <Image
+                  src={ceilingProject.photos[0].image}
+                  alt={ceilingProject.photos[0].alt}
+                  width={1448}
+                  height={1086}
+                  sizes="(max-width: 767px) 100vw, 55vw"
+                  className="comparison-image h-auto w-full"
+                />
+                <div
+                  className="comparison-after"
+                  style={{ clipPath: `inset(0 0 0 ${comparison}%)` }}
+                >
+                  <Image
+                    src={ceilingProject.photos[1].image}
+                    alt={ceilingProject.photos[1].alt}
+                    width={1448}
+                    height={1086}
+                    sizes="(max-width: 767px) 100vw, 55vw"
+                    className="comparison-image h-auto w-full"
+                  />
+                </div>
+                <span className="comparison-tag comparison-tag-before">
+                  AVANT RECONSTITUÉ
+                </span>
+                <span className="comparison-tag comparison-tag-after">
+                  APRÈS
+                </span>
+                <span className="comparison-line" aria-hidden="true">
+                  <span>
+                    <ChevronLeft size={17} />
+                    <ChevronRight size={17} />
+                  </span>
+                </span>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  step="1"
+                  value={comparison}
+                  onChange={(event) =>
+                    setComparison(Number(event.target.value))
+                  }
+                  aria-label="Comparer l’avant reconstitué et l’après du plafond"
+                  aria-valuetext={`Avant ${comparison} %, après ${100 - comparison} %`}
+                  className="comparison-input"
+                />
+              </div>
+              <p className="comparison-instruction">
+                <ChevronLeft size={15} aria-hidden="true" /> Faites glisser pour
+                comparer <ChevronRight size={15} aria-hidden="true" />
               </p>
-              <ul className="mt-4 max-w-3xl list-disc space-y-2 pl-5 text-sm leading-6 text-slate-600">
-                {ceilingProject.steps.map((step) => <li key={step}>{step}</li>)}
-              </ul>
+              <p className="comparison-provenance">
+                Avant : reconstitution illustrative, l’état initial n’ayant pas
+                été photographié. Après : photo retouchée, luminosité et blanc
+                harmonisés.
+              </p>
             </div>
-            <div className="grid gap-4 px-5 sm:grid-cols-2 sm:px-7">
+            <div className="project-story">
+              <p className="eyebrow">CHANTIER RÉALISÉ · PEINTURE</p>
+              <span className="project-location">
+                {ceilingProject.location}
+              </span>
+              <h3 id="ceiling-project-title">
+                Un plafond.
+                <br />
+                Un nouveau départ.
+              </h3>
+              <p>{ceilingProject.description}</p>
+              <ul>
+                {ceilingProject.steps.map((step, index) => (
+                  <li key={step}>
+                    <span>0{index + 1}</span>
+                    {step}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/#devis" className="text-link">
+                Parler de mon projet{" "}
+                <ChevronRight size={18} aria-hidden="true" />
+              </Link>
+            </div>
+          </div>
+          <details className="project-photo-details">
+            <summary>
+              Voir les 3 photos et leurs détails{" "}
+              <Plus size={18} aria-hidden="true" />
+            </summary>
+            <div className="project-photo-grid">
               {ceilingProject.photos.map((photo, index) => (
-                <figure key={photo.image} className={`min-w-0 ${index >= 2 ? "sm:col-span-2 sm:mx-auto sm:w-full sm:max-w-[630px]" : ""}`}>
+                <figure key={photo.image}>
                   <button
                     ref={(element) => {
                       cardButtonRefs.current[index] = element;
@@ -330,163 +320,81 @@ export default function Gallery() {
                     aria-haspopup="dialog"
                     aria-label={`Agrandir la réalisation : ${photo.title}`}
                     onClick={() => openGallery(index)}
-                    className="group block w-full overflow-hidden rounded-2xl bg-slate-100 text-left focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[#082E50]"
+                    className="project-photo-button"
                   >
                     <Image
                       src={photo.image}
                       alt={photo.alt}
                       width={photo.width}
                       height={photo.height}
-                      sizes="(max-width: 639px) calc(100vw - 80px), (max-width: 1479px) 45vw, 630px"
+                      sizes="(max-width: 767px) 100vw, 33vw"
                       className="h-auto w-full"
                     />
-                    <span className="flex min-h-11 items-center justify-between gap-3 bg-[#082E50] px-4 py-3 text-sm font-semibold text-white group-hover:bg-[#0B426F]">
-                      Voir la photo en entier
-                      <Maximize2 size={17} aria-hidden="true" className="shrink-0" />
+                    <span>
+                      Voir la photo en entier{" "}
+                      <Maximize2 size={16} aria-hidden="true" />
                     </span>
                   </button>
-                  <figcaption className="mt-2 text-sm leading-6 text-slate-600">
-                    <span className="block font-semibold text-[#082E50]">{photo.title}</span>
+                  <figcaption>
+                    <strong>{photo.title}</strong>
                     {photo.caption}
                   </figcaption>
                 </figure>
               ))}
             </div>
-            <div className="flex flex-col items-start gap-4 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-7">
-              <p className="max-w-xl text-sm leading-6 text-slate-600">
-                Un projet de remise en peinture ? Décrivez votre besoin pour
-                vérifier ensemble l&apos;intervention adaptée.
-              </p>
-              <Link
-                href="/#devis"
-                className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-xl bg-[#D5A52E] px-5 py-3 text-sm font-bold text-[#082E50] transition-colors hover:bg-yellow-400 focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[#082E50]"
-              >
-                Parler de mon projet
-              </Link>
-            </div>
-          </article>
-
-          <div className="mb-5 text-center sm:mb-6">
-            <h3 className="text-xl font-bold text-[#082E50] sm:text-2xl">
-              Un aperçu des types d&apos;intervention
-            </h3>
-            <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-slate-600">
-              Les images ci-dessous sont des illustrations de prestations,
-              et non des photos de chantiers réalisés par HomeAToutFaire.
-            </p>
-          </div>
-
-          {/* =====================================================
-              GRILLE DES EXEMPLES
-          ===================================================== */}
-
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3 xl:gap-6">
+          </details>
+        </article>
+        <details className="illustration-details">
+          <summary>
+            <span>
+              Et pour vos autres petits travaux ?
+              <small>
+                Explorer les illustrations des 6 types de prestation
+              </small>
+            </span>
+            <Plus size={23} aria-hidden="true" />
+          </summary>
+          <p className="illustration-disclaimer">
+            Les images ci-dessous sont des illustrations de prestations, et non
+            des photos de chantiers réalisés par HomeAToutFaire.
+          </p>
+          <div className="illustration-grid">
             {illustrations.map((photo, illustrationIndex) => {
               const index = ceilingProject.photos.length + illustrationIndex;
-
               return (
-              <motion.article
-                key={photo.image}
-                initial={{
-                  opacity: 0,
-                  y: 30,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                viewport={{
-                  once: true,
-                  amount: 0.2,
-                }}
-                transition={{
-                  duration: 0.5,
-                  delay: illustrationIndex * 0.06,
-                  ease: "easeOut",
-                }}
-                whileHover={{
-                  y: -5,
-                }}
-                className="group relative overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_12px_35px_rgba(15,23,42,0.08)] transition-all duration-300 hover:border-yellow-300 hover:shadow-[0_22px_55px_rgba(15,23,42,0.15)] focus-within:border-yellow-400 focus-within:ring-4 focus-within:ring-yellow-300/25"
-              >
-                <button
-                  ref={(element) => {
-                    cardButtonRefs.current[index] = element;
-                  }}
-                  type="button"
-                  aria-haspopup="dialog"
-                  aria-label={`Agrandir l'exemple de prestation : ${photo.title}`}
-                  onClick={() => openGallery(index)}
-                  className="absolute inset-0 z-20 rounded-3xl focus-visible:outline-none"
-                >
-                  <span className="sr-only">
-                    Agrandir l&apos;exemple de prestation : {photo.title}
-                  </span>
-                </button>
-
-                {/* PHOTO PLUS COMPACTE */}
-
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <Image
-                    src={photo.image}
-                    alt={photo.alt}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.07]"
-                  />
-
-                  {/* DÉGRADÉ */}
-
-                  <div className="absolute inset-0 bg-linear-to-t from-[#06192B]/90 via-[#06192B]/15 to-transparent" />
-
-                  {/* BADGE */}
-
-                  <div className="absolute left-4 top-4 rounded-full border border-white/25 bg-white/90 px-3 py-1.5 text-[11px] font-bold text-[#082E50] shadow-lg backdrop-blur-md">
-                    Illustration
-                  </div>
-
-                  {/* ICÔNE ZOOM */}
-
-                  <div className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-white/25 bg-[#06192B]/60 text-white opacity-0 shadow-lg backdrop-blur-md transition-all duration-300 group-hover:opacity-100 group-focus-within:opacity-100">
-                    <Maximize2
-                      size={17}
-                      strokeWidth={2.3}
+                <article key={photo.image} className="illustration-card">
+                  <div className="illustration-photo">
+                    <Image
+                      src={photo.image}
+                      alt={photo.alt}
+                      fill
+                      sizes="(max-width: 639px) 100vw, 33vw"
                     />
+                    <span className="image-provenance">Illustration</span>
+                    <button
+                      ref={(element) => {
+                        cardButtonRefs.current[index] = element;
+                      }}
+                      type="button"
+                      aria-haspopup="dialog"
+                      aria-label={`Agrandir l'exemple de prestation : ${photo.title}`}
+                      onClick={() => openGallery(index)}
+                    >
+                      <Maximize2 size={20} aria-hidden="true" />
+                    </button>
                   </div>
-
-                  {/* INFORMATIONS */}
-
-                  <div className="absolute inset-x-3.5 bottom-3.5 rounded-2xl border border-white/20 bg-[#06192B]/35 px-4 py-3 backdrop-blur-xl sm:px-4 sm:py-3.5">
-                    <h3 className="text-lg font-bold leading-tight text-white sm:text-xl">
-                      {photo.title}
-                    </h3>
-
-                    <div className="mt-2.5 flex items-center justify-between text-xs font-semibold text-yellow-300 sm:text-sm">
-                      <span>
-                        Voir en grand
-                      </span>
-
-                      <ChevronRight
-                        size={18}
-                        strokeWidth={2.4}
-                        className="transition-transform duration-300 group-hover:translate-x-1"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <Link
-                  href={photo.href}
-                  className="relative z-30 flex min-h-12 items-center justify-between gap-3 px-5 py-3 text-sm font-bold text-[#0A6587] hover:bg-sky-50"
-                  aria-label={`Voir les prestations : ${photo.title}`}
-                >
-                  Découvrir les prestations
-                  <ChevronRight size={18} aria-hidden="true" />
-                </Link>
-              </motion.article>
+                  <Link
+                    href={photo.href}
+                    aria-label={`Voir les prestations : ${photo.title}`}
+                  >
+                    <h3>{photo.title}</h3>
+                    <ChevronRight size={18} aria-hidden="true" />
+                  </Link>
+                </article>
               );
             })}
           </div>
-        </div>
+        </details>
       </div>
 
       {/* =========================================================
@@ -532,7 +440,8 @@ export default function Gallery() {
 
                 <p className="mt-0.5 text-xs text-white/55">
                   {gallery[selectedIndex].label}
-                  {" · "}{selectedIndex + 1} / {gallery.length}
+                  {" · "}
+                  {selectedIndex + 1} / {gallery.length}
                 </p>
               </div>
 
@@ -540,9 +449,7 @@ export default function Gallery() {
 
               <div
                 className="flex items-center gap-2"
-                onClick={(event) =>
-                  event.stopPropagation()
-                }
+                onClick={(event) => event.stopPropagation()}
               >
                 <LightboxButton
                   label="Zoom arrière"
@@ -597,10 +504,7 @@ export default function Gallery() {
               }}
               className="absolute left-3 z-30 flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white shadow-xl backdrop-blur-xl transition-colors hover:bg-yellow-400 hover:text-[#06192B] sm:left-6 sm:h-14 sm:w-14"
             >
-              <ChevronLeft
-                size={28}
-                strokeWidth={2.2}
-              />
+              <ChevronLeft size={28} strokeWidth={2.2} />
             </motion.button>
 
             {/* ===================================================
@@ -642,13 +546,9 @@ export default function Gallery() {
               onDoubleClick={(event) => {
                 event.stopPropagation();
 
-                setZoom((current) =>
-                  current === 1 ? 2 : 1,
-                );
+                setZoom((current) => (current === 1 ? 2 : 1));
               }}
-              onClick={(event) =>
-                event.stopPropagation()
-              }
+              onClick={(event) => event.stopPropagation()}
               className="relative flex max-h-[78vh] max-w-[84vw] items-center justify-center"
               style={{
                 touchAction: "none",
@@ -669,10 +569,7 @@ export default function Gallery() {
                   maxHeight: "78vh",
                   transform: `scale(${zoom})`,
                   transition: "transform 0.2s ease",
-                  cursor:
-                    zoom > 1
-                      ? "grab"
-                      : "zoom-in",
+                  cursor: zoom > 1 ? "grab" : "zoom-in",
                 }}
                 className="select-none rounded-2xl shadow-[0_30px_90px_rgba(0,0,0,0.6)]"
               />
@@ -697,10 +594,7 @@ export default function Gallery() {
               }}
               className="absolute right-3 z-30 flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white shadow-xl backdrop-blur-xl transition-colors hover:bg-yellow-400 hover:text-[#06192B] sm:right-6 sm:h-14 sm:w-14"
             >
-              <ChevronRight
-                size={28}
-                strokeWidth={2.2}
-              />
+              <ChevronRight size={28} strokeWidth={2.2} />
             </motion.button>
 
             {/* ===================================================

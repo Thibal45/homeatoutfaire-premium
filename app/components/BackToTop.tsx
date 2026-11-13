@@ -60,7 +60,7 @@ export default function BackToTop() {
         setProtectedSectionVisible(visibleSections.size > 0);
       },
       {
-        threshold: 0.08,
+        threshold: 0,
       },
     );
 
