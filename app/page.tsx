@@ -152,13 +152,13 @@ export default function Home() {
       <main id="contenu-principal">
         <Hero />
         <Services />
-        <ServiceArea />
-        <About />
         <Gallery />
-        <Reviews />
+        <About />
         <Stats />
+        <ServiceArea />
         <Quote />
         <Contact />
+        <Reviews />
       </main>
 
       <Footer />

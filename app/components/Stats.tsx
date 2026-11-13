@@ -1,211 +1,95 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
 import {
-  CheckCircle2,
-  FileText,
-  Phone,
-  ShieldCheck,
-  Wrench,
+  ArrowRight,
+  CalendarCheck,
+  ClipboardCheck,
+  MessageCircle,
 } from "lucide-react";
-
-type GtagWindow = Window & {
-  gtag?: (
-    command: "event",
-    eventName: string,
-    parameters?: Record<string, string | number | boolean>,
-  ) => void;
-};
-
-function trackQuoteClick() {
-  const analyticsWindow = window as GtagWindow;
-
-  analyticsWindow.gtag?.("event", "click_quote", {
-    location: "how_it_works",
-  });
-}
-
-function trackPhoneClick() {
-  const analyticsWindow = window as GtagWindow;
-
-  analyticsWindow.gtag?.("event", "click_phone", {
-    contact_method: "phone",
-    location: "how_it_works",
-  });
-}
+import Reveal from "./Reveal";
 
 const steps = [
   {
-    number: "01",
-    title: "Décrivez votre besoin",
-    description:
-      "Expliquez le petit travail ou le problème rencontré par le formulaire, par téléphone ou sur WhatsApp. Quelques photos peuvent aider à comprendre la situation.",
-    icon: FileText,
+    title: "Vous me racontez.",
+    icon: MessageCircle,
+    summary: "Un besoin, quelques mots, et on commence.",
+    detail:
+      "Décrivez le petit travail par téléphone, WhatsApp ou formulaire. Une photo peut aider à comprendre la situation. Aucune inscription à créer.",
+    label: "Décrire mon besoin",
   },
   {
-    number: "02",
-    title: "Je vérifie la prise en charge",
-    description:
-      "Votre demande est étudiée avant déplacement afin de confirmer qu’elle entre bien dans les prestations HomeAToutFaire et de préciser les éléments utiles au devis.",
-    icon: ShieldCheck,
+    title: "On fait le point.",
+    icon: ClipboardCheck,
+    summary: "Une prise en charge et un devis clairs.",
+    detail:
+      "Je vérifie que la demande entre dans mes prestations. Nous précisons ensemble le travail à réaliser et le tarif avant de convenir d’une intervention.",
+    label: "Demander un devis gratuit",
   },
   {
-    number: "03",
-    title: "L’intervention est organisée",
-    description:
-      "Une fois la prestation et le tarif convenus, l’intervention est planifiée avec vous dans le cadre défini ensemble.",
-    icon: Wrench,
+    title: "Je m’en occupe.",
+    icon: CalendarCheck,
+    summary: "Un créneau convenu. Un travail soigné.",
+    detail:
+      "Une fois la prestation et le tarif acceptés, nous organisons l’intervention selon nos disponibilités. Vous gardez le même interlocuteur jusqu’à la fin.",
+    label: "Préparer mon projet",
   },
 ];
 
 export default function Stats() {
+  const [active, setActive] = useState(0);
+  const Icon = steps[active].icon;
   return (
-    <section
-      id="fonctionnement"
-      className="relative overflow-hidden bg-[#082E50] py-14 text-white sm:py-18 lg:py-20"
-    >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 overflow-hidden"
-      >
-        <div className="absolute -left-24 top-10 h-72 w-72 rounded-full bg-cyan-400/10 blur-[120px]" />
-
-        <div className="absolute -right-20 bottom-0 h-80 w-80 rounded-full bg-yellow-400/10 blur-[130px]" />
-
-        <div
-          className="absolute inset-0 opacity-[0.045]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)",
-            backgroundSize: "46px 46px",
-          }}
-        />
-
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_25%,rgba(1,12,24,0.28)_100%)]" />
-      </div>
-
-      <div className="relative z-10 mx-auto w-full max-w-[1480px] px-5 sm:px-8 lg:px-10 xl:px-12">
-        <div className="mx-auto w-full max-w-[1360px]">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="mx-auto max-w-[900px] text-center"
-          >
-            <span className="inline-flex rounded-full border border-yellow-300/30 bg-white/8 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.22em] text-yellow-300">
-              Comment ça se passe ?
-            </span>
-
-            <h2 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-white sm:text-[2.15rem] lg:text-[2.35rem]">
-              Une demande simple, du premier contact à l&apos;intervention
-            </h2>
-
-            <p className="mt-3 text-base leading-7 text-blue-100/75 sm:text-lg">
-              L&apos;objectif est de savoir rapidement si votre besoin peut
-              être pris en charge, sans vous faire déplacer ni multiplier les
-              interlocuteurs.
-            </p>
-
-            <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-yellow-400" />
-          </motion.div>
-
-          <div className="relative mt-10 grid lg:grid-cols-3">
-            <div
-              aria-hidden="true"
-              className="absolute left-[16.66%] right-[16.66%] top-7 hidden h-px bg-gradient-to-r from-yellow-300/30 via-yellow-300/70 to-yellow-300/30 lg:block"
-            />
-
-            {steps.map((step, index) => {
-              const Icon = step.icon;
-
-              return (
-                <motion.article
-                  key={step.number}
-                  initial={{ opacity: 0, y: 28 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.25 }}
-                  transition={{
-                    duration: 0.5,
-                    delay: index * 0.08,
-                    ease: "easeOut",
-                  }}
-                  className={`relative grid grid-cols-[auto_1fr] gap-4 py-5 lg:block lg:px-8 lg:py-0 lg:text-center ${
-                    index !== steps.length - 1
-                      ? "border-b border-white/10 lg:border-b-0"
-                      : ""
-                  }`}
-                >
-                  <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl bg-yellow-400 text-[#06192B] shadow-[0_12px_30px_rgba(250,204,21,.18)] lg:mx-auto">
-                      <Icon size={23} strokeWidth={2.3} />
-                    <span className="absolute -right-2 -top-2 flex h-6 min-w-6 items-center justify-center rounded-full border border-white/15 bg-[#06192B] px-1 text-[10px] font-black text-yellow-300">
-                      {step.number}
-                    </span>
-                  </div>
-
-                  <div>
-                    <h3 className="text-xl font-bold text-white lg:mt-5">
-                      {step.title}
-                    </h3>
-
-                    <p className="mt-2 text-sm leading-6 text-blue-100/70 sm:text-[15px] lg:mx-auto lg:max-w-sm">
-                      {step.description}
-                    </p>
-                  </div>
-                </motion.article>
-              );
-            })}
+    <section id="fonctionnement" className="section-space process-section">
+      <div className="site-container">
+        <Reveal className="process-heading">
+          <p className="eyebrow">
+            <span className="eyebrow-line" /> 03 / LA MÉTHODE
+          </p>
+          <h2 className="display-title">
+            Les travaux, oui.
+            <br />
+            <span>Les complications, on évite.</span>
+          </h2>
+          <p>Trois étapes, un seul interlocuteur.</p>
+        </Reveal>
+        <Reveal className="process-layout">
+          <div className="process-steps">
+            {steps.map((step, index) => (
+              <button
+                key={step.title}
+                type="button"
+                className={`process-step ${active === index ? "is-active" : ""}`}
+                aria-expanded={active === index}
+                aria-controls="process-detail"
+                onClick={() => setActive(index)}
+              >
+                <span className="process-number">0{index + 1}</span>
+                <span>
+                  <strong>{step.title}</strong>
+                  <small>{step.summary}</small>
+                </span>
+                <ArrowRight size={22} aria-hidden="true" />
+              </button>
+            ))}
           </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.55, delay: 0.12, ease: "easeOut" }}
-            className="mx-auto mt-8 max-w-5xl rounded-3xl border border-white/10 bg-white/6 p-5 backdrop-blur-xl sm:p-6"
-          >
-            <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-              <div className="flex max-w-2xl items-start gap-3">
-                <CheckCircle2
-                  size={21}
-                  strokeWidth={2.3}
-                  className="mt-0.5 shrink-0 text-emerald-300"
-                />
-
-                <div>
-                  <p className="font-semibold text-white">
-                    Vous ne savez pas si votre demande entre dans le périmètre ?
-                  </p>
-
-                  <p className="mt-1 text-sm leading-6 text-blue-100/70">
-                    Décrivez-la simplement. Elle est étudiée avant déplacement
-                    afin de vous donner une réponse claire.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex shrink-0 flex-col gap-2.5 sm:flex-row">
-                <a
-                  href="#devis"
-                  onClick={trackQuoteClick}
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-yellow-400 px-5 py-3 text-sm font-bold text-[#06192B] transition-all hover:-translate-y-0.5 hover:bg-yellow-300"
-                >
-                  <FileText size={18} strokeWidth={2.3} />
-                  Décrire mon besoin
-                </a>
-
-                <a
-                  href="tel:0618085598"
-                  onClick={trackPhoneClick}
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/8 px-5 py-3 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:border-yellow-300/50 hover:bg-white/12"
-                >
-                  <Phone size={18} strokeWidth={2.3} />
-                  Appeler
-                </a>
-              </div>
-            </div>
-          </motion.div>
-        </div>
+          <div id="process-detail" className="process-detail" key={active}>
+            <span className="process-detail-step">ÉTAPE 0{active + 1}</span>
+            <span className="process-detail-icon">
+              <Icon size={40} strokeWidth={1.4} aria-hidden="true" />
+            </span>
+            <h3>{steps[active].title}</h3>
+            <p>{steps[active].detail}</p>
+            <a href="#devis" className="text-link">
+              {steps[active].label} <ArrowRight size={18} aria-hidden="true" />
+            </a>
+            <span className="process-dots" aria-hidden="true">
+              {steps.map((_, index) => (
+                <i key={index} className={active === index ? "active" : ""} />
+              ))}
+            </span>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

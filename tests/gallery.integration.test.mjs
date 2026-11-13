@@ -61,6 +61,13 @@ test("real project and illustration gallery", async t => {
   });
   await act(async () => root.render(React.createElement(Gallery)));
   try {
+    await t.test("comparison starts balanced, labels the reconstructed before and remains a native keyboard slider", () => {
+      const slider=document.querySelector('input[type="range"]');
+      assert.equal(slider.min,"0");assert.equal(slider.max,"100");assert.equal(slider.value,"50");
+      assert.match(slider.getAttribute("aria-label"),/reconstitué/);
+      assert.match(slider.getAttribute("aria-valuetext"),/Avant 50 %, après 50 %/);
+      assert.match(document.querySelector('.comparison-provenance').textContent,/photo retouchée/);
+    });
     await t.test("before reconstruction and after photo have distinct provenance labels", () => {
       const article = document.querySelector('[aria-labelledby="ceiling-project-title"]');
       assert.equal(article.querySelectorAll("figure").length, 3);

@@ -4,9 +4,14 @@ import type { ReactNode } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import QuoteCaptcha from "./QuoteCaptcha";
+import { QUOTE_PREFILL_EVENT } from "../lib/quote-prefill";
 import {
-  cooldownRemaining, QUOTE_COOLDOWN_KEY, QUOTE_COOLDOWN_MS,
-  QUOTE_LIMITS, QUOTE_SERVICES, validateQuote,
+  cooldownRemaining,
+  QUOTE_COOLDOWN_KEY,
+  QUOTE_COOLDOWN_MS,
+  QUOTE_LIMITS,
+  QUOTE_SERVICES,
+  validateQuote,
 } from "../lib/quote-security";
 
 import {
@@ -23,10 +28,7 @@ import {
   Wrench,
   XCircle,
 } from "lucide-react";
-import {
-  trackContactClick,
-  trackQuoteSent,
-} from "../lib/analytics";
+import { trackContactClick, trackQuoteSent } from "../lib/analytics";
 
 const allowedServices = new Set<string>(QUOTE_SERVICES);
 const captchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? "";
@@ -59,7 +61,10 @@ export default function QuoteForm() {
   const [securityError, setSecurityError] = useState("");
   const [captchaToken, setCaptchaToken] = useState("");
   const [captchaResetKey, setCaptchaResetKey] = useState(0);
-  const receiveCaptchaToken = useCallback((token: string) => setCaptchaToken(token), []);
+  const receiveCaptchaToken = useCallback(
+    (token: string) => setCaptchaToken(token),
+    [],
+  );
 
   useEffect(() => {
     if (securityError) securityErrorRef.current?.focus();
@@ -70,17 +75,45 @@ export default function QuoteForm() {
   }, [success, error]);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => {
-      const requestedService = new URLSearchParams(window.location.search).get(
-        "service",
-      );
-
-      if (requestedService && allowedServices.has(requestedService)) {
-        setSelectedService(requestedService);
+    function applyFields(
+      fields: { service?: unknown; commune?: unknown },
+      overwrite = false,
+    ) {
+      if (
+        typeof fields.service === "string" &&
+        allowedServices.has(fields.service)
+      ) {
+        setSelectedService(fields.service);
       }
-    }, 0);
-
-    return () => window.clearTimeout(timer);
+      const addressField = formRef.current?.elements.namedItem("address");
+      if (
+        typeof fields.commune === "string" &&
+        fields.commune.length <= QUOTE_LIMITS.address &&
+        addressField instanceof HTMLInputElement &&
+        (overwrite || !addressField.value)
+      ) {
+        addressField.value = fields.commune;
+      }
+    }
+    function readQuery() {
+      const params = new URLSearchParams(window.location.search);
+      applyFields({
+        service: params.get("service"),
+        commune: params.get("commune"),
+      });
+    }
+    function receiveSelection(event: Event) {
+      const detail = (event as CustomEvent).detail;
+      if (detail && typeof detail === "object") applyFields(detail, true);
+    }
+    const timer = window.setTimeout(readQuery, 0);
+    window.addEventListener(QUOTE_PREFILL_EVENT, receiveSelection);
+    window.addEventListener("popstate", readQuery);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener(QUOTE_PREFILL_EVENT, receiveSelection);
+      window.removeEventListener("popstate", readQuery);
+    };
   }, []);
 
   const errorWhatsAppMessage = selectedService
@@ -91,9 +124,7 @@ export default function QuoteForm() {
     errorWhatsAppMessage,
   )}`;
 
-  async function handleSubmit(
-    event: React.FormEvent<HTMLFormElement>,
-  ) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (!formRef.current || submitLock.current) return;
@@ -132,27 +163,36 @@ export default function QuoteForm() {
     }
 
     const validationError = validateQuote(fields);
-    if (validationError) { setSecurityError(validationError); return; }
+    if (validationError) {
+      setSecurityError(validationError);
+      return;
+    }
 
     let previousSend = lastSent.current;
-    try { previousSend = window.localStorage.getItem(QUOTE_COOLDOWN_KEY) ?? previousSend; } catch { /* Contact remains available when browser storage is disabled. */ }
+    try {
+      previousSend =
+        window.localStorage.getItem(QUOTE_COOLDOWN_KEY) ?? previousSend;
+    } catch {
+      /* Contact remains available when browser storage is disabled. */
+    }
     const remaining = cooldownRemaining(previousSend);
     if (remaining > 0) {
-      setSecurityError(`Votre précédente demande a été envoyée. Patientez ${Math.ceil(remaining / 1000)} secondes avant un nouvel envoi.`);
+      setSecurityError(
+        `Votre précédente demande a été envoyée. Patientez ${Math.ceil(remaining / 1000)} secondes avant un nouvel envoi.`,
+      );
       return;
     }
     if (!captchaSiteKey || !captchaToken) {
-      setSecurityError(captchaSiteKey
-        ? "Activez puis complétez la vérification anti-robot avant d’envoyer votre demande."
-        : "La vérification est momentanément indisponible. Contactez-moi par téléphone ou par e-mail.");
+      setSecurityError(
+        captchaSiteKey
+          ? "Activez puis complétez la vérification anti-robot avant d’envoyer votre demande."
+          : "La vérification est momentanément indisponible. Contactez-moi par téléphone ou par e-mail.",
+      );
       return;
     }
 
-    const contactMethod = hasPhone && hasEmail
-      ? "phone_and_email"
-      : hasPhone
-        ? "phone"
-        : "email";
+    const contactMethod =
+      hasPhone && hasEmail ? "phone_and_email" : hasPhone ? "phone" : "email";
 
     setContactError(false);
     setLoading(true);
@@ -169,12 +209,19 @@ export default function QuoteForm() {
         { ...fields, "g-recaptcha-response": captchaToken },
         {
           publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
-          limitRate: { id: "homeatoutfaire-quote", throttle: QUOTE_COOLDOWN_MS },
+          limitRate: {
+            id: "homeatoutfaire-quote",
+            throttle: QUOTE_COOLDOWN_MS,
+          },
         },
       );
 
       lastSent.current = String(Date.now());
-      try { window.localStorage.setItem(QUOTE_COOLDOWN_KEY, lastSent.current); } catch { /* In-memory duplicate protection still applies. */ }
+      try {
+        window.localStorage.setItem(QUOTE_COOLDOWN_KEY, lastSent.current);
+      } catch {
+        /* In-memory duplicate protection still applies. */
+      }
 
       trackQuoteSent(selectedService, contactMethod);
 
@@ -232,11 +279,7 @@ export default function QuoteForm() {
 
         <div className="mb-5 flex items-start gap-3 border-b border-white/10 pb-4 sm:mb-7 sm:gap-4 sm:pb-6">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-yellow-400 text-[#06192B] shadow-[0_8px_25px_rgba(250,204,21,0.2)] sm:h-12 sm:w-12 sm:rounded-2xl">
-            <FileText
-              size={21}
-              strokeWidth={2.3}
-              className="sm:h-6 sm:w-6"
-            />
+            <FileText size={21} strokeWidth={2.3} className="sm:h-6 sm:w-6" />
           </div>
 
           <div className="min-w-0">
@@ -248,7 +291,8 @@ export default function QuoteForm() {
               Quelques informations suffisent pour étudier votre demande.
             </p>
             <p className="mt-2 text-xs leading-5 text-blue-100/85">
-              * Champs obligatoires. Téléphone ou e-mail : renseignez au moins l&apos;un des deux.
+              * Champs obligatoires. Téléphone ou e-mail : renseignez au moins
+              l&apos;un des deux.
             </p>
           </div>
         </div>
@@ -343,7 +387,8 @@ export default function QuoteForm() {
           id="contact-help"
           className="mt-2 text-[11px] leading-4.5 text-blue-100/60 sm:text-xs"
         >
-          Indiquez au moins un moyen de contact&nbsp;: téléphone ou adresse e-mail.
+          Indiquez au moins un moyen de contact&nbsp;: téléphone ou adresse
+          e-mail.
         </p>
 
         {contactError && (
@@ -352,8 +397,8 @@ export default function QuoteForm() {
             role="alert"
             className="mt-2 rounded-xl border border-red-300/20 bg-red-400/10 px-3 py-2 text-xs font-semibold leading-5 text-red-100"
           >
-            Renseignez votre téléphone ou votre adresse e-mail pour que je puisse
-            vous répondre.
+            Renseignez votre téléphone ou votre adresse e-mail pour que je
+            puisse vous répondre.
           </p>
         )}
 
@@ -376,11 +421,7 @@ export default function QuoteForm() {
               required
               className={`${inputClassName} cursor-pointer text-white`}
             >
-              <option
-                value=""
-                disabled
-                className="bg-white text-slate-500"
-              >
+              <option value="" disabled className="bg-white text-slate-500">
                 Sélectionnez une prestation
               </option>
 
@@ -398,17 +439,11 @@ export default function QuoteForm() {
                 Petits travaux de plomberie
               </option>
 
-              <option
-                value="Peinture"
-                className="bg-white text-slate-900"
-              >
+              <option value="Peinture" className="bg-white text-slate-900">
                 Peinture
               </option>
 
-              <option
-                value="Menuiserie"
-                className="bg-white text-slate-900"
-              >
+              <option value="Menuiserie" className="bg-white text-slate-900">
                 Menuiserie
               </option>
 
@@ -433,10 +468,7 @@ export default function QuoteForm() {
                 Résidence secondaire / gîte
               </option>
 
-              <option
-                value="Autre"
-                className="bg-white text-slate-900"
-              >
+              <option value="Autre" className="bg-white text-slate-900">
                 Autre demande
               </option>
             </select>
@@ -506,11 +538,7 @@ export default function QuoteForm() {
                   onClick={() => trackEmailClick("quote_form_photos")}
                   className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/8 px-3 py-1.5 text-[11px] font-semibold text-white transition-colors hover:border-yellow-300/40 hover:bg-white/12 sm:px-3.5 sm:py-2 sm:text-xs"
                 >
-                  <Mail
-                    size={14}
-                    className="text-yellow-300"
-                  />
-
+                  <Mail size={14} className="text-yellow-300" />
                   Par e-mail
                 </a>
 
@@ -523,11 +551,7 @@ export default function QuoteForm() {
                   }
                   className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/8 px-3 py-1.5 text-[11px] font-semibold text-white transition-colors hover:border-yellow-300/40 hover:bg-white/12 sm:px-3.5 sm:py-2 sm:text-xs"
                 >
-                  <MessageCircle
-                    size={14}
-                    className="text-yellow-300"
-                  />
-
+                  <MessageCircle size={14} className="text-yellow-300" />
                   Par WhatsApp
                 </a>
               </div>
@@ -535,10 +559,19 @@ export default function QuoteForm() {
           </div>
         </div>
 
-        <QuoteCaptcha siteKey={captchaSiteKey} onToken={receiveCaptchaToken} resetKey={captchaResetKey} />
+        <QuoteCaptcha
+          siteKey={captchaSiteKey}
+          onToken={receiveCaptchaToken}
+          resetKey={captchaResetKey}
+        />
 
         {securityError && (
-          <p ref={securityErrorRef} tabIndex={-1} role="alert" className="mt-4 rounded-xl border border-yellow-300/30 bg-yellow-400/10 p-3 text-sm leading-6 text-yellow-100 outline-none">
+          <p
+            ref={securityErrorRef}
+            tabIndex={-1}
+            role="alert"
+            className="mt-4 rounded-xl border border-yellow-300/30 bg-yellow-400/10 p-3 text-sm leading-6 text-yellow-100 outline-none"
+          >
             {securityError}
           </p>
         )}
@@ -582,10 +615,7 @@ export default function QuoteForm() {
             role="alert"
             className="mt-4 flex items-start gap-3 rounded-2xl border border-red-300/20 bg-red-400/10 px-3.5 py-3 text-red-100 sm:mt-6 sm:px-4 sm:py-3.5"
           >
-            <XCircle
-              size={20}
-              className="mt-0.5 shrink-0 text-red-300"
-            />
+            <XCircle size={20} className="mt-0.5 shrink-0 text-red-300" />
 
             <div>
               <p className="text-sm font-semibold">
@@ -659,11 +689,7 @@ export default function QuoteForm() {
           >
             {loading ? (
               <>
-                <LoaderCircle
-                  size={19}
-                  className="animate-spin"
-                />
-
+                <LoaderCircle size={19} className="animate-spin" />
                 Envoi en cours...
               </>
             ) : (
@@ -673,7 +699,6 @@ export default function QuoteForm() {
                   strokeWidth={2.4}
                   className="transition-transform duration-300 group-hover:translate-x-0.5"
                 />
-
                 Envoyer ma demande
               </>
             )}
@@ -711,9 +736,7 @@ function FormField({
         htmlFor={htmlFor}
         className="mb-1.5 flex items-center gap-2 text-[13px] font-semibold text-white sm:mb-2.5 sm:text-sm"
       >
-        <span className="text-yellow-300">
-          {icon}
-        </span>
+        <span className="text-yellow-300">{icon}</span>
 
         <span>
           {label}
@@ -721,9 +744,7 @@ function FormField({
         </span>
 
         {optional && (
-          <span className="font-normal text-blue-100/50">
-            (facultatif)
-          </span>
+          <span className="font-normal text-blue-100/50">(facultatif)</span>
         )}
       </label>
 

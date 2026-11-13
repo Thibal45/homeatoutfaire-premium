@@ -1,83 +1,46 @@
 "use client";
 
 import Link from "next/link";
-import { FileText, MessageCircle, Phone } from "lucide-react";
-import {
-  trackContactClick,
-  trackQuoteClick,
-} from "../lib/analytics";
+import { ArrowUpRight, MessageCircle, Phone } from "lucide-react";
+import { trackContactClick, trackQuoteClick } from "../lib/analytics";
 
-type ServiceContactCtaProps = {
-  location: string;
-  service?: string;
-};
-
-export default function ServiceContactCta({
-  location,
-  service,
-}: ServiceContactCtaProps) {
+type Props = { location: string; service?: string };
+export default function ServiceContactCta({ location, service }: Props) {
   const quoteHref = service
     ? `/?service=${encodeURIComponent(service)}#devis`
     : "/#devis";
-
-  const whatsappMessage = service
-    ? `Bonjour, je souhaite un renseignement pour : ${service}.`
-    : "Bonjour, je souhaite un renseignement pour des petits travaux.";
-
-  const whatsappHref = `https://wa.me/33618085598?text=${encodeURIComponent(
-    whatsappMessage,
-  )}`;
-  function trackPhoneClick() {
-    trackContactClick("phone", location, service);
-  }
-
-  function handleQuoteClick() {
-    trackQuoteClick(location, service);
-  }
-
-  function trackWhatsAppClick() {
-    trackContactClick("whatsapp", location, service);
-  }
-
+  const whatsapp = `https://wa.me/33618085598?text=${encodeURIComponent(service ? `Bonjour, je souhaite un renseignement pour : ${service}.` : "Bonjour, je souhaite un renseignement pour des petits travaux.")}`;
   return (
-    <div className="w-full">
-      <div className="flex w-full flex-col gap-3 sm:flex-row">
-        <a
-          href="tel:0618085598"
-          onClick={trackPhoneClick}
-          aria-label="Appeler HomeAToutFaire au 06 18 08 55 98"
-          className="inline-flex min-h-13 flex-1 items-center justify-center gap-3 rounded-2xl bg-yellow-400 px-5 py-3 font-bold text-[#06192B] shadow-[0_14px_35px_rgba(250,204,21,0.24)] transition-all hover:-translate-y-0.5 hover:bg-yellow-300"
-        >
-          <Phone size={20} strokeWidth={2.4} />
-
-          <span>
-            Appeler le 06 18 08 55 98
-          </span>
-        </a>
-
+    <div className="service-contact-cta">
+      <div>
         <Link
           href={quoteHref}
-          onClick={handleQuoteClick}
+          className="btn btn-gold"
           aria-label="Demander un devis gratuit à HomeAToutFaire"
-          className="inline-flex min-h-13 flex-1 items-center justify-center gap-3 rounded-2xl border border-white/20 bg-white/10 px-5 py-3 font-bold text-white transition-all hover:-translate-y-0.5 hover:border-yellow-300/60 hover:bg-white hover:text-[#06192B]"
+          onClick={() => trackQuoteClick(location, service)}
         >
-          <FileText size={20} strokeWidth={2.3} />
-
-          <span>
-            Devis gratuit pour ce besoin
-          </span>
+          Demander un devis gratuit{" "}
+          <ArrowUpRight size={19} aria-hidden="true" />
         </Link>
+        <a
+          href="tel:0618085598"
+          className="service-cta-phone"
+          aria-label="Appeler HomeAToutFaire au 06 18 08 55 98"
+          onClick={() => trackContactClick("phone", location, service)}
+        >
+          <Phone size={17} aria-hidden="true" />
+          06 18 08 55 98
+        </a>
       </div>
-
       <a
-        href={whatsappHref}
+        href={whatsapp}
         target="_blank"
         rel="noopener noreferrer"
-        onClick={trackWhatsAppClick}
-        className="mx-auto mt-3 flex w-fit items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-emerald-300 transition-colors hover:bg-white/8 hover:text-emerald-200"
+        className="service-cta-whatsapp"
+        onClick={() => trackContactClick("whatsapp", location, service)}
       >
-        <MessageCircle size={17} strokeWidth={2.3} />
-        Écrire sur WhatsApp
+        <MessageCircle size={16} aria-hidden="true" />
+        Ou écrivez-moi sur WhatsApp
       </a>
     </div>
   );
