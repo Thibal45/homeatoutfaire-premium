@@ -17,9 +17,9 @@ Object.defineProperty(globalThis, "navigator", {
   value: initial.window.navigator,
 });
 const { createRoot } = await import("react-dom/client");
-async function mount(name) {
+async function mount(name, url = "https://test.invalid/") {
   const dom = new JSDOM('<div id="root"></div>', {
-    url: "https://test.invalid/",
+    url,
     pretendToBeVisual: true,
   });
   globalThis.window = dom.window;
@@ -30,6 +30,7 @@ async function mount(name) {
   const context = vm.createContext({
     window: dom.window,
     document: dom.window.document,
+    URL,
     console,
   });
   const cache = new Map();
@@ -54,9 +55,11 @@ async function mount(name) {
           React.createElement("div", { className }, children),
       };
     else if (specifier === "../lib/analytics")
-      exports = { trackQuoteClick() {} };
-    else if (specifier === "../lib/quote-prefill")
-      exports = { prefillQuote(fields) { prefills.push(fields); } };
+      exports = { trackQuoteClick() {}, trackContactClick() {} };
+    else if (specifier === "./QuoteForm")
+      exports = {default: () => React.createElement("form",null,React.createElement("textarea",{id:"message"}))};
+    else if (specifier === "../lib/quote-prefill" || specifier === "./quote-prefill")
+      exports = { QUOTE_PREFILL_EVENT: "hatf:quote-prefill", prefillQuote(fields) { prefills.push(fields); } };
     else if (specifier === "lucide-react")
       exports = Object.fromEntries(
         [
@@ -64,6 +67,9 @@ async function mount(name) {
           "ClipboardList",
           "Pencil",
           "X",
+          "Mail",
+          "Phone",
+          "Plus",
           "ArrowRight",
           "ArrowUpRight",
           "Check",
@@ -231,28 +237,14 @@ test("a commune choice changes the quote destination without claiming automatic 
   }
 });
 
-test("process steps change on demand and keep their detail accessible", async () => {
-  const h = await mount("Stats");
+test("the concise process keeps the price agreement before scheduling and one interlocutor", async () => {
+  const h=await mount("Stats");
   try {
-    const buttons = [...document.querySelectorAll("button")];
-    await h.click(buttons[1]);
-    assert.equal(buttons[1].getAttribute("aria-expanded"), "true");
-    assert.match(
-      document.querySelector("#process-detail").textContent,
-      /tarif/,
-    );
-    await h.click(buttons[2]);
-    assert.equal(
-      document.querySelectorAll('button[aria-expanded="true"]').length,
-      1,
-    );
-    assert.match(
-      document.querySelector("#process-detail").textContent,
-      /même interlocuteur/,
-    );
-  } finally {
-    await h.close();
-  }
+    const items=[...document.querySelectorAll('.work-steps li')];
+    assert.equal(items.length,3);
+    assert.match(items[1].textContent,/tarif.*avant.*planifier/);
+    assert.match(items[2].textContent,/même interlocuteur/);
+  }finally{await h.close();}
 });
 
 
@@ -261,6 +253,7 @@ test("house markers select the matching real service panel, without submitting a
   try {
     const spots=[...document.querySelectorAll('.house-hotspot')];
     assert.equal(spots.length,6);
+    assert.deepEqual(spots.map(e=>e.querySelector('[data-service-icon]')?.getAttribute('data-service-icon')),['electrical','plumbing','paint','wood','pool','repair']);
     for(let i=0;i<spots.length;i++){
       await h.click(spots[i]);
       assert.equal(spots[i].getAttribute('aria-pressed'),'true');
@@ -319,5 +312,38 @@ test("the project notebook keeps forward and reverse Tab navigation within its c
     assert.equal(document.activeElement,first);
     await React.act(async()=>first.dispatchEvent(new h.dom.window.KeyboardEvent('keydown',{key:'Tab',shiftKey:true,bubbles:true,cancelable:true})));
     assert.equal(document.activeElement,last);
+  }finally{await h.close();}
+});
+
+
+test("the compact contact keeps the quote closed until requested and preserves edits when reopened", async()=>{
+  const h=await mount('Quote');
+  try {
+    const detail=document.querySelector('#devis'), message=document.querySelector('#message');
+    assert.equal(detail.open,false);
+    message.value='Mon texte en cours.';
+    await React.act(async()=>h.dom.window.dispatchEvent(new h.dom.window.CustomEvent('hatf:quote-prefill',{detail:{service:'Peinture'}})));
+    assert.equal(detail.open,true);
+    detail.open=false;
+    h.dom.window.history.replaceState({},'', '/#devis');
+    await React.act(async()=>h.dom.window.dispatchEvent(new h.dom.window.HashChangeEvent('hashchange')));
+    assert.equal(detail.open,true);assert.equal(message.value,'Mon texte en cours.');
+  }finally{await h.close();}
+});
+
+test("quote and information deep links open the relevant disclosure, including a repeated quote link",async()=>{
+  const h=await mount('Quote','https://test.invalid/?service=Peinture#devis');
+  try {
+    await React.act(async()=>new Promise(r=>h.dom.window.setTimeout(r,10)));
+    assert.equal(document.querySelector('#devis').open,true);
+    document.querySelector('#devis').open=false;
+    const link=document.createElement('a');link.href='#devis';link.textContent='Devis';link.addEventListener('click',e=>e.preventDefault());document.body.append(link);
+    await h.click(link);assert.equal(document.querySelector('#devis').open,true);
+    h.dom.window.history.replaceState({},'', '/#zone-intervention');
+    await React.act(async()=>h.dom.window.dispatchEvent(new h.dom.window.HashChangeEvent('hashchange')));
+    assert.equal(document.querySelector('#zone-intervention').open,true);
+    h.dom.window.history.replaceState({},'', '/#fonctionnement');
+    await React.act(async()=>h.dom.window.dispatchEvent(new h.dom.window.HashChangeEvent('hashchange')));
+    assert.equal(document.querySelector('#fonctionnement').open,true);
   }finally{await h.close();}
 });

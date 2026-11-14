@@ -1,22 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import { ArrowRight } from "lucide-react";
 import {
-  ArrowRight,
-  Bolt,
-  Droplets,
-  Hammer,
-  PaintRoller,
-  Waves,
-  Wrench,
-} from "lucide-react";
+  ElectricalIcon,
+  PlumbingIcon,
+  PaintingIcon,
+  WoodworkIcon,
+  PoolCareIcon,
+  RepairIcon,
+} from "./ServiceIcons";
 import { discoverService } from "../lib/discovery";
 
 const spots = [
   {
     title: "Un luminaire à remplacer ?",
     label: "Petits travaux électriques",
-    icon: Bolt,
+    icon: ElectricalIcon,
     x: 57,
     y: 57,
     className: "electric",
@@ -24,7 +24,7 @@ const spots = [
   {
     title: "Un robinet à changer ?",
     label: "Petits travaux de plomberie",
-    icon: Droplets,
+    icon: PlumbingIcon,
     x: 77,
     y: 53,
     className: "plumbing",
@@ -32,7 +32,7 @@ const spots = [
   {
     title: "Une pièce à rafraîchir ?",
     label: "Peinture",
-    icon: PaintRoller,
+    icon: PaintingIcon,
     x: 42,
     y: 43,
     className: "paint",
@@ -40,7 +40,7 @@ const spots = [
   {
     title: "Une porte à régler ?",
     label: "Petits travaux de menuiserie",
-    icon: Hammer,
+    icon: WoodworkIcon,
     x: 34,
     y: 63,
     className: "wood",
@@ -48,7 +48,7 @@ const spots = [
   {
     title: "Une piscine à entretenir ?",
     label: "Entretien de piscine",
-    icon: Waves,
+    icon: PoolCareIcon,
     x: 78,
     y: 78,
     className: "pool",
@@ -56,7 +56,7 @@ const spots = [
   {
     title: "Un petit souci à résoudre ?",
     label: "Petit dépannage",
-    icon: Wrench,
+    icon: RepairIcon,
     x: 20,
     y: 74,
     className: "repair",
@@ -342,7 +342,7 @@ export default function HouseScene() {
                 onClick={() => setActive(index)}
                 className="house-hotspot"
               >
-                <Icon size={19} aria-hidden="true" />
+                <Icon size={25} aria-hidden="true" />
                 <span className="house-hotspot-label">{spot.label}</span>
               </button>
             );

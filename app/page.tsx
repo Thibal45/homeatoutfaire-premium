@@ -3,13 +3,8 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import ProjectPlanner from "./components/ProjectPlanner";
 import Services from "./components/Services";
-import ServiceArea from "./components/ServiceArea";
-import About from "./components/About";
 import Gallery from "./components/Gallery";
-import Reviews from "./components/Reviews";
-import Stats from "./components/Stats";
 import Quote from "./components/Quote";
-import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import BackToTop from "./components/BackToTop";
 import WhatsAppButton from "./components/WhatsAppButton";
@@ -155,12 +150,7 @@ export default function Home() {
         <ProjectPlanner />
         <Services />
         <Gallery />
-        <About />
-        <Stats />
-        <ServiceArea />
         <Quote />
-        <Contact />
-        <Reviews />
       </main>
 
       <Footer />

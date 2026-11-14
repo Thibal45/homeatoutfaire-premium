@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import {
-  ArrowDown,
   ArrowUpRight,
   Check,
   ClipboardList,
@@ -15,105 +14,73 @@ import HouseScene from "./HouseScene";
 
 export default function Hero() {
   return (
-    <section id="accueil" className="atelier-hero">
-      <div className="site-container atelier-hero-grid">
-        <div className="atelier-hero-copy">
-          <p className="eyebrow hero-enter">
-            <span className="status-dot" /> UN ARTISAN D’ICI. POUR VOTRE
-            CHEZ-VOUS.
+    <section id="accueil" className="compact-hero">
+      <div className="site-container compact-hero-grid">
+        <div className="compact-hero-copy hero-enter">
+          <p className="eyebrow">
+            <MapPin size={15} aria-hidden="true" /> SAINTE-ANASTASIE & ALENTOURS
           </p>
-          <h1 className="atelier-title hero-enter">
+          <h1>
             Vos petits travaux.
             <br />
-            L’esprit <span>tranquille.</span>
+            L’esprit <em>tranquille.</em>
           </h1>
-          <p className="atelier-intro hero-enter">
-            Il y a ces petites choses qu’on remet à plus tard.
-            <br className="desktop-break" /> Et le plaisir de les voir enfin
-            réglées.
+          <p className="compact-lead">
+            Un robinet à changer, une pièce à rafraîchir, une porte à régler.{" "}
+            <strong>
+              Un seul interlocuteur pour vos petits travaux et votre entretien.
+            </strong>
           </p>
-          <p className="atelier-intro-detail hero-enter">
-            Peinture, petite plomberie, électricité sur existant, menuiserie,
-            entretien… <strong>On en parle, je m’en occupe.</strong>
-          </p>
-          <div className="atelier-actions hero-enter">
+          <div className="compact-hero-actions">
             <a
               href="#devis"
               className="btn btn-gold"
               onClick={() => trackQuoteClick("hero")}
             >
               Parlons de votre projet{" "}
-              <ArrowUpRight size={20} aria-hidden="true" />
+              <ArrowUpRight size={19} aria-hidden="true" />
             </a>
             <button
               type="button"
-              className="atelier-planner-trigger"
+              className="compact-planner-link"
               onClick={() => openPlanner()}
             >
-              <ClipboardList size={18} aria-hidden="true" /> Préparer ma demande
+              <ClipboardList size={17} aria-hidden="true" /> Préparer ma demande
             </button>
           </div>
-          <div className="atelier-person hero-enter">
-            <a href="#a-propos" className="atelier-person-link">
+          <div className="compact-person">
+            <a href="#a-propos">
               <Image
                 src="/images/thibaut-sachot-homeatoutfaire.webp"
                 alt=""
-                width={54}
-                height={54}
+                width={46}
+                height={46}
                 preload
               />
               <span>
-                <small>Votre interlocuteur, du début à la fin.</small>
-                <strong>
-                  Thibaut SACHOT <ArrowUpRight size={14} aria-hidden="true" />
-                </strong>
+                <strong>Thibaut SACHOT</strong>
+                <small>Votre artisan multiservices dans le Gard</small>
               </span>
             </a>
             <a
               href="tel:0618085598"
-              className="atelier-person-phone"
               onClick={() => trackContactClick("phone", "hero")}
             >
-              <Phone size={16} aria-hidden="true" />
-              <span>06 18 08 55 98</span>
+              <Phone size={16} aria-hidden="true" /> 06 18 08 55 98
             </a>
           </div>
-          <p className="atelier-local hero-enter">
-            <MapPin size={16} aria-hidden="true" /> Sainte-Anastasie · Environ
-            50 km autour
+          <p className="compact-assurances">
+            <span>
+              <Check size={14} aria-hidden="true" /> Devis gratuit
+            </span>
+            <span>
+              <Check size={14} aria-hidden="true" /> Jusqu’à environ 50 km
+            </span>
           </p>
         </div>
-        <div className="atelier-hero-art hero-enter">
+        <div className="compact-hero-art hero-enter">
           <HouseScene />
         </div>
-      </div>
-      <div className="site-container atelier-proof-strip">
-        <div className="atelier-proof-promises">
-          <span>
-            <Check size={17} aria-hidden="true" /> Devis gratuit
-          </span>
-          <span>
-            <Check size={17} aria-hidden="true" /> Un contact direct
-          </span>
-          <span>
-            <Check size={17} aria-hidden="true" /> Un besoin étudié avant
-            déplacement
-          </span>
-        </div>
-        <a href="#galerie" className="atelier-project-peek">
-          <Image
-            src="/images/realisations/plafond-apres-angle-comparable-retouche.jpg"
-            width={76}
-            height={58}
-            alt=""
-          />
-          <span>
-            <small>DU CONCRET, PRÈS DE CHEZ VOUS</small>
-            <strong>Un plafond, un nouveau départ.</strong>
-            <em>Photo après travaux retouchée</em>
-          </span>
-          <ArrowDown size={19} aria-hidden="true" />
-        </a>
       </div>
     </section>
   );
