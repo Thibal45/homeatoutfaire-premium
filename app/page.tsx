@@ -1,6 +1,7 @@
 import ScrollProgress from "./components/ScrollProgress";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
+import ProjectPlanner from "./components/ProjectPlanner";
 import Services from "./components/Services";
 import ServiceArea from "./components/ServiceArea";
 import About from "./components/About";
@@ -151,6 +152,7 @@ export default function Home() {
 
       <main id="contenu-principal">
         <Hero />
+        <ProjectPlanner />
         <Services />
         <Gallery />
         <About />

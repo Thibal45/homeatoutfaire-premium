@@ -5,6 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import CookieConsent from "./components/CookieConsent";
 import MotionPreferences from "./components/MotionPreferences";
 import "./globals.css";
+import "./atelier.css";
 
 const siteUrl = "https://www.homeatoutfaire30.fr";
 

@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import QuoteCaptcha from "./QuoteCaptcha";
 import { QUOTE_PREFILL_EVENT } from "../lib/quote-prefill";
+import { mergeProjectDescription } from "../lib/project-description";
 import {
   cooldownRemaining,
   QUOTE_COOLDOWN_KEY,
@@ -58,6 +59,7 @@ export default function QuoteForm() {
   const [error, setError] = useState(false);
   const [contactError, setContactError] = useState(false);
   const [selectedService, setSelectedService] = useState("");
+  const [projectNotice, setProjectNotice] = useState("");
   const [securityError, setSecurityError] = useState("");
   const [captchaToken, setCaptchaToken] = useState("");
   const [captchaResetKey, setCaptchaResetKey] = useState(0);
@@ -76,7 +78,7 @@ export default function QuoteForm() {
 
   useEffect(() => {
     function applyFields(
-      fields: { service?: unknown; commune?: unknown },
+      fields: { service?: unknown; commune?: unknown; message?: unknown },
       overwrite = false,
     ) {
       if (
@@ -93,6 +95,27 @@ export default function QuoteForm() {
         (overwrite || !addressField.value)
       ) {
         addressField.value = fields.commune;
+      }
+      const messageField = formRef.current?.elements.namedItem("message");
+      if (
+        typeof fields.message === "string" &&
+        messageField instanceof HTMLTextAreaElement
+      ) {
+        const merged = mergeProjectDescription(
+          messageField.value,
+          fields.message,
+          QUOTE_LIMITS.message,
+        );
+        if (merged !== null) {
+          messageField.value = merged;
+          setProjectNotice(
+            "Votre récapitulatif a été ajouté. Vous pouvez le modifier dans « Votre projet » avant l’envoi.",
+          );
+        } else {
+          setProjectNotice(
+            "Le texte déjà présent est trop long pour ajouter le récapitulatif. Raccourcissez-le dans « Votre projet », puis réessayez depuis le carnet.",
+          );
+        }
       }
     }
     function readQuery() {
@@ -135,6 +158,7 @@ export default function QuoteForm() {
     if (honeypot) {
       formRef.current.reset();
       setSelectedService("");
+      setProjectNotice("");
       setSuccess(true);
       return;
     }
@@ -224,6 +248,7 @@ export default function QuoteForm() {
       }
 
       trackQuoteSent(selectedService, contactMethod);
+      setProjectNotice("");
 
       formRef.current.reset();
       setSelectedService("");
@@ -296,6 +321,15 @@ export default function QuoteForm() {
             </p>
           </div>
         </div>
+
+        <p
+          id="quote-project-notice"
+          role={projectNotice ? "status" : undefined}
+          tabIndex={-1}
+          className={`quote-project-notice ${projectNotice ? "has-project" : ""}`}
+        >
+          {projectNotice}
+        </p>
 
         {/* =======================================================
             NOM + TÉLÉPHONE

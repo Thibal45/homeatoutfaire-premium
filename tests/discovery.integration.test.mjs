@@ -24,6 +24,9 @@ async function mount(name) {
   });
   globalThis.window = dom.window;
   globalThis.document = dom.window.document;
+  const prefills = [];
+  dom.window.HTMLDialogElement.prototype.showModal = function(){this.open=true;};
+  dom.window.HTMLDialogElement.prototype.close = function(){this.open=false;};
   const context = vm.createContext({
     window: dom.window,
     document: dom.window.document,
@@ -53,10 +56,14 @@ async function mount(name) {
     else if (specifier === "../lib/analytics")
       exports = { trackQuoteClick() {} };
     else if (specifier === "../lib/quote-prefill")
-      exports = { prefillQuote() {} };
+      exports = { prefillQuote(fields) { prefills.push(fields); } };
     else if (specifier === "lucide-react")
       exports = Object.fromEntries(
         [
+          "ArrowLeft",
+          "ClipboardList",
+          "Pencil",
+          "X",
           "ArrowRight",
           "ArrowUpRight",
           "Check",
@@ -94,7 +101,7 @@ async function mount(name) {
     const path =
       specifier === "../data/services"
         ? "app/data/services.ts"
-        : `app/components/${specifier}.tsx`;
+        : specifier.startsWith("../lib/") ? `app/lib/${specifier.slice(7)}.ts` : `app/components/${specifier}.tsx`;
     const source = await readFile(
       new URL("../" + path, import.meta.url),
       "utf8",
@@ -112,11 +119,14 @@ async function mount(name) {
     await m.evaluate();
     return m;
   }
-  const Component = (await moduleFor(name)).namespace.default;
+  const components=[];
+  for(const item of Array.isArray(name) ? name : [name]) components.push((await moduleFor(item)).namespace.default);
+  const Component=()=>React.createElement(React.Fragment,null,...components.map((C,i)=>React.createElement(C,{key:i})));
   const root = createRoot(document.getElementById("root"));
   await React.act(async () => root.render(React.createElement(Component)));
   return {
     dom,
+    prefills,
     click: async (e) => React.act(async () => e.click()),
     close: async () => {
       await React.act(async () => root.unmount());
@@ -243,4 +253,58 @@ test("process steps change on demand and keep their detail accessible", async ()
   } finally {
     await h.close();
   }
+});
+
+
+test("house markers select the matching real service panel, without submitting a request", async () => {
+  const h=await mount(["HouseScene","Services"]);
+  try {
+    const spots=[...document.querySelectorAll('.house-hotspot')];
+    assert.equal(spots.length,6);
+    for(let i=0;i<spots.length;i++){
+      await h.click(spots[i]);
+      assert.equal(spots[i].getAttribute('aria-pressed'),'true');
+      await h.click(document.querySelector('.house-selection a'));
+      assert.equal(document.querySelectorAll('[role="tab"]')[i].getAttribute('aria-selected'),'true');
+    }
+    await React.act(async()=>h.dom.window.dispatchEvent(new h.dom.window.CustomEvent('hatf:discover-service',{detail:-1})));
+    assert.equal(document.querySelector('[role="tab"][aria-selected="true"]').id,'service-tab-5');
+    assert.equal(h.prefills.length,0);
+  } finally {await h.close();}
+});
+
+test("the optional project notebook builds an editable draft and hands it to the form only on request", async () => {
+  const h=await mount('ProjectPlanner');
+  try {
+    await React.act(async()=>h.dom.window.dispatchEvent(new h.dom.window.CustomEvent('hatf:open-planner',{detail:'Peinture'})));
+    assert.equal(document.querySelector('dialog').open,true);
+    assert.equal(document.activeElement.id,'planner-title');
+    await h.click(document.querySelector('.planner-examples input'));
+    await h.click(document.querySelector('.planner-footer .btn'));
+    assert.match(document.querySelector('#planner-draft').value,/Murs et plafonds/);
+    assert.equal(h.prefills.length,0);
+    const field=document.querySelector('#planner-draft');
+    await React.act(async()=>{
+      Object.getOwnPropertyDescriptor(h.dom.window.HTMLTextAreaElement.prototype,'value').set.call(field,'Mon récapitulatif personnalisé.');
+      field.dispatchEvent(new h.dom.window.Event('input',{bubbles:true}));
+    });
+    await h.click(document.querySelector('.planner-footer .btn'));
+    assert.equal(document.querySelector('dialog').open,false);
+    assert.equal(h.prefills.length,1);assert.equal(h.prefills[0].message,'Mon récapitulatif personnalisé.');
+    assert.equal(h.prefills[0].service,'Peinture');
+    assert.equal(h.dom.window.location.search,'');
+    assert.equal(h.dom.window.location.hash,'#devis');
+  } finally {await h.close();}
+});
+
+test("closing the notebook keeps the form untouched and service changes clear incompatible examples", async()=>{
+  const h=await mount('ProjectPlanner');
+  try {
+    await React.act(async()=>h.dom.window.dispatchEvent(new h.dom.window.CustomEvent('hatf:open-planner',{detail:'Peinture'})));
+    await h.click(document.querySelector('.planner-examples input'));
+    await h.click(document.querySelectorAll('.planner-services button')[1]);
+    assert.equal(document.querySelectorAll('.planner-examples input:checked').length,0);
+    await h.click(document.querySelector('.planner-close'));
+    assert.equal(document.querySelector('dialog').open,false);assert.equal(h.prefills.length,0);
+  } finally {await h.close();}
 });

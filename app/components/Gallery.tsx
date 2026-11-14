@@ -191,7 +191,7 @@ export default function Gallery() {
   }, [selectedIndex]);
 
   return (
-    <section id="galerie" className="section-space gallery-section">
+    <section id="galerie" className="section-space gallery-section showcase-section">
       <div className="site-container">
         <div className="section-heading split-heading">
           <div>

@@ -89,6 +89,7 @@ export default function ServiceArea() {
               <br />
               <strong>Sainte-Anastasie</strong>
             </p>
+            <span className="area-visual-selection">Votre projet à {selected}</span>
           </div>
           <span className="area-point point-top">Uzès</span>
           <span className="area-point point-left">La Calmette</span>
