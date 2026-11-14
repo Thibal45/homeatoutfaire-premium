@@ -73,7 +73,7 @@ export default function Stats() {
               </button>
             ))}
           </div>
-          <div id="process-detail" className="process-detail" key={active}>
+          <div id="process-detail" className="process-detail" key={active} aria-live="polite" aria-atomic="true">
             <span className="process-detail-step">ÉTAPE 0{active + 1}</span>
             <span className="process-detail-icon">
               <Icon size={40} strokeWidth={1.4} aria-hidden="true" />

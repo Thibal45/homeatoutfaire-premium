@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -14,12 +14,22 @@ import { services } from "../data/services";
 import { trackQuoteClick } from "../lib/analytics";
 import Reveal from "./Reveal";
 import { prefillQuote } from "../lib/quote-prefill";
+import { DISCOVER_SERVICE_EVENT, openPlanner } from "../lib/discovery";
 
 export default function Services() {
   const [selected, setSelected] = useState(2);
   const tabs = useRef<Array<HTMLButtonElement | null>>([]);
   const service = services[selected];
   const Icon = service.icon;
+  useEffect(() => {
+    function receive(event: Event) {
+      const index = (event as CustomEvent).detail;
+      if (Number.isInteger(index) && index >= 0 && index < services.length)
+        setSelected(index);
+    }
+    window.addEventListener(DISCOVER_SERVICE_EVENT, receive);
+    return () => window.removeEventListener(DISCOVER_SERVICE_EVENT, receive);
+  }, []);
   function navigateTabs(
     event: KeyboardEvent<HTMLButtonElement>,
     index: number,
@@ -141,6 +151,14 @@ export default function Services() {
               >
                 Demander un devis <ArrowUpRight size={18} aria-hidden="true" />
               </Link>
+              <button
+                type="button"
+                className="service-plan-link"
+                onClick={() => openPlanner(service.quoteService)}
+              >
+                Besoin d’aide pour décrire votre projet ?{" "}
+                <ArrowRight size={16} aria-hidden="true" />
+              </button>
             </div>
           </div>
         </Reveal>

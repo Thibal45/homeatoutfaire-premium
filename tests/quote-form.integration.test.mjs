@@ -40,7 +40,7 @@ async function mount({ siteKey = "unit-test-key", script = "ready", provider = "
   }
   const context = vm.createContext({
     window: dom.window, document: dom.window.document, FormData: dom.window.FormData,
-    URLSearchParams, HTMLInputElement: dom.window.HTMLInputElement, console, Date,
+    URLSearchParams, HTMLInputElement: dom.window.HTMLInputElement, HTMLTextAreaElement: dom.window.HTMLTextAreaElement, console, Date,
     process: { env: { NEXT_PUBLIC_RECAPTCHA_SITE_KEY: siteKey, NEXT_PUBLIC_EMAILJS_SERVICE_ID: "test-service", NEXT_PUBLIC_EMAILJS_TEMPLATE_ID: "test-template", NEXT_PUBLIC_EMAILJS_PUBLIC_KEY: "test-public-key" } },
   });
   const cache = new Map();
@@ -63,7 +63,7 @@ async function mount({ siteKey = "unit-test-key", script = "ready", provider = "
       cache.set(specifier, m);
       await m.link(() => {}); await m.evaluate(); return m;
     }
-    const filename = specifier === "./QuoteCaptcha" ? "app/components/QuoteCaptcha.tsx" : specifier === "../lib/quote-security" ? "app/lib/quote-security.ts" : specifier === "../lib/quote-prefill" ? "app/lib/quote-prefill.ts" : specifier === "QuoteForm" ? "app/components/QuoteForm.tsx" : null;
+    const filename = specifier === "./QuoteCaptcha" ? "app/components/QuoteCaptcha.tsx" : specifier === "../lib/quote-security" ? "app/lib/quote-security.ts" : specifier === "../lib/quote-prefill" ? "app/lib/quote-prefill.ts" : specifier === "../lib/project-description" ? "app/lib/project-description.ts" : specifier === "QuoteForm" ? "app/components/QuoteForm.tsx" : null;
     if (!filename) throw new Error(`Unexpected import: ${specifier}`);
     const source = await readFile(new URL(`../${filename}`, import.meta.url), "utf8");
     const compiled = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2020, jsx: ts.JsxEmit.ReactJSX } }).outputText;
@@ -96,6 +96,26 @@ test("component security integration (all providers mocked, no real CAPTCHA)", a
     await React.act(async()=>h.dom.window.dispatchEvent(new h.dom.window.CustomEvent("hatf:quote-prefill", {detail:{service:"Not offered",commune:"x".repeat(201)}})));
     assert.equal(h.form.elements.service.value,"Peinture");assert.equal(h.form.elements.address.value,"Uzès");
     await h.close();
+  });
+  await t.test("a project draft appends without erasing existing text or sending anything", async () => {
+    const h=await mount();
+    h.form.elements.message.value="Mon texte déjà saisi.";
+    const incoming="Bonjour Thibaut,\n\nUn plafond à repeindre. <b>Texte libre</b>";
+    const deliver=()=>h.dom.window.dispatchEvent(new h.dom.window.CustomEvent("hatf:quote-prefill",{detail:{service:"Peinture",message:incoming}}));
+    await React.act(async()=>deliver());
+    assert.equal(h.form.elements.message.value,"Mon texte déjà saisi.\n\n"+incoming);
+    assert.match(h.form.querySelector('#quote-project-notice').textContent,/ajouté/);
+    await React.act(async()=>deliver());
+    assert.equal(h.form.elements.message.value,"Mon texte déjà saisi.\n\n"+incoming);
+    assert.equal(h.s.sends.length,0);assert.equal(h.s.scriptLoads,0);assert.equal(h.dom.window.location.search,"");
+    await h.close();
+  });
+  await t.test("an overlong combined draft preserves the original and explains the limit", async () => {
+    const h=await mount();h.form.elements.message.value="x".repeat(4995);
+    await React.act(async()=>h.dom.window.dispatchEvent(new h.dom.window.CustomEvent("hatf:quote-prefill",{detail:{message:"A new project summary."}})));
+    assert.equal(h.form.elements.message.value,"x".repeat(4995));
+    assert.match(h.form.querySelector('#quote-project-notice').textContent,/trop long/);
+    assert.equal(h.s.sends.length,0);await h.close();
   });
   await t.test("a town selected on the site pre-fills the optional field without submitting", async () => {
     const h=await mount({ query: "?commune=N%C3%AEmes" });
