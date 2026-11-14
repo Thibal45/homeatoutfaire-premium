@@ -10,12 +10,23 @@
     "test:quote": "node --experimental-vm-modules --test tests/quote-security.test.mjs tests/quote-form.integration.test.mjs",
     "test:gallery": "node --experimental-vm-modules --test tests/gallery.integration.test.mjs",
     "test:consent": "node --experimental-vm-modules --test tests/cookie-consent.integration.test.mjs",
-    "test:discovery": "node --experimental-vm-modules --test tests/discovery.integration.test.mjs"
+    "test:discovery": "node --experimental-vm-modules --test tests/discovery.integration.test.mjs",
+    "build:mobile": "node mobile/scripts/prepare-assets.mjs && vite build --config mobile/vite.config.ts",
+    "test:mobile": "node --experimental-strip-types --test tests/mobile-projects.test.mjs",
+    "android:prepare": "npm run build:mobile && node mobile/scripts/prepare-android.mjs"
   },
   "dependencies": {
+    "@capacitor/android": "^8.6.2",
+    "@capacitor/app": "^8.1.2",
+    "@capacitor/browser": "^8.0.5",
+    "@capacitor/camera": "^8.2.6",
+    "@capacitor/core": "^8.6.2",
+    "@capacitor/filesystem": "^8.1.5",
+    "@capacitor/share": "^8.0.3",
     "@emailjs/browser": "^4.4.1",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
+    "fflate": "^0.8.3",
     "framer-motion": "^12.42.2",
     "lucide-react": "^1.25.0",
     "next": "^16.4.6",
@@ -24,14 +35,20 @@
     "react-dom": "19.2.4"
   },
   "devDependencies": {
+    "@capacitor/cli": "^8.6.2",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.6",
+    "fake-indexeddb": "^6.2.8",
     "jsdom": "26.1.0",
     "tailwindcss": "^4",
-    "typescript": "^5"
-  }
+    "typescript": "^5",
+    "vite": "^8.3.8"
+  },
+  "workspaces": [
+    "mobile"
+  ]
 }

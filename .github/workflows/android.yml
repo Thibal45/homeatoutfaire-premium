@@ -1,0 +1,64 @@
+name: Android HomeAToutFaire
+on:
+  pull_request:
+    paths:
+      - "app/components/mobile/**"
+      - "app/lib/mobile-*"
+      - "app/data/services.ts"
+      - "app/components/ServiceIcons.tsx"
+      - "app/fonts/**"
+      - "mobile/**"
+      - "package*.json"
+      - "tests/mobile-*"
+      - ".github/workflows/android.yml"
+  push:
+    branches: [main]
+    paths:
+      - "app/components/mobile/**"
+      - "app/lib/mobile-*"
+      - "mobile/**"
+      - "package*.json"
+      - ".github/workflows/android.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: android-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  android:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "24"
+          cache: npm
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          distribution: temurin
+          java-version: "21"
+      - run: npm ci
+      - run: npm run test:mobile
+      - run: npm run android:prepare
+      - name: Compile APK preview and unsigned Play bundle
+        working-directory: mobile/android
+        run: bash gradlew assembleDebug assembleRelease bundleRelease lintDebug --no-daemon
+      - name: Package checksums
+        run: |
+          mkdir -p android-artifacts
+          cp mobile/android/app/build/outputs/apk/debug/app-debug.apk android-artifacts/HomeAToutFaire-Android-essai.apk
+          cp mobile/android/app/build/outputs/apk/release/app-release-unsigned.apk android-artifacts/HomeAToutFaire-Android-non-signe.apk
+          cp mobile/android/app/build/outputs/bundle/release/app-release.aab android-artifacts/HomeAToutFaire-Play-non-signe.aab
+          cp mobile/android/app/build/reports/lint-results-debug.html android-artifacts/
+          cd android-artifacts
+          sha256sum *.apk *.aab > SHA256SUMS.txt
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: HomeAToutFaire-Android-${{ github.sha }}
+          path: android-artifacts/
+          retention-days: 30
+          if-no-files-found: error
