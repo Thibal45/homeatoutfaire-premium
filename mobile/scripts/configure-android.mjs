@@ -25,8 +25,9 @@ await writeFile(new URL("app/build.gradle", project), gradle);
 const colors = new URL("app/src/main/res/values/colors.xml", project);
 await writeFile(
   colors,
-  '<?xml version="1.0" encoding="utf-8"?><resources><color name="colorPrimary">#123543</color><color name="colorPrimaryDark">#123543</color><color name="colorAccent">#edc25d</color><color name="ic_launcher_background">#fffefa</color></resources>',
+  '<?xml version="1.0" encoding="utf-8"?><resources><color name="colorPrimary">#123543</color><color name="colorPrimaryDark">#123543</color><color name="colorAccent">#edc25d</color></resources>',
 );
+await writeFile(new URL("app/src/main/res/values/ic_launcher_background.xml", project), '<?xml version="1.0" encoding="utf-8"?><resources><color name="ic_launcher_background">#fffefa</color></resources>');
 // Keep the user's existing logo unchanged; Android scales these original resources.
 for (const density of ["mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi"]) {
   const directory = new URL(`app/src/main/res/mipmap-${density}/`, project);

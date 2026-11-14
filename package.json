@@ -12,7 +12,7 @@
     "test:consent": "node --experimental-vm-modules --test tests/cookie-consent.integration.test.mjs",
     "test:discovery": "node --experimental-vm-modules --test tests/discovery.integration.test.mjs",
     "build:mobile": "node mobile/scripts/prepare-assets.mjs && vite build --config mobile/vite.config.ts",
-    "test:mobile": "node --experimental-strip-types --test tests/mobile-projects.test.mjs",
+    "test:mobile": "node --experimental-strip-types --experimental-vm-modules --test tests/mobile-projects.test.mjs tests/mobile-ui.integration.test.mjs",
     "android:prepare": "npm run build:mobile && node mobile/scripts/prepare-android.mjs"
   },
   "dependencies": {
