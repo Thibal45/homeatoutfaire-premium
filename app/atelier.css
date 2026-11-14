@@ -1466,3 +1466,32 @@
     color: #fff;
   }
 }
+/* Keep decorative indices out of the accessible tab name. */
+.service-tab::before {
+  content: none;
+}
+.service-tab-number {
+  font-size: 10px;
+  color: #7c8d7b;
+  min-width: 18px;
+}
+.service-tab.is-selected .service-tab-number {
+  color: #d7c18b;
+}
+@media (max-width: 767px) {
+  .service-tab-number {
+    display: none;
+  }
+}
+@media (max-width: 379px) {
+  .house-hotspot {
+    width: 44px;
+    height: 44px;
+  }
+}
+@media (max-width: 767px) and (max-height: 480px) {
+  /* A short viewport needs reading space; phone and quote stay in the header/menu. */
+  .mobile-contact-dock {
+    display: none;
+  }
+}

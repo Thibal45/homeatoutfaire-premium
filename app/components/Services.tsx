@@ -90,6 +90,9 @@ export default function Services() {
                   onKeyDown={(event) => navigateTabs(event, index)}
                   className={`service-tab ${selected === index ? "is-selected" : ""}`}
                 >
+                  <span className="service-tab-number" aria-hidden="true">
+                    0{index + 1}
+                  </span>
                   <TabIcon size={22} aria-hidden="true" />
                   <span>{item.shortTitle}</span>
                   <ArrowUpRight

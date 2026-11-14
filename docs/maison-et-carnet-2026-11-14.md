@@ -20,6 +20,8 @@ The house drawing enters once, and service selection changes its relevant detail
 
 ## Verification
 
-TypeScript and the production build pass (17 static routes). 53 automated checks: 29 quote/security, 7 gallery, 11 consent, 6 discovery. New checks exercise house-to-service handoff, the editable planner and cancellation, existing description preservation, duplicate handoffs and overlong draft rejection. Provider interactions are mocked; no real mail or CAPTCHA challenge is submitted.
+TypeScript and the production build pass (17 static routes). 54 automated checks: 29 quote/security, 7 gallery, 11 consent, 7 discovery. New checks exercise house-to-service handoff, the editable planner and cancellation, existing description preservation, duplicate handoffs and overlong draft rejection. Provider interactions are mocked; no real mail or CAPTCHA challenge is submitted.
 
 The cloud browser blocks local file previews. An internally bundled local preview is not a deployment and is not used as evidence of live-browser success. Production browser checks and release identifiers are recorded in the pull request after publication. No preview protection or access setting is changed.
+
+Live review found three details to refine: decorative service indices are now hidden from accessible names, Tab/Shift+Tab containment is explicit in the planner, and focus moves to the quote notice after the description update. The header clears its current-section marker on leaving a navigation section. The mobile dock is hidden in very short viewports to retain reading space. These follow-up changes are recorded separately from the initial release.

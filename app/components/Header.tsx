@@ -31,6 +31,14 @@ export default function Header() {
       (entries) => {
         const entry = entries.find((item) => item.isIntersecting);
         if (entry) setActiveSection(entry.target.id);
+        else
+          setActiveSection((current) =>
+            entries.some(
+              (item) => item.target.id === current && !item.isIntersecting,
+            )
+              ? ""
+              : current,
+          );
       },
       { rootMargin: "-20% 0px -60% 0px", threshold: 0 },
     );
