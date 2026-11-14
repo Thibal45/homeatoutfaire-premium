@@ -308,3 +308,16 @@ test("closing the notebook keeps the form untouched and service changes clear in
     assert.equal(document.querySelector('dialog').open,false);assert.equal(h.prefills.length,0);
   } finally {await h.close();}
 });
+
+test("the project notebook keeps forward and reverse Tab navigation within its controls", async()=>{
+  const h=await mount('ProjectPlanner');
+  try {
+    await React.act(async()=>h.dom.window.dispatchEvent(new h.dom.window.CustomEvent('hatf:open-planner',{detail:'Peinture'})));
+    const first=document.querySelector('.planner-close'), last=document.querySelector('.planner-footer .btn');
+    last.focus();
+    await React.act(async()=>last.dispatchEvent(new h.dom.window.KeyboardEvent('keydown',{key:'Tab',bubbles:true,cancelable:true})));
+    assert.equal(document.activeElement,first);
+    await React.act(async()=>first.dispatchEvent(new h.dom.window.KeyboardEvent('keydown',{key:'Tab',shiftKey:true,bubbles:true,cancelable:true})));
+    assert.equal(document.activeElement,last);
+  }finally{await h.close();}
+});

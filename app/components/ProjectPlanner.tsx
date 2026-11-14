@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -71,9 +71,28 @@ export default function ProjectPlanner() {
     dialog.current?.close();
     // A plain fragment keeps the editable description out of the URL/history.
     window.location.hash = "devis";
-    document
-      .querySelector<HTMLElement>("#quote-project-notice")
-      ?.focus({ preventScroll: true });
+    window.requestAnimationFrame(() =>
+      document
+        .querySelector<HTMLElement>("#quote-project-notice")
+        ?.focus({ preventScroll: true }),
+    );
+  }
+
+  function containFocus(event: KeyboardEvent<HTMLDialogElement>) {
+    if (event.key !== "Tab") return;
+    const controls = dialog.current?.querySelectorAll<HTMLElement>(
+      "button:not([disabled]), input:not([disabled]), textarea:not([disabled]), a[href]",
+    );
+    if (!controls?.length) return;
+    const first = controls[0];
+    const last = controls[controls.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
   }
 
   return (
@@ -82,6 +101,7 @@ export default function ProjectPlanner() {
       className="project-planner"
       aria-labelledby="planner-title"
       aria-describedby="planner-intro"
+      onKeyDown={containFocus}
     >
       <div className="planner-shell">
         <div className="planner-header">
