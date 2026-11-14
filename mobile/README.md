@@ -10,7 +10,7 @@ Le contenu et le composant du carnet sont partagés avec `/application` sur le s
 
 Puis, avec Java 21 et le SDK Android API 36 installés : `cd mobile/android` et `bash gradlew assembleDebug bundleRelease lintDebug --no-daemon`.
 
-Le projet Android est régénérable avec le CLI Capacitor verrouillé dans package-lock.json. Les sources natives générées, caches, fichiers de signature et binaires restent hors Git. Le script de configuration applique le logo existant, la politique HTTPS, l’absence de sauvegarde automatique et une identité distincte pour les essais.
+Le projet Android est régénérable avec le CLI Capacitor verrouillé dans package-lock.json. Les sources natives générées, caches, fichiers de signature et binaires restent hors Git. Le script de configuration applique une icône Android vectorielle issue du motif maison/H bleu et doré, la politique HTTPS, l’absence de sauvegarde automatique et une identité distincte pour les essais.
 
 La chaîne GitHub Actions produit :
 

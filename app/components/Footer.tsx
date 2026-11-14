@@ -52,7 +52,7 @@ export default function Footer() {
             SIRET 10665167200011
           </p>
           <nav aria-label="Informations légales">
-            <Link href="/application">Mon carnet de travaux</Link>
+            <Link href="/application/android">Application Android</Link>
             <Link href="/mentions-legales">Mentions légales</Link>
             <Link href="/politique-confidentialite">Confidentialité</Link>
           </nav>
