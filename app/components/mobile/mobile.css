@@ -1,0 +1,1075 @@
+@font-face {
+  font-family: HatfApp;
+  src: url("../../fonts/manrope-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: HatfApp;
+  src: url("../../fonts/manrope-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+.hatf-app {
+  --app-ink: #123543;
+  --app-muted: #61736d;
+  --app-gold: #edc25d;
+  --app-paper: #fffefa;
+  --app-line: #dce2d8;
+  min-height: 100dvh;
+  background: #f5f3ea;
+  color: var(--app-ink);
+  font:
+    400 15px/1.65 HatfApp,
+    Arial,
+    sans-serif;
+  padding: env(safe-area-inset-top) 0 calc(92px + env(safe-area-inset-bottom));
+  isolation: isolate;
+  overflow-x: clip;
+}
+.hatf-app * {
+  box-sizing: border-box;
+}
+.hatf-app :is(h1, h2, h3, p, figure) {
+  margin: 0;
+}
+.hatf-app :is(button, input, select, textarea) {
+  font: inherit;
+  letter-spacing: inherit;
+}
+.hatf-app button {
+  cursor: pointer;
+  border: 0;
+  background: none;
+  color: inherit;
+}
+.hatf-app button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+.hatf-app a {
+  color: inherit;
+  text-decoration: none;
+}
+.hatf-app :is(a, button, input, select, textarea):focus-visible {
+  outline: 3px solid #b47e0a;
+  outline-offset: 4px;
+}
+.hatf-app button,
+.hatf-app a {
+  -webkit-tap-highlight-color: transparent;
+}
+.hatf-app svg {
+  flex-shrink: 0;
+}
+.hatf-app h1 {
+  font-size: clamp(30px, 4.4vw, 46px);
+  font-weight: 700;
+  line-height: 1.17;
+  letter-spacing: -1.6px;
+  margin: 10px 0 18px;
+}
+.hatf-app h1 em,
+.hatf-app h2 em {
+  font-family: Georgia, serif;
+  font-weight: 400;
+  color: #728061;
+  letter-spacing: -1px;
+}
+.hatf-app h2 {
+  font-size: 21px;
+  line-height: 1.35;
+  letter-spacing: -0.6px;
+  font-weight: 700;
+}
+.hatf-app .app-topbar {
+  max-width: 1120px;
+  margin: 0 auto;
+  min-height: 83px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 30px;
+  border-bottom: 1px solid var(--app-line);
+  gap: 16px;
+}
+.hatf-app .app-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.4;
+  padding: 0;
+  letter-spacing: -0.6px;
+}
+.hatf-app .app-brand small {
+  display: block;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.1px;
+  color: var(--app-muted);
+}
+.hatf-app .app-brand-gold {
+  color: #9d752a;
+}
+.hatf-app .app-monogram {
+  width: 43px;
+  height: 43px;
+  border-radius: 14px;
+  background: var(--app-ink);
+  color: var(--app-gold);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 6px 12px #12354313;
+}
+.hatf-app .app-icon-button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--app-line);
+  border-radius: 50%;
+  background: #fffefa;
+}
+.hatf-app .app-content {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 28px 30px 20px;
+  min-height: 65dvh;
+}
+.hatf-app .app-content > section {
+  animation: app-arrive 0.22s ease-out;
+}
+.hatf-app .app-eyebrow {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  color: #947232;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  line-height: 1.6;
+}
+.hatf-app .app-lead {
+  color: var(--app-muted);
+  font-size: 15px;
+  line-height: 1.8;
+  max-width: 670px;
+  margin-bottom: 26px;
+}
+.hatf-app .app-primary {
+  min-height: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--app-gold);
+  color: var(--app-ink);
+  border-radius: 14px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+  box-shadow: 0 4px 0 #d9ad4629;
+  transition:
+    transform 0.15s,
+    background 0.15s;
+}
+.hatf-app .app-primary:hover {
+  background: #f1cd77;
+  transform: translateY(-1px);
+}
+.hatf-app .app-welcome {
+  display: grid;
+  grid-template-columns: 1.35fr 0.65fr;
+  align-items: center;
+  gap: 20px;
+  padding: 22px 4px 30px;
+}
+.hatf-app .app-welcome h1 {
+  margin-top: 18px;
+}
+.hatf-app .app-welcome > div > p:not(.app-eyebrow) {
+  font-size: 15px;
+  line-height: 1.8;
+  max-width: 510px;
+  color: var(--app-muted);
+  margin-bottom: 24px;
+}
+.hatf-app .app-offline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--app-muted);
+  margin-top: 15px;
+}
+.hatf-app .app-home-illustration {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 245px;
+  height: 245px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #d9e0ce 0, #e9ecdf 60%, transparent 61%);
+  color: #687e6c;
+  justify-self: center;
+}
+.hatf-app .app-home-illustration > svg {
+  filter: drop-shadow(0 12px 4px #1235430b);
+  transform: rotate(-5deg);
+}
+.hatf-app .app-orbit {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 55px;
+  height: 55px;
+  border-radius: 18px;
+  background: var(--app-paper);
+  box-shadow: 0 10px 25px #12354315;
+  border: 1px solid #fff;
+}
+.hatf-app .app-orbit-one {
+  top: 20px;
+  left: 18px;
+  color: #9b7328;
+  transform: rotate(-9deg);
+}
+.hatf-app .app-orbit-two {
+  right: 5px;
+  top: 92px;
+  color: #52776e;
+  transform: rotate(8deg);
+}
+.hatf-app .app-orbit-three {
+  bottom: 0;
+  left: 58px;
+  background: var(--app-gold);
+  color: var(--app-ink);
+  transform: rotate(-7deg);
+}
+.hatf-app .app-shortcuts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 5px 0 34px;
+}
+.hatf-app .app-shortcuts > button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 19px 17px;
+  text-align: left;
+  background: var(--app-paper);
+  border: 1px solid var(--app-line);
+  border-radius: 18px;
+  box-shadow: 0 7px 18px #12354304;
+}
+.hatf-app .app-shortcuts > button > span {
+  display: grid;
+  place-items: center;
+  width: 43px;
+  height: 46px;
+  border-radius: 12px;
+  background: #edf0e5;
+  color: #687e6c;
+}
+.hatf-app .app-shortcuts > button > div {
+  flex: 1;
+}
+.hatf-app .app-shortcuts strong {
+  font-size: 15px;
+  display: block;
+}
+.hatf-app .app-shortcuts small {
+  font-size: 11px;
+  display: block;
+  color: var(--app-muted);
+  margin-top: 3px;
+}
+.hatf-app .app-section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin: 25px 0 16px;
+}
+.hatf-app .app-section-heading .app-eyebrow {
+  margin-bottom: 7px;
+}
+.hatf-app .app-section-heading h1 {
+  margin: 0;
+}
+.hatf-app .app-artisan {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: #e8ecdf;
+  border-radius: 20px;
+  padding: 22px;
+  margin-bottom: 24px;
+}
+.hatf-app .app-artisan img {
+  width: 83px;
+  height: 100px;
+  object-fit: cover;
+  object-position: 50% 20%;
+  border-radius: 12px 12px 28px 12px;
+}
+.hatf-app .app-artisan p {
+  max-width: 600px;
+  color: #4c625b;
+  font-size: 14px;
+  line-height: 1.85;
+}
+.hatf-app .app-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  min-height: 44px;
+  font-weight: 700;
+  padding: 7px 0;
+}
+.hatf-app .app-home-footnote {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  color: var(--app-muted);
+  font-size: 12px;
+  line-height: 1.8;
+  margin: 22px 0;
+}
+.hatf-app .app-home-footnote svg {
+  margin-top: 3px;
+}
+.hatf-app .app-bottom-nav {
+  position: fixed;
+  z-index: 50;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(100%, 1120px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: #fffefaf5;
+  backdrop-filter: blur(15px);
+  border: 1px solid #e0e4da;
+  border-bottom: 0;
+  border-radius: 20px 20px 0 0;
+  padding: 8px 15px calc(8px + env(safe-area-inset-bottom));
+  box-shadow: 0 -6px 35px #12354308;
+}
+.hatf-app .app-bottom-nav > button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 14px;
+  min-height: 53px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #6d7d76;
+  padding: 6px;
+}
+.hatf-app .app-bottom-nav > button[aria-current="page"] {
+  background: #e9ede1;
+  color: var(--app-ink);
+}
+.hatf-app .app-service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 23px;
+}
+.hatf-app .app-service-grid > button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 82px;
+  text-align: left;
+  background: var(--app-paper);
+  border: 1px solid var(--app-line);
+  border-radius: 17px;
+  padding: 15px;
+  color: #607765;
+}
+.hatf-app .app-service-grid strong {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--app-ink);
+}
+.hatf-app .app-service-grid > button:last-child {
+  grid-column: 1/-1;
+  min-height: 65px;
+}
+.hatf-app .app-service-grid > button.is-selected {
+  background: var(--app-ink);
+  border-color: var(--app-ink);
+  color: var(--app-gold);
+}
+.hatf-app .app-service-grid > button.is-selected strong {
+  color: #fff;
+}
+.hatf-app .app-paper {
+  padding: 26px;
+  background: var(--app-paper);
+  border: 1px solid var(--app-line);
+  border-radius: 20px;
+}
+.hatf-app .app-service-panel > p {
+  color: var(--app-muted);
+  margin: 12px 0 20px;
+}
+.hatf-app .app-service-panel ul {
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 9px;
+  margin-bottom: 22px;
+}
+.hatf-app .app-service-panel li {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 14px;
+}
+.hatf-app .app-service-panel li svg {
+  color: #6b856d;
+}
+.hatf-app .app-service-panel .app-primary {
+  margin-right: 20px;
+}
+.hatf-app .app-scope {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 14px 15px;
+  background: #eef0e5;
+  border-radius: 12px;
+  font-size: 12px;
+  line-height: 1.8;
+  color: #536b60;
+  margin: 12px 0 22px;
+}
+.hatf-app .app-scope svg {
+  margin-top: 3px;
+}
+.hatf-app .app-project-list {
+  display: grid;
+  gap: 12px;
+}
+.hatf-app .app-project-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
+  width: 100%;
+  padding: 15px;
+  background: var(--app-paper);
+  border: 1px solid var(--app-line);
+  border-radius: 17px;
+}
+.hatf-app .app-project-icon {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  width: 54px;
+  height: 58px;
+  background: #e9eddf;
+  color: #657d69;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+.hatf-app .app-project-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hatf-app .app-project-row > span:nth-child(2) {
+  flex: 1;
+  min-width: 0;
+}
+.hatf-app .app-project-row strong {
+  display: block;
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+.hatf-app .app-project-row small {
+  display: block;
+  font-size: 11px;
+  color: var(--app-muted);
+  margin-top: 4px;
+  overflow-wrap: anywhere;
+}
+.hatf-app .app-new {
+  background: var(--app-gold);
+}
+.hatf-app .app-empty {
+  text-align: center;
+  background: #e9eddf;
+  border: 1px dashed #c1ccb8;
+  border-radius: 22px;
+  padding: 40px 26px;
+  margin: 28px 0;
+}
+.hatf-app .app-empty > svg {
+  color: #738364;
+  margin-bottom: 18px;
+}
+.hatf-app .app-empty p {
+  max-width: 410px;
+  margin: 14px auto 24px;
+  color: var(--app-muted);
+  font-size: 14px;
+}
+.hatf-app .app-archives-toggle {
+  margin-top: 25px;
+}
+.hatf-app .app-editor-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+.hatf-app .app-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  min-height: 44px;
+  padding: 0;
+}
+.hatf-app .app-save-state {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #5d7c64;
+  font-size: 11px;
+  text-align: right;
+}
+.hatf-app .app-save-state.is-error {
+  color: #943d35;
+}
+.hatf-app .app-editor-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 20px;
+  align-items: start;
+}
+.hatf-app .app-fields > label,
+.hatf-app .app-fields legend {
+  display: block;
+  margin: 21px 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.hatf-app .app-fields > label:first-child {
+  margin-top: 0;
+}
+.hatf-app .app-fields label span,
+.hatf-app .app-fields legend span {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--app-muted);
+  margin-left: 4px;
+}
+.hatf-app .app-fields :is(input:not([type="checkbox"]), select, textarea) {
+  width: 100%;
+  display: block;
+  background: #f5f5ee;
+  color: var(--app-ink);
+  border: 1px solid #dce1d5;
+  border-radius: 11px;
+  padding: 12px 14px;
+  min-height: 49px;
+  font-size: 16px;
+  line-height: 1.5;
+  box-shadow: none;
+}
+.hatf-app .app-fields input::placeholder,
+.hatf-app .app-fields textarea::placeholder {
+  color: #7f8b80;
+  opacity: 1;
+  font-size: 14px;
+}
+.hatf-app .app-fields textarea {
+  resize: vertical;
+}
+.hatf-app .app-examples {
+  border: 0;
+  padding: 0;
+  margin: 0 0 18px;
+  min-width: 0;
+}
+.hatf-app .app-examples legend {
+  margin-top: 0;
+}
+.hatf-app .app-examples label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #e7eadf;
+}
+.hatf-app .app-examples label span {
+  margin: 0;
+  font-size: 13px;
+  color: var(--app-ink);
+}
+.hatf-app .app-examples input {
+  appearance: auto;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 3px;
+  accent-color: #30564a;
+}
+.hatf-app .app-field-hint {
+  display: block;
+  font-size: 11px;
+  line-height: 1.8;
+  color: var(--app-muted);
+  margin-top: 10px;
+}
+.hatf-app .app-card-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.hatf-app .app-card-heading h2 {
+  margin-top: 7px;
+}
+.hatf-app .app-card-heading h2 span {
+  color: #849078;
+  font-size: 13px;
+  margin-left: 6px;
+  font-weight: 400;
+}
+.hatf-app .app-card-heading > svg {
+  color: #75856a;
+}
+.hatf-app .app-photos > p {
+  color: var(--app-muted);
+  font-size: 13px;
+  line-height: 1.8;
+  margin-bottom: 17px;
+}
+.hatf-app .app-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.hatf-app .app-photo-grid figure {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 1;
+  margin-bottom: 12px;
+}
+.hatf-app .app-photo-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hatf-app .app-photo-grid figure button {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  background: #fffefaef;
+  border-radius: 50%;
+  color: var(--app-ink);
+}
+.hatf-app .app-add-photo {
+  min-height: 78px;
+  width: 100%;
+  border: 1px dashed #bdc9b4;
+  border-radius: 13px;
+  background: #f5f6ef;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #557460;
+}
+.hatf-app .app-share-card {
+  padding: 26px;
+  margin-top: 18px;
+  border-radius: 20px;
+  background: var(--app-ink);
+  color: #fffefa;
+}
+.hatf-app .app-share-card > svg {
+  color: var(--app-gold);
+  margin-bottom: 10px;
+}
+.hatf-app .app-share-card > p {
+  font-size: 13px;
+  line-height: 1.9;
+  color: #d3ddd3;
+  margin: 14px 0 20px;
+  overflow-wrap: anywhere;
+}
+.hatf-app .app-share-card strong {
+  font-weight: 400;
+  color: #fff;
+}
+.hatf-app .app-share-card .app-primary {
+  width: 100%;
+  margin-bottom: 11px;
+}
+.hatf-app .app-light-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  font-size: 12px;
+  min-height: 44px;
+  padding: 9px 0;
+  color: #e5e9dd;
+}
+.hatf-app .app-share-card > small {
+  display: block;
+  font-size: 10px;
+  color: #bfcfc3;
+  line-height: 1.8;
+  margin-top: 15px;
+  text-align: center;
+}
+.hatf-app .app-archive {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 48px;
+  margin-top: 14px;
+  font-size: 12px;
+  color: var(--app-muted);
+}
+.hatf-app .app-contact-person {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 28px 0;
+}
+.hatf-app .app-contact-person img {
+  width: 83px;
+  height: 100px;
+  object-fit: cover;
+  object-position: 50% 20%;
+  border-radius: 14px 14px 30px 14px;
+}
+.hatf-app .app-contact-person p {
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--app-muted);
+  margin-top: 7px;
+}
+.hatf-app .app-contact-routes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 25px 0;
+}
+.hatf-app .app-contact-routes > :is(a, button) {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  text-align: left;
+  min-height: 92px;
+  border: 1px solid var(--app-line);
+  border-radius: 16px;
+  background: var(--app-paper);
+  padding: 17px;
+}
+.hatf-app .app-contact-routes > :is(a, button) > svg:first-child {
+  color: #738269;
+}
+.hatf-app .app-contact-routes > :is(a, button) > svg:last-child {
+  margin-left: auto;
+}
+.hatf-app .app-contact-routes small {
+  display: block;
+  font-size: 9px;
+  color: var(--app-muted);
+  letter-spacing: 0.7px;
+}
+.hatf-app .app-contact-routes strong {
+  display: block;
+  font-size: 14px;
+  margin-top: 4px;
+  overflow-wrap: anywhere;
+}
+.hatf-app .app-practical > p {
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--app-muted);
+  margin: 16px 0;
+}
+.hatf-app .app-practical .app-primary {
+  margin-top: 8px;
+}
+.hatf-app .app-about-links {
+  margin-top: 22px;
+  border-top: 1px solid var(--app-line);
+}
+.hatf-app .app-about-links > button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  border-bottom: 1px solid var(--app-line);
+  padding: 16px 0;
+  min-height: 50px;
+  font-size: 13px;
+}
+.hatf-app .app-version {
+  font-size: 10px;
+  color: #7b8778;
+  text-align: center;
+  margin-top: 25px;
+}
+.hatf-app .app-notice,
+.hatf-app .app-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 15px 17px;
+  border: 1px solid #d5decb;
+  border-radius: 13px;
+  background: #edf2e5;
+  font-size: 13px;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  overflow-wrap: anywhere;
+}
+.hatf-app .app-notice > span {
+  flex: 1;
+}
+.hatf-app .app-notice > button {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+}
+.hatf-app .app-warning {
+  background: #fff0de;
+  border-color: #ead0a7;
+}
+.hatf-app .app-warning > svg {
+  margin-top: 3px;
+}
+.hatf-app .app-warning button {
+  text-decoration: underline;
+  font-weight: 700;
+}
+.hatf-app .app-privacy .app-paper {
+  margin-top: 25px;
+}
+.hatf-app .app-privacy h2 {
+  font-size: 18px;
+  margin: 24px 0 10px;
+}
+.hatf-app .app-privacy p:not(.app-eyebrow) {
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--app-muted);
+}
+@keyframes app-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 800px) {
+  .hatf-app .app-contact-routes {
+    grid-template-columns: 1fr;
+  }
+  .hatf-app .app-contact-routes > :is(a, button) {
+    min-height: 83px;
+  }
+  .hatf-app .app-editor-grid {
+    grid-template-columns: 1fr;
+  }
+  .hatf-app .app-welcome {
+    grid-template-columns: 1fr 0.6fr;
+  }
+  .hatf-app .app-home-illustration {
+    width: 200px;
+    height: 220px;
+  }
+  .hatf-app .app-home-illustration > svg {
+    width: 110px;
+    height: 110px;
+  }
+  .hatf-app .app-orbit {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+  }
+  .hatf-app .app-service-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 560px) {
+  .hatf-app .app-topbar {
+    padding: 12px 20px;
+    min-height: 77px;
+  }
+  .hatf-app .app-brand {
+    font-size: 17px;
+  }
+  .hatf-app .app-brand small {
+    font-size: 9px;
+  }
+  .hatf-app .app-monogram {
+    width: 39px;
+    height: 42px;
+  }
+  .hatf-app .app-content {
+    padding: 23px 20px 12px;
+  }
+  .hatf-app h1 {
+    font-size: 32px;
+    letter-spacing: -1.2px;
+  }
+  .hatf-app .app-welcome {
+    position: relative;
+    display: block;
+    padding: 7px 0 20px;
+  }
+  .hatf-app .app-welcome h1 {
+    font-size: 34px;
+    max-width: 350px;
+    margin-top: 20px;
+    line-height: 1.22;
+  }
+  .hatf-app .app-welcome > div > p:not(.app-eyebrow) {
+    font-size: 14px;
+    max-width: 310px;
+    margin-bottom: 22px;
+  }
+  .hatf-app .app-home-illustration {
+    display: none;
+  }
+  .hatf-app .app-shortcuts {
+    grid-template-columns: 1fr;
+    margin-bottom: 27px;
+    gap: 10px;
+  }
+  .hatf-app .app-shortcuts > button {
+    padding: 15px;
+  }
+  .hatf-app .app-artisan {
+    padding: 18px;
+    gap: 15px;
+  }
+  .hatf-app .app-artisan img {
+    width: 65px;
+    height: 90px;
+  }
+  .hatf-app .app-artisan p {
+    font-size: 13px;
+  }
+  .hatf-app h2 {
+    font-size: 20px;
+  }
+  .hatf-app .app-section-heading {
+    margin: 23px 0 15px;
+  }
+  .hatf-app .app-paper {
+    padding: 20px;
+    border-radius: 17px;
+  }
+  .hatf-app .app-service-grid {
+    gap: 10px;
+  }
+  .hatf-app .app-service-grid > button {
+    gap: 8px;
+    padding: 15px 12px;
+    min-height: 87px;
+  }
+  .hatf-app .app-service-grid strong {
+    font-size: 12px;
+  }
+  .hatf-app .app-service-grid > button > svg:first-child {
+    width: 25px;
+  }
+  .hatf-app .app-service-grid > button > svg:last-child {
+    display: none;
+  }
+  .hatf-app .app-service-panel .app-primary {
+    width: 100%;
+    margin-right: 0;
+  }
+  .hatf-app .app-service-panel .app-text-link {
+    margin-top: 8px;
+  }
+  .hatf-app .app-editor-top {
+    margin-bottom: 18px;
+  }
+  .hatf-app .app-lead {
+    font-size: 14px;
+    margin-bottom: 22px;
+  }
+  .hatf-app .app-fields legend span {
+    display: block;
+    margin-left: 0;
+  }
+  .hatf-app .app-share-card {
+    padding: 23px;
+  }
+  .hatf-app .app-contact-routes strong {
+    font-size: 15px;
+  }
+  .hatf-app .app-bottom-nav {
+    border-radius: 17px 17px 0 0;
+    padding-left: 9px;
+    padding-right: 9px;
+  }
+  .hatf-app .app-project-row {
+    gap: 11px;
+    padding: 13px;
+  }
+  .hatf-app .app-project-row strong {
+    font-size: 14px;
+  }
+  .hatf-app .app-project-row small {
+    font-size: 10px;
+  }
+  .hatf-app .app-project-icon {
+    width: 47px;
+    height: 54px;
+  }
+  .hatf-app .app-home-footnote {
+    font-size: 11px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hatf-app .app-content > section {
+    animation: none;
+  }
+  .hatf-app .app-primary {
+    transition: none;
+  }
+}

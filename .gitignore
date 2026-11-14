@@ -39,3 +39,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Reproducible Android output; signing credentials never belong in source.
+/mobile/android/
+/mobile/dist/
+/mobile/public/
+*.jks
+*.keystore
+*.apk
+*.aab
