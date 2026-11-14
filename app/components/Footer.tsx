@@ -1,8 +1,6 @@
 import Link from "next/link";
-import { ArrowUpRight, MapPin } from "lucide-react";
+import { ArrowUpRight, Plus } from "lucide-react";
 import TrackedSocialLink from "./TrackedSocialLink";
-import TrackedContactLink from "./TrackedContactLink";
-
 const links = [
   ["Petits travaux électriques", "/electricite"],
   ["Petits travaux de plomberie", "/plomberie"],
@@ -12,90 +10,43 @@ const links = [
   ["Petit dépannage", "/depannage"],
   ["Résidences secondaires & gîtes", "/residences-secondaires-gites"],
 ];
-
 export default function Footer() {
   return (
-    <footer className="site-footer">
+    <footer className="compact-footer">
       <div className="site-container">
-        <div className="footer-top">
-          <div>
-            <Link
-              href="/"
-              className="footer-brand"
-              aria-label="Accueil HomeAToutFaire"
-            >
-              Home<span>AToutFaire</span>
-              <span className="brand-dot">.</span>
-            </Link>
-            <p>
-              Les petits travaux.
-              <br />
-              La confiance en plus.
-            </p>
-            <span className="footer-location">
-              <MapPin size={15} aria-hidden="true" /> Sainte-Anastasie · Gard
-            </span>
-          </div>
-          <div className="footer-services">
-            <h2>Un coup de main pour…</h2>
-            <nav aria-label="Services HomeAToutFaire">
-              {links.map(([label, href]) => (
-                <Link href={href} key={href}>
-                  {label}
-                  <ArrowUpRight size={14} aria-hidden="true" />
-                </Link>
-              ))}
-            </nav>
-          </div>
-          <div className="footer-contact">
-            <h2>On en parle ?</h2>
-            <TrackedContactLink
-              href="tel:0618085598"
-              method="phone"
-              location="footer"
-              className="footer-phone"
-            >
-              06 18 08 55 98
-            </TrackedContactLink>
-            <TrackedContactLink
-              href="mailto:hatf30190@gmail.com"
-              method="email"
-              location="footer"
-              className="footer-email"
-            >
-              hatf30190@gmail.com
-            </TrackedContactLink>
-            <p>
-              Lundi au samedi · 8 h – 18 h<br />
-              Dimanche matin : extrême urgence,
-              <br />
-              selon disponibilité.
-            </p>
-            <div className="footer-socials">
-              <TrackedSocialLink
-                href="https://www.facebook.com/profile.php?id=61595599822418"
-                platform="facebook"
-                location="footer"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="footer-social"
-              >
-                Facebook <ArrowUpRight size={14} aria-hidden="true" />
-              </TrackedSocialLink>
-              <TrackedSocialLink
-                href="https://www.instagram.com/home.atoutfaire30/"
-                platform="instagram"
-                location="footer"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="footer-social"
-              >
-                Instagram <ArrowUpRight size={14} aria-hidden="true" />
-              </TrackedSocialLink>
-            </div>
-          </div>
+        <div className="compact-footer-top">
+          <Link
+            href="/"
+            aria-label="Accueil HomeAToutFaire"
+            className="footer-brand"
+          >
+            Home<span>AToutFaire</span>
+            <span className="brand-dot">.</span>
+          </Link>
+          <a
+            href="https://g.page/r/Cf0mvGh1AFkOECE/review"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer-review"
+          >
+            Après une intervention : partager mon avis sur Google{" "}
+            <ArrowUpRight size={16} aria-hidden="true" />
+          </a>
         </div>
-        <div className="footer-bottom">
+        <details className="footer-directory">
+          <summary>
+            Les 7 prestations <Plus size={16} aria-hidden="true" />
+          </summary>
+          <nav aria-label="Services HomeAToutFaire">
+            {links.map(([label, href]) => (
+              <Link key={href} href={href}>
+                {label}
+                <ArrowUpRight size={14} aria-hidden="true" />
+              </Link>
+            ))}
+          </nav>
+        </details>
+        <div className="compact-footer-bottom">
           <p>
             © {new Date().getFullYear()} HomeAToutFaire · Thibaut SACHOT ·
             SIRET 10665167200011
@@ -104,6 +55,26 @@ export default function Footer() {
             <Link href="/mentions-legales">Mentions légales</Link>
             <Link href="/politique-confidentialite">Confidentialité</Link>
           </nav>
+          <div className="compact-socials">
+            <TrackedSocialLink
+              href="https://www.facebook.com/profile.php?id=61595599822418"
+              platform="facebook"
+              location="footer"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Facebook
+            </TrackedSocialLink>
+            <TrackedSocialLink
+              href="https://www.instagram.com/home.atoutfaire30/"
+              platform="instagram"
+              location="footer"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Instagram
+            </TrackedSocialLink>
+          </div>
         </div>
       </div>
     </footer>

@@ -1,17 +1,19 @@
 import {
-  Bolt,
-  Droplets,
-  Hammer,
-  PaintRoller,
-  Waves,
-  Wrench,
-} from "lucide-react";
+  ElectricalIcon,
+  PlumbingIcon,
+  PaintingIcon,
+  WoodworkIcon,
+  PoolCareIcon,
+  RepairIcon,
+} from "../components/ServiceIcons";
 
 export const services = [
   {
     title: "Petits travaux électriques",
     shortTitle: "Électricité",
-    icon: Bolt,
+    icon: ElectricalIcon,
+    scope:
+      "Sur installation existante. Sans création de circuits, rénovation complète ni mise en conformité.",
     href: "/electricite",
     description:
       "Des interventions simples sur votre installation existante, pour les petits besoins du quotidien.",
@@ -26,7 +28,9 @@ export const services = [
   {
     title: "Petits travaux de plomberie",
     shortTitle: "Plomberie",
-    icon: Wrench,
+    icon: PlumbingIcon,
+    scope:
+      "Petits travaux sur existant. Sans rénovation complète ni transformation importante des réseaux.",
     href: "/plomberie",
     description:
       "Un robinet qui fatigue, un siphon à changer : on regarde ensemble la petite intervention adaptée.",
@@ -41,7 +45,9 @@ export const services = [
   {
     title: "Peinture",
     shortTitle: "Peinture",
-    icon: PaintRoller,
+    icon: PaintingIcon,
+    scope:
+      "Rafraîchissements et reprises ciblées. Sans rénovation lourde, façade ni traitement technique spécialisé.",
     href: "/peinture",
     description:
       "Redonner de la lumière à une pièce, rafraîchir un plafond ou soigner les finitions de votre intérieur.",
@@ -56,7 +62,9 @@ export const services = [
   {
     title: "Petits travaux de menuiserie",
     shortTitle: "Menuiserie",
-    icon: Hammer,
+    icon: WoodworkIcon,
+    scope:
+      "Réglages et réparations simples. Sans travaux structurels, gros ouvrages ni fabrication complexe.",
     href: "/menuiserie",
     description:
       "Les petits réglages et aménagements qui rendent votre maison plus agréable à vivre.",
@@ -71,7 +79,9 @@ export const services = [
   {
     title: "Entretien de piscine",
     shortTitle: "Piscine",
-    icon: Waves,
+    icon: PoolCareIcon,
+    scope:
+      "Entretien courant. Sans construction ou rénovation du bassin, modification importante du circuit hydraulique ni travaux électriques.",
     href: "/entretien-piscine",
     description:
       "Un entretien courant, ponctuel ou régulier, pour profiter plus sereinement de votre piscine.",
@@ -86,7 +96,9 @@ export const services = [
   {
     title: "Petit dépannage",
     shortTitle: "Dépannage",
-    icon: Droplets,
+    icon: RepairIcon,
+    scope:
+      "Sans mise en conformité, rénovation importante, travaux structurels ni intervention nécessitant une qualification spécifique.",
     href: "/depannage",
     description:
       "Un petit problème à résoudre ? Décrivez-le pour vérifier rapidement sa prise en charge.",

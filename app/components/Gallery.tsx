@@ -191,25 +191,9 @@ export default function Gallery() {
   }, [selectedIndex]);
 
   return (
-    <section id="galerie" className="section-space gallery-section showcase-section">
+    <section id="galerie" className="compact-gallery">
       <div className="site-container">
-        <div className="section-heading split-heading">
-          <div>
-            <p className="eyebrow">
-              <span className="eyebrow-line" /> 02 / LE SOIN DU DÉTAIL
-            </p>
-            <h2 className="display-title">
-              Du concret.
-              <br />
-              <span>Et ça se voit.</span>
-            </h2>
-          </div>
-          <p>
-            Un plafond remis à neuf à Sainte-Anastasie.
-            <br />
-            Découvrez l’intervention, du support à la finition.
-          </p>
-        </div>
+        <div className="compact-gallery-heading"><p className="eyebrow">UNE RÉALISATION À SAINTE-ANASTASIE</p><span>Le soin du détail, en images.</span></div>
         <article
           aria-labelledby="ceiling-project-title"
           className="project-feature"
@@ -285,11 +269,10 @@ export default function Gallery() {
                 {ceilingProject.location}
               </span>
               <h3 id="ceiling-project-title">
-                Un plafond.
-                <br />
-                Un nouveau départ.
+                Un plafond,
+                <em>un nouveau départ.</em>
               </h3>
-              <p>{ceilingProject.description}</p>
+
               <ul>
                 {ceilingProject.steps.map((step, index) => (
                   <li key={step}>
